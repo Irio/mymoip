@@ -1,6 +1,6 @@
 module MyMoip
   class << self
-    attr_accessor :token, :key, :environment, :api_url
+    attr_accessor :token, :key, :environment
 
     def api_url
       if environment == "sandbox"
