@@ -16,4 +16,13 @@ class Fixture
     )
   end
 
+  def self.instruction
+    MyMoip::Instruction.new(
+      id: "some id",
+      payment_reason: "some payment_reason",
+      values: "some values",
+      payer: payer
+    )
+  end
+
 end
