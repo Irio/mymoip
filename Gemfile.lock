@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    ansi (1.4.2)
     git (1.2.5)
     jeweler (1.8.4)
       bundler (~> 1.0)
@@ -11,6 +12,8 @@ GEM
     rake (0.9.2.2)
     rdoc (3.12)
       json (~> 1.4)
+    turn (0.9.5)
+      ansi
 
 PLATFORMS
   ruby
@@ -19,3 +22,4 @@ DEPENDENCIES
   bundler
   jeweler (~> 1.8.4)
   rdoc (~> 3.12)
+  turn
