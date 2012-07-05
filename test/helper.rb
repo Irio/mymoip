@@ -10,6 +10,7 @@ end
 require 'test/unit'
 require 'turn/autorun'
 
+require 'fixture'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'mymoip'
