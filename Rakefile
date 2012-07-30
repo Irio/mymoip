@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "mymoip"
   gem.homepage = "http://github.com/Irio/mymoip"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = "MoIP transactions in a gem to call your own."
+  gem.description = "Provides a implementation of MoIP's transparent checkout."
   gem.email = "irio.musskopf@caixadeideias.com.br"
   gem.authors = ["Irio Irineu Musskopf Junior"]
   # dependencies defined in Gemfile
