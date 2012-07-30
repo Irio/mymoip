@@ -1,3 +1,5 @@
+require 'builder'
+
 module MyMoip
   class << self
     attr_accessor :token, :key, :environment

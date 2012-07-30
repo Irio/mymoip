@@ -19,5 +19,27 @@ module MyMoip
       @address_cep           = attributes[:address_cep]            if attributes.has_key?(:address_cep)
       @address_phone         = attributes[:address_phone]          if attributes.has_key?(:address_phone)
     end
+
+    def to_xml(root = nil)
+      xml = ""
+      root ||= Builder::XmlMarkup.new(target: xml)
+      
+      root.Nome(@name)
+      root.Email(@email)
+      root.IdPagador(@id)
+      root.EnderecoCobranca do |n1|
+        n1.Logradouro(@address_street)
+        n1.Numero(@address_street_number)
+        n1.Complemento(@address_street_extra)
+        n1.Bairro(@address_neighbourhood)
+        n1.Cidade(@address_city)
+        n1.Estado(@address_state)
+        n1.Pais(@address_country)
+        n1.CEP(@address_cep)
+        n1.TelefoneFixo(@address_phone)
+      end
+
+      return xml
+    end
   end
 end
