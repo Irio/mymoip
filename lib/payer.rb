@@ -21,8 +21,10 @@ module MyMoip
     end
 
     def to_xml(root = nil)
-      xml = ""
-      root ||= Builder::XmlMarkup.new(target: xml)
+      if root.nil?
+        xml  = ""
+        root ||= Builder::XmlMarkup.new(target: xml)
+      end
       
       root.Nome(@name)
       root.Email(@email)
@@ -39,7 +41,7 @@ module MyMoip
         n1.TelefoneFixo(@address_phone)
       end
 
-      return xml
+      xml
     end
   end
 end
