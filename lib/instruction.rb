@@ -2,11 +2,11 @@ module MyMoip
   class Instruction
     attr_accessor :id, :payment_reason, :values, :payer
 
-    def initialize(attributes)
-      @id             = attributes[:id]             if attributes.has_key?(:id)
-      @payment_reason = attributes[:payment_reason] if attributes.has_key?(:payment_reason)
-      @values         = attributes[:values]         if attributes.has_key?(:values)
-      @payer          = attributes[:payer]          if attributes.has_key?(:payer)
+    def initialize(attrs)
+      @id             = attrs[:id]             if attrs.has_key?(:id)
+      @payment_reason = attrs[:payment_reason] if attrs.has_key?(:payment_reason)
+      @values         = attrs[:values]         if attrs.has_key?(:values)
+      @payer          = attrs[:payer]          if attrs.has_key?(:payer)
     end
 
     def to_xml(root = nil)

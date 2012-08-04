@@ -5,19 +5,19 @@ module MyMoip
                   :address_neighbourhood, :address_city, :address_state,
                   :address_country, :address_cep, :address_phone
 
-    def initialize(attributes)
-      @id                    = attributes[:id]                     if attributes.has_key?(:id)
-      @name                  = attributes[:name]                   if attributes.has_key?(:name)
-      @email                 = attributes[:email]                  if attributes.has_key?(:email)
-      @address_street        = attributes[:address_street]         if attributes.has_key?(:address_street)
-      @address_street_number = attributes[:address_street_number]  if attributes.has_key?(:address_street_number)
-      @address_street_extra  = attributes[:address_street_extra]   if attributes.has_key?(:address_street_extra)
-      @address_neighbourhood = attributes[:address_neighbourhood]  if attributes.has_key?(:address_neighbourhood)
-      @address_city          = attributes[:address_city]           if attributes.has_key?(:address_city)
-      @address_state         = attributes[:address_state]          if attributes.has_key?(:address_state)
-      @address_country       = attributes[:address_country]        if attributes.has_key?(:address_country)
-      @address_cep           = attributes[:address_cep]            if attributes.has_key?(:address_cep)
-      @address_phone         = attributes[:address_phone]          if attributes.has_key?(:address_phone)
+    def initialize(attrs)
+      @id                    = attrs[:id]                     if attrs.has_key?(:id)
+      @name                  = attrs[:name]                   if attrs.has_key?(:name)
+      @email                 = attrs[:email]                  if attrs.has_key?(:email)
+      @address_street        = attrs[:address_street]         if attrs.has_key?(:address_street)
+      @address_street_number = attrs[:address_street_number]  if attrs.has_key?(:address_street_number)
+      @address_street_extra  = attrs[:address_street_extra]   if attrs.has_key?(:address_street_extra)
+      @address_neighbourhood = attrs[:address_neighbourhood]  if attrs.has_key?(:address_neighbourhood)
+      @address_city          = attrs[:address_city]           if attrs.has_key?(:address_city)
+      @address_state         = attrs[:address_state]          if attrs.has_key?(:address_state)
+      @address_country       = attrs[:address_country]        if attrs.has_key?(:address_country)
+      @address_cep           = attrs[:address_cep]            if attrs.has_key?(:address_cep)
+      @address_phone         = attrs[:address_phone]          if attrs.has_key?(:address_phone)
     end
 
     def to_xml(root = nil)
@@ -25,7 +25,7 @@ module MyMoip
         xml  = ""
         root ||= Builder::XmlMarkup.new(target: xml)
       end
-      
+
       root.Nome(@name)
       root.Email(@email)
       root.IdPagador(@id)
