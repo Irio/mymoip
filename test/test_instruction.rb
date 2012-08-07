@@ -11,7 +11,7 @@ class TestInstruction < Test::Unit::TestCase
       values: [100.0, 200.0],
       payer: payer
     )
-    
+
     assert_equal "some id", instruction.id
     assert_equal "some payment_reason", instruction.payment_reason
     assert_equal [100.0, 200.0], instruction.values

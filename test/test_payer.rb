@@ -17,7 +17,7 @@ class TestPayer < Test::Unit::TestCase
       address_cep: "some address_cep",
       address_phone: "some address_phone"
     )
-    
+
     assert_equal "some id", payer.id
     assert_equal "some name", payer.name
     assert_equal "some email", payer.email

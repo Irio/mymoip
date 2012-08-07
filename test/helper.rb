@@ -16,3 +16,4 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'mymoip'
 require 'payer'
 require 'instruction'
+require 'request'
