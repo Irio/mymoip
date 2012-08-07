@@ -1,13 +1,15 @@
 module MyMoip
   class Request
-    attr_reader :instruction, :id, :data
+    attr_reader :id, :data
 
-    def initialize(instruction, extra_attrs)
-      raise ArgumentError, "No data provided" unless extra_attrs.has_key? :data
+    def initialize(id)
+      @id = id
+    end
 
-      @instruction = instruction
-      @id          = extra_attrs[:id]   if extra_attrs.has_key? :id
-      @data        = extra_attrs[:data] if extra_attrs.has_key? :data
+    def api_call(data, logger = MyMoip.logger)
+      @data = data
+
+      logger.info "MyMoip::Request#api_call of ##{@id} with #{data.inspect}"
     end
   end
 end

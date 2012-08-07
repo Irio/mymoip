@@ -1,8 +1,9 @@
 require 'builder'
+require 'logger'
 
 module MyMoip
   class << self
-    attr_accessor :token, :key, :environment
+    attr_accessor :token, :key, :environment, :logger
 
     def api_url
       if environment == "sandbox"
@@ -13,3 +14,4 @@ module MyMoip
 end
 
 MyMoip.environment = "sandbox"
+MyMoip.logger = Logger.new(STDOUT)

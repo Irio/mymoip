@@ -9,6 +9,7 @@ rescue Bundler::BundlerError => e
 end
 require 'test/unit'
 require 'turn/autorun'
+require 'mocha'
 
 require 'fixture'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -17,3 +18,4 @@ require 'mymoip'
 require 'payer'
 require 'instruction'
 require 'request'
+require 'transparent_request'

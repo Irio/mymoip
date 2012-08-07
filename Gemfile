@@ -13,4 +13,5 @@ group :development do
   gem "bundler", ">= 0"
   gem "jeweler", "~> 1.8.4"
   gem "turn"
+  gem "mocha", require: false
 end
