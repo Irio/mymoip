@@ -10,7 +10,15 @@ module MyMoip
     end
 
     def api_call(data, logger = MyMoip.logger)
-      super(http_method: HTTP_METHOD, path: PATH, requires_auth: REQUIRES_AUTH, logger: logger)
+      params = {
+        body:          data,
+        http_method:   HTTP_METHOD,
+        requires_auth: REQUIRES_AUTH,
+        path:          PATH,
+        logger:        logger
+      }
+
+      super params
     end
   end
 end

@@ -7,6 +7,7 @@ source "http://rubygems.org"
 # Include everything needed to run rake, tests, features, etc.
 
 gem "builder"
+gem "httparty"
 
 group :development do
   gem "rdoc", "~> 3.12"

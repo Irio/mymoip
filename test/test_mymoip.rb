@@ -7,6 +7,7 @@ class TestMymoip < Test::Unit::TestCase
   end
 
   def test_set_auth_configuration
+    default_env = MyMoip.environment
     MyMoip.token        = "my_token"
     MyMoip.key          = "my_key"
     MyMoip.environment  = "production"
@@ -14,6 +15,8 @@ class TestMymoip < Test::Unit::TestCase
     assert_equal "my_token", MyMoip.token
     assert_equal "my_key", MyMoip.key
     assert_equal "production", MyMoip.environment
+
+    MyMoip.environment = default_env
   end
 
   def test_choose_right_api_url_by_sandbox_environment
@@ -23,9 +26,11 @@ class TestMymoip < Test::Unit::TestCase
   end
 
   def test_choose_right_api_url_by_production_environment
+    default_env = MyMoip.environment
     MyMoip.environment = "production"
 
     flunk 'Search and set default url for production'
+    MyMoip.environment = default_env
   end
 
   def test_logger_initialization

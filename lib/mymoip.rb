@@ -1,5 +1,6 @@
 require 'builder'
 require 'logger'
+require 'httparty'
 
 module MyMoip
   class << self

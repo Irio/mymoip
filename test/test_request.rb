@@ -7,9 +7,30 @@ class TestRequest < Test::Unit::TestCase
   end
 
   def test_logs_api_call_method
-    logger = mock()
+    logger = stub_everything
     request = MyMoip::Request.new("request_id")
-    logger.expects(:info).with(regexp_matches(/request_id.+some.+data/))
-    request.api_call({some: "data"}, logger)
+    params = {
+      http_method: :post, body: "<pretty><xml></xml></pretty>", path: "/ws/alpha/EnviarInstrucao/Unica"
+    }
+
+    HTTParty.stubs(:send).returns("<html>some_result</html>")
+    logger.expects(:info).at_least_once.
+      with(regexp_matches(/request_id.+<html>some_result<\/html>/))
+
+    request.api_call(params, logger)
+  end
+
+  def test_logs_api_call_response
+    logger = stub_everything
+    request = MyMoip::Request.new("request_id")
+    params = {
+      http_method: :post, body: "<pretty><xml></xml></pretty>", path: "/ws/alpha/EnviarInstrucao/Unica"
+    }
+
+    HTTParty.stubs(:send).returns("<html>some_result</html>")
+    logger.expects(:info).at_least_once.
+      with(regexp_matches(/request_id.+<html>some_result<\/html>/))
+
+    request.api_call(params, logger)
   end
 end
