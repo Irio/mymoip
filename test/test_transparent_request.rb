@@ -32,8 +32,22 @@ class TestTransparentRequest < Test::Unit::TestCase
     assert !request.success?
   end
 
-  def test_success_method_with_request_that_hasnt_be_made_yet
+  def test_success_method_with_requests_that_hasnt_be_made
     request = MyMoip::TransparentRequest.new("some_id")
     assert !request.success?
+  end
+
+  def test_provides_token_when_has_a_valid_response
+    HTTParty.stubs(:send).returns(
+      {"EnviarInstrucaoUnicaResponse"=>{"xmlns:ns1"=>"http://www.moip.com.br/ws/alpha/", "Resposta"=>{"ID"=>"201208081614306080000000928569", "Status"=>"Sucesso", "Token"=>"token"}}}
+    )
+    request = MyMoip::TransparentRequest.new("some_id")
+    request.api_call("<anydata></anydata>")
+    assert_equal "token", request.token
+  end
+
+  def test_provides_token_with_requests_that_hasnt_be_made
+    request = MyMoip::TransparentRequest.new("some_id")
+    assert_equal nil, request.token
   end
 end

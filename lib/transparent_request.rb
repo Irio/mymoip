@@ -23,5 +23,11 @@ module MyMoip
       false
     end
 
+    def token
+      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Token"] || nil
+    rescue NoMethodError => e
+      nil
+    end
+
   end
 end
