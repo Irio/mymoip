@@ -8,7 +8,7 @@ module MyMoip
       @id = id
     end
 
-    def api_call(params, logger, username = MyMoip.token, password = MyMoip.key)
+    def api_call(params, logger = nil, username = MyMoip.token, password = MyMoip.key)
       logger   ||= MyMoip.logger
       username ||= MyMoip.token
       password ||= MyMoip.key
