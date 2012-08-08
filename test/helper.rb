@@ -14,8 +14,5 @@ require 'mocha'
 require 'fixture'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'mymoip'
-require 'payer'
-require 'instruction'
-require 'request'
-require 'transparent_request'
+
+Dir[File.dirname(__FILE__) + "/../lib/*.rb"].each { |file| require file }
