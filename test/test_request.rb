@@ -33,4 +33,5 @@ class TestRequest < Test::Unit::TestCase
 
     request.api_call(params, logger)
   end
+
 end

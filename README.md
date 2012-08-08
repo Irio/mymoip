@@ -47,7 +47,7 @@ instruction = MyMoip::Instruction.new(
 )
 
 transparent_request = MyMoip::TransparentRequest.new("your_own_id")
-transparent_request.api_call(instruction)
+transparent_request.api_call(instruction.to_xml)
 ```
 
 License

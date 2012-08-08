@@ -7,7 +7,7 @@ module MyMoip
 
     def api_call(data, logger = MyMoip.logger)
       params = {
-        body:          data.to_xml,
+        body:          data,
         http_method:   HTTP_METHOD,
         requires_auth: REQUIRES_AUTH,
         path:          PATH,
@@ -16,5 +16,12 @@ module MyMoip
 
       super params
     end
+
+    def success?
+      @response && @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Status"] == "Sucesso"
+    rescue NoMethodError => e
+      false
+    end
+
   end
 end
