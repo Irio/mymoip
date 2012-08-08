@@ -16,3 +16,5 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 Dir[File.dirname(__FILE__) + "/../lib/*.rb"].each { |file| require file }
+
+MyMoip.logger = Logger.new "/dev/null"

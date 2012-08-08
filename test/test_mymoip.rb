@@ -11,10 +11,12 @@ class TestMymoip < Test::Unit::TestCase
     MyMoip.token        = "my_token"
     MyMoip.key          = "my_key"
     MyMoip.environment  = "production"
+    MyMoip.default_referer_url = "http://localhost"
 
     assert_equal "my_token", MyMoip.token
     assert_equal "my_key", MyMoip.key
     assert_equal "production", MyMoip.environment
+    assert_equal "http://localhost", MyMoip.default_referer_url
 
     MyMoip.environment = default_env
   end
