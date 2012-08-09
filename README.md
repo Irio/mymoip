@@ -74,6 +74,7 @@ payment_request.api_call(credit_card_payment, token: transparent_request.token)
 
 **Success?**
 ```ruby
+payment_request.success?
 ```
 
 License
