@@ -10,6 +10,8 @@ module MyMoip
     def api_url
       if environment == "sandbox"
         "https://desenvolvedor.moip.com.br/sandbox"
+      else
+        "https://desenvolvedor.moip.com.br"
       end
     end
   end

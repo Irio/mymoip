@@ -31,7 +31,7 @@ class TestMymoip < Test::Unit::TestCase
     default_env = MyMoip.environment
     MyMoip.environment = "production"
 
-    flunk 'Search and set default url for production'
+    assert_equal "https://desenvolvedor.moip.com.br", MyMoip.api_url
     MyMoip.environment = default_env
   end
 
