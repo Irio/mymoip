@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'helper'
 
 class TestPaymentRequest < Test::Unit::TestCase
@@ -43,6 +44,30 @@ class TestPaymentRequest < Test::Unit::TestCase
     )
     request_data = stub(to_json: {payment: "attributes"})
     request.api_call(request_data, token: "big_transparent_token")
+  end
+
+  def test_succesful_status
+    MyMoip.default_referer_url = "http://localhost/default"
+    HTTParty.stubs(:send).returns(
+      JSON.parse '{"Status":"EmAnalise","Codigo":0,"CodigoRetorno":"","TaxaMoIP":"7.79","StatusPagamento":"Sucesso","Classificacao":{"Codigo":999,"Descricao":"Não suportado no ambiente Sandbox"},"CodigoMoIP":77316,"Mensagem":"Requisição processada com sucesso","TotalPago":"100.00"}'
+    )
+    request = MyMoip::PaymentRequest.new("id")
+
+    request_data = stub(to_json: {payment: "attributes"})
+    request.api_call(request_data, token: "big_transparent_token")
+    assert request.success?
+  end
+
+  def test_success_method_returns_false_in_payments_already_made
+    MyMoip.default_referer_url = "http://localhost/default"
+    HTTParty.stubs(:send).returns(
+      JSON.parse '{"Codigo":236,"StatusPagamento":"Falha","Mensagem":"Pagamento já foi realizado"}'
+    )
+    request = MyMoip::PaymentRequest.new("id")
+
+    request_data = stub(to_json: {payment: "attributes"})
+    request.api_call(request_data, token: "big_transparent_token")
+    assert !request.success?
   end
 
 end

@@ -32,5 +32,9 @@ module MyMoip
       super params
     end
 
+    def success?
+      @response && @response["StatusPagamento"] == "Sucesso"
+    end
+
   end
 end
