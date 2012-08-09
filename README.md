@@ -26,7 +26,7 @@ MyMoip.token = "your_moip_dev_token"
 MyMoip.key   = "your_moip_dev_key"
 ```
 
-**First request: who**
+**First request: what and from who**
 ```ruby
 payer = MyMoip::Payer.new(
   id: "your_own_id",
