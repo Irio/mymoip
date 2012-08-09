@@ -20,6 +20,11 @@ Using
 
 Currently under active development.
 
+**Bundler - Gemfile**
+```ruby
+gem 'mymoip'
+```
+
 **Configuration**
 ```ruby
 MyMoip.token = "your_moip_dev_token"
