@@ -16,7 +16,7 @@ module MyMoip
         CartaoCredito: {
           Numero:           credit_card.card_number,
           Expiracao:        credit_card.expiration_date,
-          CodigoSeguranca:  credit_card.expiration_date,
+          CodigoSeguranca:  credit_card.security_code,
           Portador: {
             Nome:           credit_card.owner_name,
             DataNascimento: credit_card.owner_birthday.strftime("%d/%m/%Y"),
