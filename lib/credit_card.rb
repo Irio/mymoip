@@ -12,7 +12,6 @@ module MyMoip
       @owner_birthday  = params[:owner_birthday]  if params.has_key? :owner_birthday
       @owner_phone     = params[:owner_phone]     if params.has_key? :owner_phone
       @owner_rg        = params[:owner_rg]        if params.has_key? :owner_rg
-
     end
   end
 end

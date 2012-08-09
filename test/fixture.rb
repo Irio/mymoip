@@ -25,4 +25,17 @@ class Fixture
     )
   end
 
+  def self.credit_card
+    MyMoip::CreditCard.new(
+      logo: :visa,
+      card_number: "4916654211627608",
+      expiration_date: "06/15",
+      security_code: "000",
+      owner_name: "Juquinha da Rocha",
+      owner_birthday: Date.new(1984, 11, 3),
+      owner_phone: "(51)3040-5060",
+      owner_rg: "1010202030"
+    )
+  end
+
 end
