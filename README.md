@@ -20,10 +20,14 @@ Using
 
 Currently under active development.
 
+**Configuration**
 ```ruby
 MyMoip.token = "your_moip_dev_token"
 MyMoip.key   = "your_moip_dev_key"
+```
 
+**First request: who**
+```ruby
 payer = MyMoip::Payer.new(
   id: "your_own_id",
   name: "Juquinha da Rocha",
@@ -48,6 +52,28 @@ instruction = MyMoip::Instruction.new(
 
 transparent_request = MyMoip::TransparentRequest.new("your_own_id")
 transparent_request.api_call(instruction.to_xml)
+```
+
+**Second request: how**
+```ruby
+credit_card = MyMoip::CreditCard.new(
+  logo: :Visa,
+  card_number: "4916654211627608",
+  expiration_date: "06/15",
+  security_code: "000",
+  owner_name: "Juquinha da Rocha",
+  owner_birthday: Date.new(1984, 11, 3),
+  owner_phone: "(51)3040-5060",
+  owner_rg: "1010202030"
+)
+
+credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, 1)
+payment_request = MyMoip::PaymentRequest.new("your_own_id")
+payment_request.api_call(credit_card_payment.to_json, token: transparent_request.token)
+```
+
+**Success?**
+```ruby
 ```
 
 License
