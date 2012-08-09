@@ -57,7 +57,7 @@ transparent_request.api_call(instruction)
 **Second request: how**
 ```ruby
 credit_card = MyMoip::CreditCard.new(
-  logo: :Visa,
+  logo: :visa,
   card_number: "4916654211627608",
   expiration_date: "06/15",
   security_code: "000",

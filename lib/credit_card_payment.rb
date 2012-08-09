@@ -11,7 +11,6 @@ module MyMoip
 
       json = {
         Forma:        "CartaoCredito",
-        Instituicao:  credit_card.logo.to_s,
         Parcelas:     @tranches,
         CartaoCredito: {
           Numero:           credit_card.card_number,
@@ -25,6 +24,14 @@ module MyMoip
           }
         }
       }
+
+      json[:Instituicao] = {
+        american_express: "American Express",
+        diners:           "Diners",
+        hipercard:        "Hipercard",
+        mastercard:       "Mastercard",
+        visa:             "Visa"
+      }.fetch credit_card.logo
 
       if cash?
         json[:Recebimento] = "AVista"
