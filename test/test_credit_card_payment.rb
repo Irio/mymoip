@@ -20,4 +20,10 @@ class TestCreditCardPayment < Test::Unit::TestCase
     subject = MyMoip::CreditCardPayment.new(credit_card, 3)
     assert_equal false, subject.cash?
   end
+
+  def test_default_initialization_with_one_tranch
+    credit_card = Fixture.credit_card
+    subject = MyMoip::CreditCardPayment.new(credit_card)
+    assert_equal 1, subject.tranches
+  end
 end
