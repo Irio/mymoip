@@ -25,7 +25,8 @@ class TestPaymentRequest < Test::Unit::TestCase
         dadosPagamento: {payment: "attributes"}
       }
     )
-    request.api_call({payment: "attributes"}, token: "big_transparent_token", referer_url: "http://localhost")
+    request_data = stub(to_json: {payment: "attributes"})
+    request.api_call(request_data, token: "big_transparent_token", referer_url: "http://localhost")
   end
 
   def test_gets_default_referer_if_another_isnt_passed
@@ -40,7 +41,8 @@ class TestPaymentRequest < Test::Unit::TestCase
         dadosPagamento: {payment: "attributes"}
       }
     )
-    request.api_call({payment: "attributes"}, token: "big_transparent_token")
+    request_data = stub(to_json: {payment: "attributes"})
+    request.api_call(request_data, token: "big_transparent_token")
   end
 
 end

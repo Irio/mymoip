@@ -7,7 +7,7 @@ module MyMoip
 
     def api_call(data, logger = MyMoip.logger)
       params = {
-        body:          data,
+        body:          data.to_xml,
         http_method:   HTTP_METHOD,
         requires_auth: REQUIRES_AUTH,
         path:          PATH,

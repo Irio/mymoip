@@ -51,7 +51,7 @@ instruction = MyMoip::Instruction.new(
 )
 
 transparent_request = MyMoip::TransparentRequest.new("your_own_id")
-transparent_request.api_call(instruction.to_xml)
+transparent_request.api_call(instruction)
 ```
 
 **Second request: how**
@@ -69,7 +69,7 @@ credit_card = MyMoip::CreditCard.new(
 
 credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, 1)
 payment_request = MyMoip::PaymentRequest.new("your_own_id")
-payment_request.api_call(credit_card_payment.to_json, token: transparent_request.token)
+payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
 
 **Success?**

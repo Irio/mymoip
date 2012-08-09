@@ -15,7 +15,7 @@ module MyMoip
         pagamentoWidget: {
           referer:        extra_attrs[:referer_url],
           token:          extra_attrs[:token],
-          dadosPagamento: data
+          dadosPagamento: data.to_json
         }
       })
 
