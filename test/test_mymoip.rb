@@ -31,7 +31,7 @@ class TestMymoip < Test::Unit::TestCase
     default_env = MyMoip.environment
     MyMoip.environment = "production"
 
-    assert_equal "https://desenvolvedor.moip.com.br", MyMoip.api_url
+    assert_equal "https://www.moip.com.br", MyMoip.api_url
     MyMoip.environment = default_env
   end
 

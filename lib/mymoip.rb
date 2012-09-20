@@ -11,7 +11,7 @@ module MyMoip
       if environment == "sandbox"
         "https://desenvolvedor.moip.com.br/sandbox"
       else
-        "https://desenvolvedor.moip.com.br"
+        "https://www.moip.com.br"
       end
     end
   end
