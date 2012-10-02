@@ -17,7 +17,8 @@ module MyMoip
   end
 end
 
-Dir[File.dirname(__FILE__) + "/../lib/*.rb"].each { |file| require file }
+$LOAD_PATH << "./lib/mymoip"
+Dir[File.dirname(__FILE__) + "/mymoip/*.rb"].each { |file| require file }
 
 MyMoip.environment = "sandbox"
 MyMoip.logger = Logger.new(STDOUT)
