@@ -1,3 +1,5 @@
+require "request"
+
 module MyMoip
   class TransparentRequest < Request
 
