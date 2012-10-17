@@ -9,6 +9,13 @@ class TestCreditCardPayment < Test::Unit::TestCase
     assert_equal 1, subject.installments
   end
 
+  def test_allow_initialization_with_a_hash_of_options
+    credit_card = Fixture.credit_card
+    subject = MyMoip::CreditCardPayment.new(credit_card, installments: 2)
+    assert_equal credit_card, subject.credit_card
+    assert_equal 2, subject.installments
+  end
+
   def test_cash_method_with_one_tranch
     credit_card = Fixture.credit_card
     subject = MyMoip::CreditCardPayment.new(credit_card, 1)

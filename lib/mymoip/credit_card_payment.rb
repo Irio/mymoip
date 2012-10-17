@@ -2,8 +2,14 @@ module MyMoip
   class CreditCardPayment
     attr_accessor :credit_card, :installments
 
-    def initialize(credit_card, installments = 1)
-      @credit_card, @installments = credit_card, installments
+    def initialize(credit_card, opts = {})
+      @credit_card = credit_card
+      # Backward compatibility. See 0.2.3 CHANGELOG
+      @installments = if opts.kind_of?(Integer)
+                       opts
+                     else
+                       opts[:installments] || 1
+                     end
     end
 
     def to_json
