@@ -1,13 +1,23 @@
 require 'helper'
 
 class TestMymoip < Test::Unit::TestCase
+  def setup
+    @default_env = MyMoip.environment
+    @default_token = MyMoip.token
+    @default_key = MyMoip.key
+  end
+
+  def teardown
+    MyMoip.environment = @default_env
+    MyMoip.token = @default_token
+    MyMoip.key = @default_key
+  end
 
   def test_default_environment_is_sandbox
     assert_equal "sandbox", MyMoip.environment
   end
 
   def test_set_auth_configuration
-    default_env = MyMoip.environment
     MyMoip.token        = "my_token"
     MyMoip.key          = "my_key"
     MyMoip.environment  = "production"
@@ -17,8 +27,6 @@ class TestMymoip < Test::Unit::TestCase
     assert_equal "my_key", MyMoip.key
     assert_equal "production", MyMoip.environment
     assert_equal "http://localhost", MyMoip.default_referer_url
-
-    MyMoip.environment = default_env
   end
 
   def test_choose_right_api_url_by_sandbox_environment

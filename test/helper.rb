@@ -10,8 +10,16 @@ end
 require 'test/unit'
 require 'turn/autorun'
 require 'mocha'
+require 'vcr'
 
-require 'fixture'
+VCR.configure do |c|
+  c.cassette_library_dir = 'test/fixtures/vcr_cassettes'
+  c.hook_into :webmock
+end
+
+require 'live_test'
+
+require 'fixtures/fixture'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
