@@ -6,7 +6,7 @@ class TestCreditCardPayment < Test::Unit::TestCase
     credit_card = Fixture.credit_card
     subject = MyMoip::CreditCardPayment.new(credit_card, 1)
     assert_equal credit_card, subject.credit_card
-    assert_equal 1, subject.tranches
+    assert_equal 1, subject.installments
   end
 
   def test_cash_method_with_one_tranch
@@ -15,7 +15,7 @@ class TestCreditCardPayment < Test::Unit::TestCase
     assert_equal true, subject.cash?
   end
 
-  def test_cash_method_with_more_than_one_tranches
+  def test_cash_method_with_more_than_one_installments
     credit_card = Fixture.credit_card
     subject = MyMoip::CreditCardPayment.new(credit_card, 3)
     assert_equal false, subject.cash?
@@ -24,7 +24,7 @@ class TestCreditCardPayment < Test::Unit::TestCase
   def test_default_initialization_with_one_tranch
     credit_card = Fixture.credit_card
     subject = MyMoip::CreditCardPayment.new(credit_card)
-    assert_equal 1, subject.tranches
+    assert_equal 1, subject.installments
   end
 
   def test_json_format

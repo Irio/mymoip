@@ -1,9 +1,9 @@
 module MyMoip
   class CreditCardPayment
-    attr_accessor :credit_card, :tranches
+    attr_accessor :credit_card, :installments
 
-    def initialize(credit_card, tranches = 1)
-      @credit_card, @tranches = credit_card, tranches
+    def initialize(credit_card, installments = 1)
+      @credit_card, @installments = credit_card, installments
     end
 
     def to_json
@@ -11,7 +11,7 @@ module MyMoip
 
       json = {
         Forma:        "CartaoCredito",
-        Parcelas:     @tranches,
+        Parcelas:     @installments,
         CartaoCredito: {
           Numero:           credit_card.card_number,
           Expiracao:        credit_card.expiration_date,
@@ -41,7 +41,7 @@ module MyMoip
     end
 
     def cash?
-      @tranches == 1
+      @installments == 1
     end
   end
 end
