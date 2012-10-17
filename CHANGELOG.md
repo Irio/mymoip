@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+**0.2.2**
+* Explicitly require order for Requests classes
+
 **0.2.1**
 * Bugfix related to explicitly require MyMoip class being needed.
 
