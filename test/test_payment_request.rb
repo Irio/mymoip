@@ -70,4 +70,29 @@ class TestPaymentRequest < Test::Unit::TestCase
     assert !request.success?
   end
 
+  def test_method_to_get_moip_code
+    instruction = Fixture.instruction(Fixture.payer)
+    transparent_request = MyMoip::TransparentRequest.new("your_own_id")
+    VCR.use_cassette('transparent_request') do
+      transparent_request.api_call(instruction)
+    end
+    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, 1)
+    payment_request = MyMoip::PaymentRequest.new("your_own_id")
+    VCR.use_cassette('payment_request') do
+      payment_request.api_call(credit_card_payment, token: transparent_request.token)
+    end
+    assert_equal 95695, payment_request.code
+  end
+
+  def test_code_method_should_return_nil_with_blank_response
+    instruction = Fixture.instruction(Fixture.payer)
+    transparent_request = MyMoip::TransparentRequest.new("your_own_id")
+    VCR.use_cassette('transparent_request') do
+      transparent_request.api_call(instruction)
+    end
+    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, 1)
+    payment_request = MyMoip::PaymentRequest.new("your_own_id")
+    assert_nil payment_request.code
+  end
+
 end
