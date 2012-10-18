@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+**0.2.3**
+* Remove .rvmrc
+* CreditCardPayment's initialization now can receive a hash of options
+* lib/requests folder created
+* Requests has methods to return its response id
+
 **0.2.2**
 * Explicitly require order for Requests classes
 
