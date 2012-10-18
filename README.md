@@ -75,7 +75,7 @@ credit_card = MyMoip::CreditCard.new(
   owner_rg: "1010202030"
 )
 
-credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, 1)
+credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
 payment_request = MyMoip::PaymentRequest.new("your_own_id")
 payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
