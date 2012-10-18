@@ -24,3 +24,6 @@ module MyMoip
     end
   end
 end
+
+requests = Dir[File.dirname(__FILE__) + "/requests/*.rb"]
+requests.each { |f| require f }

@@ -1,5 +1,3 @@
-require 'request'
-
 module MyMoip
   class PaymentRequest < Request
 
