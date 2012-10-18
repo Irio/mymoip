@@ -3,7 +3,7 @@ CHANGELOG
 
 **0.2.3**
 * Remove .rvmrc
-* CreditCardPayment's initialization now can receive a hash of options
+* CreditCardPayment's initialization can now receive a hash of options
 * lib/requests folder created
 * Requests has methods to return its response id
 
