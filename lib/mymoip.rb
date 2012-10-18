@@ -19,12 +19,8 @@ end
 
 $LOAD_PATH << "./lib/mymoip"
 
-require 'mymoip/request'
-
 files = Dir[File.dirname(__FILE__) + "/mymoip/*.rb"]
-after_request = files.reject! { |f| f.include?('/request.rb') }
+files.each { |f| require f }
 
-after_request.each { |f| require f }
- 
 MyMoip.environment = "sandbox"
 MyMoip.logger = Logger.new(STDOUT)
