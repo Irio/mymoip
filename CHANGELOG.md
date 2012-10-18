@@ -2,6 +2,7 @@ CHANGELOG
 =========
 
 **0.2.4**
+* Fix American Express logo format expected by Moip
 
 **0.2.3**
 * Remove .rvmrc
