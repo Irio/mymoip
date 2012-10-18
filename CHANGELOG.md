@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+**0.2.4**
+
 **0.2.3**
 * Remove .rvmrc
 * CreditCardPayment's initialization can now receive a hash of options
