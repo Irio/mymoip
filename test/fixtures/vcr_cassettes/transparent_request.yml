@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://YOUR_MOIP_TOKEN:YOUR_MOIP_KEY@desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica
+    body:
+      encoding: US-ASCII
+      string: <EnviarInstrucao><InstrucaoUnica TipoValidacao="Transparente"><Razao>some
+        payment_reason</Razao><Valores><Valor moeda="BRL">100.00</Valor><Valor moeda="BRL">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe
+        Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto
+        Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 17 Oct 2012 14:18:49 GMT
+      Server:
+      - Apache/2.2.23 (CentOS)
+      Content-Length:
+      - '273'
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - text/xml;charset=UTF-8
+    body:
+      encoding: US-ASCII
+      string: <ns1:EnviarInstrucaoUnicaResponse xmlns:ns1="http://www.moip.com.br/ws/alpha/"><Resposta><ID>201210171118501100000001102691</ID><Status>Sucesso</Status><Token>M2F021Z2U1O0C1X761K1S1N8C5D0J1V1S0O0F0Y0Q0B0V0A1J1O0C2P6Z965</Token></Resposta></ns1:EnviarInstrucaoUnicaResponse>
+    http_version:
+  recorded_at: Wed, 17 Oct 2012 14:16:59 GMT
+recorded_with: VCR 2.2.5

@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://YOUR_MOIP_TOKEN:YOUR_MOIP_KEY@desenvolvedor.moip.com.br/sandbox/rest/pagamento?callback=?&pagamentoWidget=%7B%22pagamentoWidget%22:%7B%22referer%22:%22http://localhost/default%22,%22token%22:%22M2F021Z2U1O0C1X761K1S1N8C5D0J1V1S0O0F0Y0Q0B0V0A1J1O0C2P6Z965%22,%22dadosPagamento%22:%7B%22Forma%22:%22CartaoCredito%22,%22Parcelas%22:1,%22CartaoCredito%22:%7B%22Numero%22:%224916654211627608%22,%22Expiracao%22:%2206/15%22,%22CodigoSeguranca%22:%22000%22,%22Portador%22:%7B%22Nome%22:%22Juquinha%20da%20Rocha%22,%22DataNascimento%22:%2203/11/1984%22,%22Telefone%22:%22(51)3040-5060%22,%22Identidade%22:%221010202030%22%7D%7D,%22Instituicao%22:%22Visa%22,%22Recebimento%22:%22AVista%22%7D%7D%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 17 Oct 2012 18:23:26 GMT
+      Server:
+      - Apache/2.2.23 (CentOS)
+      Content-Length:
+      - '271'
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - application/json
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        Pyh7IlN0YXR1cyI6IkVtQW5hbGlzZSIsIkNvZGlnbyI6MCwiQ29kaWdvUmV0
+        b3JubyI6IiIsIlRheGFNb0lQIjoiMTUuMTkiLCJTdGF0dXNQYWdhbWVudG8i
+        OiJTdWNlc3NvIiwiQ2xhc3NpZmljYWNhbyI6eyJDb2RpZ28iOjk5OSwiRGVz
+        Y3JpY2FvIjoiTsOjbyBzdXBvcnRhZG8gbm8gYW1iaWVudGUgU2FuZGJveCJ9
+        LCJDb2RpZ29Nb0lQIjo5NTY5NSwiTWVuc2FnZW0iOiJSZXF1aXNpw6fDo28g
+        cHJvY2Vzc2FkYSBjb20gc3VjZXNzbyIsIlRvdGFsUGFnbyI6IjIwMC4wMCJ9
+        KQ==
+    http_version:
+  recorded_at: Wed, 17 Oct 2012 18:21:35 GMT
+recorded_with: VCR 2.2.5

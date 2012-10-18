@@ -29,5 +29,11 @@ module MyMoip
       nil
     end
 
+    def id
+      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["ID"]
+    rescue NoMethodError => e
+      nil
+    end
+
   end
 end

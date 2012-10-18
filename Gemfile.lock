@@ -1,8 +1,10 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    addressable (2.3.2)
     ansi (1.4.3)
     builder (3.0.0)
+    crack (0.3.1)
     git (1.2.5)
     httparty (0.8.3)
       multi_json (~> 1.0)
@@ -23,6 +25,10 @@ GEM
       json (~> 1.4)
     turn (0.9.6)
       ansi
+    vcr (2.2.5)
+    webmock (1.8.11)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
 
 PLATFORMS
   ruby
@@ -35,3 +41,5 @@ DEPENDENCIES
   mocha
   rdoc (~> 3.12)
   turn
+  vcr
+  webmock

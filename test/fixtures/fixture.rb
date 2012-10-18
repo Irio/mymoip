@@ -1,24 +1,24 @@
 class Fixture
   def self.payer
     MyMoip::Payer.new(
-      id: "some id",
-      name: "some name",
-      email: "some email",
-      address_street: "some address_street",
-      address_street_number: "some address_street_number",
-      address_street_extra: "some address_street_extra",
-      address_neighbourhood: "some address_neighbourhood",
-      address_city: "some address_city",
-      address_state: "some address_state",
-      address_country: "some address_country",
-      address_cep: "some address_cep",
-      address_phone: "some address_phone"
+      id: "your_own_payer_id",
+      name: "Juquinha da Rocha",
+      email: "juquinha@rocha.com",
+      address_street: "Felipe Neri",
+      address_street_number: "406",
+      address_street_extra: "Sala 501",
+      address_neighbourhood: "Auxiliadora",
+      address_city: "Porto Alegre",
+      address_state: "RS",
+      address_country: "BRA",
+      address_cep: "90440-150",
+      address_phone: "(51)3040-5060"
     )
   end
 
   def self.instruction(payer)
     MyMoip::Instruction.new(
-      id: "some id",
+      id: "your_own_instruction_id",
       payment_reason: "some payment_reason",
       values: [100.0, 200.0],
       payer: payer
