@@ -32,7 +32,7 @@ module MyMoip
       }
 
       json[:Instituicao] = {
-        american_express: "American Express",
+        american_express: "AmericanExpress",
         diners:           "Diners",
         hipercard:        "Hipercard",
         mastercard:       "Mastercard",
