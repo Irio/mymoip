@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2012-10-17"
+  s.date = "2012-10-18"
   s.description = "Provides a implementation of MoIP's transparent checkout."
   s.email = "irio.musskopf@caixadeideias.com.br"
   s.extra_rdoc_files = [
@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
-    ".rvmrc",
     "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
@@ -32,9 +31,9 @@ Gem::Specification.new do |s|
     "lib/mymoip/instruction.rb",
     "lib/mymoip/json_parser.rb",
     "lib/mymoip/payer.rb",
-    "lib/mymoip/payment_request.rb",
     "lib/mymoip/request.rb",
-    "lib/mymoip/transparent_request.rb",
+    "lib/mymoip/requests/payment_request.rb",
+    "lib/mymoip/requests/transparent_request.rb",
     "mymoip.gemspec",
     "test/fixture.rb",
     "test/helper.rb",
