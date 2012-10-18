@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "mymoip"
-  s.version = "0.2.2"
+  s.version = "0.2.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
@@ -35,8 +35,11 @@ Gem::Specification.new do |s|
     "lib/mymoip/requests/payment_request.rb",
     "lib/mymoip/requests/transparent_request.rb",
     "mymoip.gemspec",
-    "test/fixture.rb",
+    "test/fixtures/fixture.rb",
+    "test/fixtures/vcr_cassettes/payment_request.yml",
+    "test/fixtures/vcr_cassettes/transparent_request.yml",
     "test/helper.rb",
+    "test/live_test.rb",
     "test/test_credit_card_payment.rb",
     "test/test_creditcard.rb",
     "test/test_instruction.rb",
@@ -63,6 +66,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<turn>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0"])
+      s.add_development_dependency(%q<vcr>, [">= 0"])
+      s.add_development_dependency(%q<webmock>, [">= 0"])
     else
       s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
@@ -71,6 +76,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<turn>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0"])
+      s.add_dependency(%q<vcr>, [">= 0"])
+      s.add_dependency(%q<webmock>, [">= 0"])
     end
   else
     s.add_dependency(%q<builder>, [">= 0"])
@@ -80,6 +87,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<turn>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0"])
+    s.add_dependency(%q<vcr>, [">= 0"])
+    s.add_dependency(%q<webmock>, [">= 0"])
   end
 end
 
