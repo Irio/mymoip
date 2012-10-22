@@ -37,7 +37,7 @@ MyMoip.key   = "your_moip_dev_key"
 **First request: what and from who**
 ```ruby
 payer = MyMoip::Payer.new(
-  id: "your_own_id",
+  id: "payer_id_defined_by_you",
   name: "Juquinha da Rocha",
   email: "juquinha@rocha.com",
   address_street: "Felipe Neri",
@@ -52,13 +52,13 @@ payer = MyMoip::Payer.new(
 ) # 9 digit phones must be in "(11)93040-5060" format
 
 instruction = MyMoip::Instruction.new(
-  id: "your_own_id",
+  id: "instruction_id_defined_by_you",
   payment_reason: "Order in Buy Everything Store",
   values: [100.0],
   payer: payer
 )
 
-transparent_request = MyMoip::TransparentRequest.new("your_own_id")
+transparent_request = MyMoip::TransparentRequest.new("your_logging_id")
 transparent_request.api_call(instruction)
 ```
 
@@ -76,7 +76,7 @@ credit_card = MyMoip::CreditCard.new(
 )
 
 credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
-payment_request = MyMoip::PaymentRequest.new("your_own_id")
+payment_request = MyMoip::PaymentRequest.new("your_logging_id")
 payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
 
