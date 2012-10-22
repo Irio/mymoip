@@ -13,14 +13,14 @@ module MyMoip
       username ||= MyMoip.token
       password ||= MyMoip.key
 
-      logger.info "MyMoip::Request of ##{@id} with #{params[:body].inspect}"
+      logger.info "#{self.class} of ##{@id} with #{params[:body].inspect}"
 
       url = MyMoip.api_url + params.delete(:path)
       params[:basic_auth] = { username: username, password: password }
 
       @response = HTTParty.send params.delete(:http_method), url, params
 
-      logger.info "MyMoip::Request of ##{@id} to #{url} had response #{@response}"
+      logger.info "#{self.class} of ##{@id} to #{url} had response #{@response}"
     end
   end
 end
