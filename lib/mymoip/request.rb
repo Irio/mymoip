@@ -8,19 +8,19 @@ module MyMoip
       @id = id
     end
 
-    def api_call(params, logger = nil, username = MyMoip.token, password = MyMoip.key)
-      logger   ||= MyMoip.logger
-      username ||= MyMoip.token
-      password ||= MyMoip.key
+    def api_call(params, opts = {})
+      opts[:logger]   ||= MyMoip.logger
+      opts[:username] ||= MyMoip.token
+      opts[:password] ||= MyMoip.key
 
-      logger.info "#{self.class} of ##{@id} with #{params[:body].inspect}"
+      opts[:logger].info "#{self.class} of ##{@id} with #{params[:body].inspect}"
 
       url = MyMoip.api_url + params.delete(:path)
-      params[:basic_auth] = { username: username, password: password }
+      params[:basic_auth] = { username: opts[:username], password: opts[:password] }
 
       @response = HTTParty.send params.delete(:http_method), url, params
 
-      logger.info "#{self.class} of ##{@id} to #{url} had response #{@response}"
+      opts[:logger].info "#{self.class} of ##{@id} to #{url} had response #{@response}"
     end
   end
 end

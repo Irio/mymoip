@@ -17,7 +17,7 @@ class TestRequest < Test::Unit::TestCase
     logger.expects(:info).at_least_once.
       with(regexp_matches(/request_id.+<html>some_result<\/html>/))
 
-    request.api_call(params, logger)
+    request.api_call(params, logger: logger)
   end
 
   def test_logs_api_call_response
@@ -31,7 +31,7 @@ class TestRequest < Test::Unit::TestCase
     logger.expects(:info).at_least_once.
       with(regexp_matches(/request_id.+<html>some_result<\/html>/))
 
-    request.api_call(params, logger)
+    request.api_call(params, logger: logger)
   end
 
 end

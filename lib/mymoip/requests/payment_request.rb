@@ -6,14 +6,14 @@ module MyMoip
     REQUIRES_AUTH = false
     FORMAT        = :json
 
-    def api_call(data, extra_attrs)
-      extra_attrs[:referer_url] ||= MyMoip.default_referer_url
-      extra_attrs[:parser]      ||= MyMoip::JsonParser
+    def api_call(data, opts)
+      opts[:referer_url] ||= MyMoip.default_referer_url
+      opts[:parser]      ||= MyMoip::JsonParser
 
       json = JSON.generate({
         pagamentoWidget: {
-          referer:        extra_attrs[:referer_url],
-          token:          extra_attrs[:token],
+          referer:        opts[:referer_url],
+          token:          opts[:token],
           dadosPagamento: data.to_json
         }
       })
@@ -25,9 +25,9 @@ module MyMoip
         path:          PATH,
         format:        FORMAT
       }
-      params[:parser] = extra_attrs.delete :parser unless extra_attrs[:parser].nil?
+      params[:parser] = opts.delete(:parser) unless opts[:parser].nil?
 
-      super params
+      super(params)
     end
 
     def success?

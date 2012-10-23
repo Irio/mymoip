@@ -5,16 +5,15 @@ module MyMoip
     PATH          = "/ws/alpha/EnviarInstrucao/Unica"
     REQUIRES_AUTH = true
 
-    def api_call(data, logger = MyMoip.logger)
+    def api_call(data, opts = {})
       params = {
         body:          data.to_xml,
         http_method:   HTTP_METHOD,
         requires_auth: REQUIRES_AUTH,
-        path:          PATH,
-        logger:        logger
+        path:          PATH
       }
 
-      super params
+      super(params, opts)
     end
 
     def success?
