@@ -13,7 +13,7 @@ module MyMoip
       opts[:username] ||= MyMoip.token
       opts[:password] ||= MyMoip.key
 
-      opts[:logger].info "#{self.class} of ##{@id} with #{params[:body].inspect}"
+      opts[:logger].info "#{self.class} of ##{@id} with #{params.inspect}"
 
       url = MyMoip.api_url + params.delete(:path)
       params[:basic_auth] = { username: opts[:username], password: opts[:password] }
