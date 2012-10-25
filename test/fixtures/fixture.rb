@@ -25,8 +25,8 @@ class Fixture
     )
   end
 
-  def self.credit_card
-    MyMoip::CreditCard.new(
+  def self.credit_card(params = {})
+    params = {
       logo: :visa,
       card_number: "4916654211627608",
       expiration_date: "06/15",
@@ -35,7 +35,8 @@ class Fixture
       owner_birthday: Date.new(1984, 11, 3),
       owner_phone: "(51)3040-5060",
       owner_rg: "1010202030"
-    )
+    }.merge(params)
+    MyMoip::CreditCard.new(params)
   end
 
 end

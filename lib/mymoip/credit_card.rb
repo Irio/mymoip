@@ -3,6 +3,10 @@ module MyMoip
     attr_accessor :logo, :card_number, :expiration_date, :security_code,
                 :owner_name, :owner_birthday, :owner_phone, :owner_rg
 
+    AVAILABLE_LOGOS = [
+      :american_express, :diners, :hipercard, :mastercard, :visa
+    ]
+
     def initialize(params)
       @logo            = params[:logo]            if params.has_key? :logo
       @card_number     = params[:card_number]     if params.has_key? :card_number
