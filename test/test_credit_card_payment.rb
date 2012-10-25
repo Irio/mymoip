@@ -59,4 +59,11 @@ class TestCreditCardPayment < Test::Unit::TestCase
     end
   end
 
+  def test_to_json_should_accept_any_creditcard_logo_as_string
+    MyMoip::CreditCard::AVAILABLE_LOGOS.each do |logo|
+      payment = MyMoip::CreditCardPayment.new(Fixture.credit_card(logo: logo.to_s))
+      assert_nothing_raised(KeyError) { payment.to_json }
+    end
+  end
+
 end
