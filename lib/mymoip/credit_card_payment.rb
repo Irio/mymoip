@@ -37,7 +37,7 @@ module MyMoip
         hipercard:        "Hipercard",
         mastercard:       "Mastercard",
         visa:             "Visa"
-      }.fetch credit_card.logo
+      }.fetch(credit_card.logo.to_sym)
 
       if cash?
         json[:Recebimento] = "AVista"
