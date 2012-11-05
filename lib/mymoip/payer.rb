@@ -1,9 +1,16 @@
 module MyMoip
   class Payer
+    include ActiveModel::Validations
+
     attr_accessor :id, :name, :email,
                   :address_street, :address_street_number, :address_street_extra,
                   :address_neighbourhood, :address_city, :address_state,
                   :address_country, :address_cep, :address_phone
+
+    validates_presence_of :id, :name, :email, :address_street,
+                          :address_street_number, :address_neighbourhood,
+                          :address_city, :address_state, :address_country,
+                          :address_cep, :address_phone
 
     def initialize(attrs)
       @id                    = attrs[:id]                     if attrs.has_key?(:id)

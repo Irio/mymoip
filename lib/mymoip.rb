@@ -1,3 +1,4 @@
+require 'active_model'
 require 'builder'
 require 'logger'
 require 'httparty'
