@@ -11,6 +11,8 @@ module MyMoip
                           :address_street_number, :address_neighbourhood,
                           :address_city, :address_state, :address_country,
                           :address_cep, :address_phone
+    validates_length_of :address_state, is: 2
+    validates_length_of :address_country, is: 3
 
     def initialize(attrs)
       @id                    = attrs[:id]                     if attrs.has_key?(:id)
@@ -25,6 +27,16 @@ module MyMoip
       @address_country       = attrs[:address_country]        if attrs.has_key?(:address_country)
       @address_cep           = attrs[:address_cep]            if attrs.has_key?(:address_cep)
       @address_phone         = attrs[:address_phone]          if attrs.has_key?(:address_phone)
+    end
+
+    def address_state=(value)
+      value = value.upcase unless value.nil?
+      @address_state = value
+    end
+
+    def address_country=(value)
+      value = value.upcase unless value.nil?
+      @address_country = value
     end
 
     def to_xml(root = nil)

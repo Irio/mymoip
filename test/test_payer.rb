@@ -95,12 +95,42 @@ class TestPayer < Test::Unit::TestCase
     assert subject.invalid?, 'should be invalid without an address_state'
   end
 
+  def test_validate_length_of_address_state_attribute_in_2_chars
+    subject = Fixture.payer
+    subject.address_state = 'RS'
+    assert subject.valid?, 'should accept 2 chars'
+    subject.address_state = 'RSS'
+    assert subject.invalid? && subject.errors[:address_state].present?,
+      'should not accept strings with other than 2 chars'
+  end
+
+  def test_upcase_assigned_address_state
+    subject = Fixture.payer
+    subject.address_state = 'rs'
+    assert_equal 'RS', subject.address_state
+  end
+
   def test_validate_presence_of_address_country_attribute
     subject = Fixture.payer
     subject.address_country = nil
     assert subject.invalid?, 'should be invalid without an address_country'
     subject.address_country = ''
     assert subject.invalid?, 'should be invalid without an address_country'
+  end
+
+  def test_validate_length_of_address_country_attribute_in_3_chars
+    subject = Fixture.payer
+    subject.address_country = 'BRA'
+    assert subject.valid?, 'should accept 3 chars'
+    subject.address_country = 'BR'
+    assert subject.invalid? && subject.errors[:address_country].present?,
+      'should not accept strings with other than 3 chars'
+  end
+
+  def test_upcase_assigned_address_country
+    subject = Fixture.payer
+    subject.address_country = 'bra'
+    assert_equal 'BRA', subject.address_country
   end
 
   def test_validate_presence_of_address_cep_attribute
