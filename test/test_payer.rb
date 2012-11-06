@@ -11,9 +11,9 @@ class TestPayer < Test::Unit::TestCase
       address_street_extra: "some address_street_extra",
       address_neighbourhood: "some address_neighbourhood",
       address_city: "some address_city",
-      address_state: "some address_state",
-      address_country: "some address_country",
-      address_cep: "some address_cep",
+      address_state: "RS",
+      address_country: "BRA",
+      address_cep: "92123456",
       address_phone: "some address_phone"
     )
 
@@ -25,9 +25,9 @@ class TestPayer < Test::Unit::TestCase
     assert_equal "some address_street_extra", payer.address_street_extra
     assert_equal "some address_neighbourhood", payer.address_neighbourhood
     assert_equal "some address_city", payer.address_city
-    assert_equal "some address_state", payer.address_state
-    assert_equal "some address_country", payer.address_country
-    assert_equal "some address_cep", payer.address_cep
+    assert_equal "RS", payer.address_state
+    assert_equal "BRA", payer.address_country
+    assert_equal "92123456", payer.address_cep
     assert_equal "some address_phone", payer.address_phone
   end
 
@@ -139,6 +139,27 @@ class TestPayer < Test::Unit::TestCase
     assert subject.invalid?, 'should be invalid without an address_cep'
     subject.address_cep = ''
     assert subject.invalid?, 'should be invalid without an address_cep'
+  end
+
+  def test_validate_length_of_address_cep_attribute_in_2_chars
+    subject = Fixture.payer
+    subject.address_cep = '92123456'
+    assert subject.valid?, 'should accept 8 chars'
+    subject.address_cep = '921234560000'
+    assert subject.invalid? && subject.errors[:address_cep].present?,
+      'should not accept strings with other than 8 chars'
+  end
+
+  def test_dont_count_dashes_in_the_address_cep_length_validation
+    subject = Fixture.payer
+    subject.address_cep = '92123-456'
+    assert subject.valid?
+  end
+
+  def test_remove_dashes_from_address_cep
+    subject = Fixture.payer
+    subject.address_cep = '92123-456'
+    assert_equal '92123456', subject.address_cep
   end
 
   def test_validate_presence_of_address_phone_attribute
