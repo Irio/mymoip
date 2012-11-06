@@ -14,6 +14,7 @@ module MyMoip
     validates_length_of :address_state, is: 2
     validates_length_of :address_country, is: 3
     validates_length_of :address_cep, is: 8
+    validates_length_of :address_phone, within: 10..11
 
     def initialize(attrs)
       self.id                    = attrs[:id]                     if attrs.has_key?(:id)
@@ -56,12 +57,12 @@ module MyMoip
     end
 
     def formatted_address_cep
-      raise 'Invalid CEP' if invalid? && errors[:address_cep].present?
+      raise 'Invalid address_cep' if invalid? && errors[:address_cep].present?
       @address_cep.gsub(/(\d{5})/, '\1-')
     end
 
     def formatted_address_phone
-      raise 'Invalid CEP' if invalid? && errors[:address_phone].present?
+      raise 'Invalid address_phone' if invalid? && errors[:address_phone].present?
       @address_phone.gsub(/(\d{2})(\d)?(\d{4})(\d{4})/, '(\1)\2\3-\4')
     end
 

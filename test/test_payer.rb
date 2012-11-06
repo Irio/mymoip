@@ -170,6 +170,17 @@ class TestPayer < Test::Unit::TestCase
     assert subject.invalid?, 'should be invalid without an address_phone'
   end
 
+  def test_validate_length_of_address_phone_attribute_in_10_or_11_chars
+    subject = Fixture.payer
+    subject.address_phone = '5130405060'
+    assert subject.valid?, 'should accept 10 chars'
+    subject.address_phone = '51930405060'
+    assert subject.valid?, 'should accept 11 chars'
+    subject.address_phone = '215130405060'
+    assert subject.invalid? && subject.errors[:address_phone].present?,
+      'should not accept strings with other than 10 or 11 chars'
+  end
+
   def test_remove_left_zeros_from_address_phone
     subject = Fixture.payer
     subject.address_phone = '05130405060'
