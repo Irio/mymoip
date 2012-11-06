@@ -14,7 +14,7 @@ class TestPayer < Test::Unit::TestCase
       address_state: "RS",
       address_country: "BRA",
       address_cep: "92123456",
-      address_phone: "some address_phone"
+      address_phone: "5130405060"
     )
 
     assert_equal "some id", payer.id
@@ -28,7 +28,7 @@ class TestPayer < Test::Unit::TestCase
     assert_equal "RS", payer.address_state
     assert_equal "BRA", payer.address_country
     assert_equal "92123456", payer.address_cep
-    assert_equal "some address_phone", payer.address_phone
+    assert_equal "5130405060", payer.address_phone
   end
 
   def test_validate_presence_of_id_attribute
@@ -168,5 +168,56 @@ class TestPayer < Test::Unit::TestCase
     assert subject.invalid?, 'should be invalid without an address_phone'
     subject.address_phone = ''
     assert subject.invalid?, 'should be invalid without an address_phone'
+  end
+
+  def test_remove_left_zeros_from_address_phone
+    subject = Fixture.payer
+    subject.address_phone = '05130405060'
+    assert_equal '5130405060', subject.address_phone
+  end
+
+  def test_remove_dashes_from_address_phone
+    subject = Fixture.payer
+    subject.address_phone = '513040-5060'
+    assert_equal '5130405060', subject.address_phone
+    subject.address_phone = '5193040-5060'
+    assert_equal '51930405060', subject.address_phone
+  end
+
+  def test_remove_parenthesis_from_address_phone
+    subject = Fixture.payer
+    subject.address_phone = '(51)30405060'
+    assert_equal '5130405060', subject.address_phone
+    subject.address_phone = '(51)930405060'
+    assert_equal '51930405060', subject.address_phone
+  end
+
+  def test_formatted_address_cep_returns_a_value_in_the_format_expected_by_moip
+    subject = Fixture.payer(address_cep: '92123456')
+    assert_equal '92123-456', subject.formatted_address_cep
+  end
+
+  def test_formatted_address_cep_raises_an_exception_when_being_called_without_a_valid_cep_already_assigned
+    subject = Fixture.payer(address_cep: nil)
+    assert_raise RuntimeError do
+      subject.formatted_address_cep
+    end
+  end
+
+  def test_formatted_address_phone_with_8_digits_returns_a_value_in_the_format_expected_by_moip
+    subject = Fixture.payer(address_phone: '05130405060')
+    assert_equal '(51)3040-5060', subject.formatted_address_phone
+  end
+
+  def test_formatted_address_phone_with_9_digits_returns_a_value_in_the_format_expected_by_moip
+    subject = Fixture.payer(address_phone: '051930405060')
+    assert_equal '(51)93040-5060', subject.formatted_address_phone
+  end
+
+  def test_format_cep_raises_an_exception_when_being_called_without_a_valid_cep_already_assigned
+    subject = Fixture.payer(address_phone: nil)
+    assert_raise RuntimeError do
+      subject.formatted_address_phone
+    end
   end
 end

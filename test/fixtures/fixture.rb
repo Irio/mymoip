@@ -1,6 +1,6 @@
 class Fixture
-  def self.payer
-    MyMoip::Payer.new(
+  def self.payer(params = {})
+    params = {
       id: "your_own_payer_id",
       name: "Juquinha da Rocha",
       email: "juquinha@rocha.com",
@@ -13,7 +13,8 @@ class Fixture
       address_country: "BRA",
       address_cep: "90440-150",
       address_phone: "(51)3040-5060"
-    )
+    }.merge(params)
+    MyMoip::Payer.new(params)
   end
 
   def self.instruction(payer)

@@ -45,6 +45,26 @@ module MyMoip
       @address_country = value
     end
 
+    def address_phone=(value)
+      unless value.nil?
+        # Removes non-digits
+        value.gsub!(/\D*/, '')
+        # Removes zeros in the beginning
+        value.gsub!(/\A0*/, '')
+      end
+      @address_phone = value
+    end
+
+    def formatted_address_cep
+      raise 'Invalid CEP' if invalid? && errors[:address_cep].present?
+      @address_cep.gsub(/(\d{5})/, '\1-')
+    end
+
+    def formatted_address_phone
+      raise 'Invalid CEP' if invalid? && errors[:address_phone].present?
+      @address_phone.gsub(/(\d{2})(\d)?(\d{4})(\d{4})/, '(\1)\2\3-\4')
+    end
+
     def to_xml(root = nil)
       if root.nil?
         xml  = ""
@@ -62,8 +82,8 @@ module MyMoip
         n1.Cidade(@address_city)
         n1.Estado(@address_state)
         n1.Pais(@address_country)
-        n1.CEP(@address_cep.gsub(/(\d{5})/, '\1-'))
-        n1.TelefoneFixo(@address_phone)
+        n1.CEP(formatted_address_cep)
+        n1.TelefoneFixo(formatted_address_phone)
       end
 
       xml
