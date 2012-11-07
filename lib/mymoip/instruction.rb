@@ -14,6 +14,8 @@ module MyMoip
     end
 
     def to_xml(root = nil)
+      raise ArgumentError, 'Invalid payer' if payer.invalid?
+      raise ArgumentError, 'Invalid params for instruction' if self.invalid?
 
       xml  = ""
       root = Builder::XmlMarkup.new(target: xml)

@@ -32,6 +32,38 @@ XML
     assert_equal expected_format.rstrip, instruction.to_xml
   end
 
+  def test_to_xml_method_raises_exception_when_called_with_invalid_payer
+    subject = Fixture.instruction
+    MyMoip::Payer.any_instance.stubs(:invalid?).returns(true)
+    assert_raise ArgumentError do
+      subject.to_xml
+    end
+  end
+
+  def test_to_xml_method_dont_raises_exception_when_called_with_valid_payer
+    subject = Fixture.instruction
+    MyMoip::Payer.any_instance.stubs(:invalid?).returns(false)
+    assert_nothing_raised ArgumentError do
+      subject.to_xml
+    end
+  end
+
+  def test_to_xml_method_raises_exception_when_called_with_invalid_params
+    subject = Fixture.instruction
+    MyMoip::Instruction.any_instance.stubs(:invalid?).returns(true)
+    assert_raise ArgumentError do
+      subject.to_xml
+    end
+  end
+
+  def test_to_xml_method_dont_raises_exception_when_called_with_valid_params
+    subject = Fixture.instruction
+    MyMoip::Instruction.any_instance.stubs(:invalid?).returns(false)
+    assert_nothing_raised ArgumentError do
+      subject.to_xml
+    end
+  end
+
   def test_validate_presence_of_id_attribute
     subject = Fixture.instruction
     subject.id = nil
