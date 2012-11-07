@@ -57,7 +57,7 @@ class TestTransparentRequest < Test::Unit::TestCase
   def test_should_provide_the_transaction_id_get_by_the_request
     request = MyMoip::TransparentRequest.new("some_id")
     VCR.use_cassette('transparent_request') do
-      request.api_call(Fixture.instruction(Fixture.payer))
+      request.api_call(Fixture.instruction(payer: Fixture.payer))
     end
     assert_equal "201210171118501100000001102691", request.id
   end

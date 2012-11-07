@@ -1,6 +1,10 @@
 module MyMoip
   class Instruction
+    include ActiveModel::Validations
+
     attr_accessor :id, :payment_reason, :values, :payer
+
+    validates_presence_of :id, :payment_reason, :values, :payer
 
     def initialize(attrs)
       @id             = attrs[:id]             if attrs.has_key?(:id)
