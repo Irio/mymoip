@@ -12,15 +12,15 @@ module MyMoip
     validates_presence_of :logo, :security_code
     validates_length_of :owner_phone, within: 10..11
 
-    def initialize(params)
-      @logo            = params[:logo]            if params.has_key? :logo
-      @card_number     = params[:card_number]     if params.has_key? :card_number
-      @expiration_date = params[:expiration_date] if params.has_key? :expiration_date
-      @security_code   = params[:security_code]   if params.has_key? :security_code
-      @owner_name      = params[:owner_name]      if params.has_key? :owner_name
-      @owner_birthday  = params[:owner_birthday]  if params.has_key? :owner_birthday
-      @owner_phone     = params[:owner_phone]     if params.has_key? :owner_phone
-      @owner_rg        = params[:owner_rg]        if params.has_key? :owner_rg
+    def initialize(attrs)
+      self.logo            = attrs[:logo]            if attrs.has_key?(:logo)
+      self.card_number     = attrs[:card_number]     if attrs.has_key?(:card_number)
+      self.expiration_date = attrs[:expiration_date] if attrs.has_key?(:expiration_date)
+      self.security_code   = attrs[:security_code]   if attrs.has_key?(:security_code)
+      self.owner_name      = attrs[:owner_name]      if attrs.has_key?(:owner_name)
+      self.owner_birthday  = attrs[:owner_birthday]  if attrs.has_key?(:owner_birthday)
+      self.owner_phone     = attrs[:owner_phone]     if attrs.has_key?(:owner_phone)
+      self.owner_rg        = attrs[:owner_rg]        if attrs.has_key?(:owner_rg)
     end
 
     def owner_birthday=(value)
