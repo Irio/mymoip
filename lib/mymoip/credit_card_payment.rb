@@ -12,7 +12,7 @@ module MyMoip
                      end
     end
 
-    def to_json
+    def to_json(formatter = MyMoip::Formatter)
       raise "No CreditCard provided" if credit_card.nil?
 
       json = {
@@ -24,8 +24,8 @@ module MyMoip
           CodigoSeguranca:  credit_card.security_code,
           Portador: {
             Nome:           credit_card.owner_name,
-            DataNascimento: credit_card.owner_birthday.strftime("%d/%m/%Y"),
-            Telefone:       credit_card.owner_phone,
+            DataNascimento: formatter.date(credit_card.owner_birthday),
+            Telefone:       formatter.phone(credit_card.owner_phone),
             Identidade:     credit_card.owner_rg
           }
         }

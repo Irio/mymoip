@@ -56,17 +56,7 @@ module MyMoip
       @address_phone = value
     end
 
-    def formatted_address_cep
-      raise 'Invalid address_cep' if invalid? && errors[:address_cep].present?
-      @address_cep.gsub(/(\d{5})/, '\1-')
-    end
-
-    def formatted_address_phone
-      raise 'Invalid address_phone' if invalid? && errors[:address_phone].present?
-      @address_phone.gsub(/(\d{2})(\d)?(\d{4})(\d{4})/, '(\1)\2\3-\4')
-    end
-
-    def to_xml(root = nil)
+    def to_xml(root = nil, formatter = MyMoip::Formatter)
       if root.nil?
         xml  = ""
         root ||= Builder::XmlMarkup.new(target: xml)
@@ -83,8 +73,8 @@ module MyMoip
         n1.Cidade(@address_city)
         n1.Estado(@address_state)
         n1.Pais(@address_country)
-        n1.CEP(formatted_address_cep)
-        n1.TelefoneFixo(formatted_address_phone)
+        n1.CEP(formatter.cep(@address_cep))
+        n1.TelefoneFixo(formatter.phone(@address_phone))
       end
 
       xml
