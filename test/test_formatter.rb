@@ -30,7 +30,7 @@ class TestFormatter < Test::Unit::TestCase
     assert_equal '30/10/2040', MyMoip::Formatter.date(date)
   end
 
-  def test_cep_method_raises_exception_with_nil_cep_given
+  def test_date_method_raises_exception_with_nil_date_given
     assert_raise ArgumentError do
       MyMoip::Formatter.date(nil)
     end
