@@ -79,4 +79,19 @@ class TestCreditCardPayment < Test::Unit::TestCase
     formatter.expects(:phone).with('5130405060')
     subject.to_json(formatter)
   end
+
+  def test_to_json_method_raises_an_exception_when_called_without_a_credit_card
+    subject = MyMoip::CreditCardPayment.new(nil)
+    assert_raise RuntimeError do
+      subject.to_json
+    end
+  end
+
+  def test_to_json_method_raises_an_exception_when_called_with_a_invalid_credit_card
+    subject = MyMoip::CreditCardPayment.new(Fixture.credit_card)
+    MyMoip::CreditCard.any_instance.stubs(:invalid?).returns(true)
+    assert_raise ArgumentError do
+      subject.to_json
+    end
+  end
 end
