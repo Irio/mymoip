@@ -203,32 +203,17 @@ class TestPayer < Test::Unit::TestCase
     assert_equal '51930405060', subject.address_phone
   end
 
-  def test_formatted_address_cep_returns_a_value_in_the_format_expected_by_moip
-    subject = Fixture.payer(address_cep: '92123456')
-    assert_equal '92123-456', subject.formatted_address_cep
+  def test_to_xml_method_uses_the_formatted_version_of_the_address_cep
+    subject = Fixture.payer(address_cep: '92000123')
+    formatter = stub_everything('formatter')
+    formatter.expects(:cep).with('92000123')
+    subject.to_xml(nil, formatter)
   end
 
-  def test_formatted_address_cep_raises_an_exception_when_being_called_without_a_valid_cep_already_assigned
-    subject = Fixture.payer(address_cep: nil)
-    assert_raise RuntimeError do
-      subject.formatted_address_cep
-    end
-  end
-
-  def test_formatted_address_phone_with_8_digits_returns_a_value_in_the_format_expected_by_moip
-    subject = Fixture.payer(address_phone: '05130405060')
-    assert_equal '(51)3040-5060', subject.formatted_address_phone
-  end
-
-  def test_formatted_address_phone_with_9_digits_returns_a_value_in_the_format_expected_by_moip
-    subject = Fixture.payer(address_phone: '051930405060')
-    assert_equal '(51)93040-5060', subject.formatted_address_phone
-  end
-
-  def test_format_cep_raises_an_exception_when_being_called_without_a_valid_cep_already_assigned
-    subject = Fixture.payer(address_phone: nil)
-    assert_raise RuntimeError do
-      subject.formatted_address_phone
-    end
+  def test_to_xml_method_uses_the_formatted_version_of_the_address_phone
+    subject = Fixture.payer(address_phone: '5130405060')
+    formatter = stub_everything('formatter')
+    formatter.expects(:phone).with('5130405060')
+    subject.to_xml(nil, formatter)
   end
 end

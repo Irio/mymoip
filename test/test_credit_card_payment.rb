@@ -1,7 +1,6 @@
 require 'helper'
 
 class TestCreditCardPayment < Test::Unit::TestCase
-
   def test_initialization_and_getters
     credit_card = Fixture.credit_card
     subject = MyMoip::CreditCardPayment.new(credit_card, 1)
@@ -46,8 +45,8 @@ class TestCreditCardPayment < Test::Unit::TestCase
     assert_match /\A((0[1-9])|(1[02]))\/\d{2}\z/, payment.to_json[:CartaoCredito][:Expiracao]
     assert_match /\A\d{3}\z/, payment.to_json[:CartaoCredito][:CodigoSeguranca]
     original_date = Date.new(1980, 11, 3)
-    MyMoip::CreditCard.any_instance.stubs(:owner_birthday).returns(original_date)
-    assert_equal original_date.strftime("%d/%m/%Y"), payment.to_json[:CartaoCredito][:Portador][:DataNascimento]
+    MyMoip::Formatter.stubs(:date).returns('03/11/1980')
+    assert_equal '03/11/1980', payment.to_json[:CartaoCredito][:Portador][:DataNascimento]
     assert_match /\A\(\d{2}\)\d{4,5}-\d{4}/, payment.to_json[:CartaoCredito][:Portador][:Telefone]
     assert_match /\A\d+\z/, payment.to_json[:CartaoCredito][:Portador][:Identidade]
   end
@@ -66,4 +65,33 @@ class TestCreditCardPayment < Test::Unit::TestCase
     end
   end
 
+  def test_to_json_method_uses_the_formatted_version_of_the_credit_cards_owner_birthday
+    date = Date.new(2040, 10, 30)
+    subject = MyMoip::CreditCardPayment.new(Fixture.credit_card(owner_birthday: date))
+    formatter = stub_everything('formatter')
+    formatter.expects(:date).with(date)
+    subject.to_json(formatter)
+  end
+
+  def test_to_json_method_uses_the_formatted_version_of_the_credit_cards_owner_phone
+    subject = MyMoip::CreditCardPayment.new(Fixture.credit_card(owner_phone: '5130405060'))
+    formatter = stub_everything('formatter')
+    formatter.expects(:phone).with('5130405060')
+    subject.to_json(formatter)
+  end
+
+  def test_to_json_method_raises_an_exception_when_called_without_a_credit_card
+    subject = MyMoip::CreditCardPayment.new(nil)
+    assert_raise RuntimeError do
+      subject.to_json
+    end
+  end
+
+  def test_to_json_method_raises_an_exception_when_called_with_a_invalid_credit_card
+    subject = MyMoip::CreditCardPayment.new(Fixture.credit_card)
+    MyMoip::CreditCard.any_instance.stubs(:invalid?).returns(true)
+    assert_raise ArgumentError do
+      subject.to_json
+    end
+  end
 end

@@ -9,7 +9,7 @@ class TestCreditCard < Test::Unit::TestCase
       security_code: "000",
       owner_name: "Juquinha da Rocha",
       owner_birthday: Date.new(1984, 11, 3),
-      owner_phone: "(51)3040-5060",
+      owner_phone: "5130405060",
       owner_rg: "1010202030"
     )
 
@@ -19,7 +19,7 @@ class TestCreditCard < Test::Unit::TestCase
     assert_equal "000", subject.security_code
     assert_equal "Juquinha da Rocha", subject.owner_name
     assert_equal Date.new(1984, 11, 3), subject.owner_birthday
-    assert_equal "(51)3040-5060", subject.owner_phone
+    assert_equal "5130405060", subject.owner_phone
     assert_equal "1010202030", subject.owner_rg
   end
 
