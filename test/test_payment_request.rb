@@ -81,7 +81,7 @@ class TestPaymentRequest < Test::Unit::TestCase
     VCR.use_cassette('payment_request') do
       payment_request.api_call(credit_card_payment, token: transparent_request.token)
     end
-    assert_equal 95695, payment_request.code
+    assert_equal 102596, payment_request.code
   end
 
   def test_code_method_should_return_nil_with_blank_response

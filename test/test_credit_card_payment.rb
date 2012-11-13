@@ -49,7 +49,7 @@ class TestCreditCardPayment < Test::Unit::TestCase
     MyMoip::CreditCard.any_instance.stubs(:owner_birthday).returns(original_date)
     assert_equal original_date.strftime("%d/%m/%Y"), payment.to_json[:CartaoCredito][:Portador][:DataNascimento]
     assert_match /\A\(\d{2}\)\d{4,5}-\d{4}/, payment.to_json[:CartaoCredito][:Portador][:Telefone]
-    assert_match /\A\d+\z/, payment.to_json[:CartaoCredito][:Portador][:Identidade]
+    assert_match /\A\d{3}\.\d{3}\.\d{3}\-\d{2}\z/, payment.to_json[:CartaoCredito][:Portador][:Identidade]
   end
 
   def test_to_json_should_accept_any_creditcard_from_available_logos_constant

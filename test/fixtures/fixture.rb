@@ -34,7 +34,7 @@ class Fixture
       owner_name: "Juquinha da Rocha",
       owner_birthday: Date.new(1984, 11, 3),
       owner_phone: "(51)3040-5060",
-      owner_rg: "1010202030"
+      owner_cpf: "522.116.706-95"
     }.merge(params)
     MyMoip::CreditCard.new(params)
   end
