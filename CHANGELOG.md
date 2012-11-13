@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+**0.2.6**
+* Deprecate owner_rg attribute of MyMoip::CreditCard; you should provide a owner_cpf from now on. Should explain issues with Visa's risk analysis.
+
 **0.2.5**
 * Request's log messages moved to debug level.
 * Make CreditCard class accept string and symbol logos.
