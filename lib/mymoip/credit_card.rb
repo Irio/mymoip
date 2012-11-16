@@ -13,6 +13,7 @@ module MyMoip
     validates_length_of :owner_phone, within: 10..11
     validates_length_of :security_code, within: 3..4
     validates_format_of :expiration_date, with: /\A(?:(?:0[1-9])|(?:1[02]))\/\d{2}\Z/ # %m/%y
+    validates_inclusion_of :logo, in: AVAILABLE_LOGOS
 
     def initialize(attrs)
       self.logo            = attrs[:logo]            if attrs.has_key?(:logo)
@@ -26,6 +27,11 @@ module MyMoip
 
       # Deprecated attributes
       self.owner_rg        = attrs[:owner_rg]        if attrs.has_key?(:owner_rg)
+    end
+
+    def logo=(value)
+      value = value.to_sym unless value.nil?
+      @logo = value
     end
 
     def owner_birthday=(value)

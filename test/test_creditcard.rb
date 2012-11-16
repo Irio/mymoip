@@ -120,4 +120,21 @@ class TestCreditCard < Test::Unit::TestCase
     subject = Fixture.credit_card(expiration_date: "12/18")
     assert subject.valid? && subject.errors[:expiration_date].empty?, 'should accept "%m/%y" format'
   end
+
+  def test_converts_creditcard_string_logos_to_symbol
+    subject = Fixture.credit_card(logo: "visa")
+    assert_equal :visa, subject.logo
+  end
+
+  def test_accepts_any_creditcard_from_available_logos_constant
+    MyMoip::CreditCard::AVAILABLE_LOGOS.each do |logo|
+      subject = Fixture.credit_card(logo: logo)
+      assert subject.valid?, 'should be valid'
+    end
+  end
+
+  def test_dont_accept_logos_out_of_available_logos_constant
+    subject = Fixture.credit_card(logo: :unavailable_card)
+    assert subject.invalid? && subject.errors[:logo].present?, 'should not be valid'
+  end
 end
