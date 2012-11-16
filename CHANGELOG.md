@@ -1,32 +1,75 @@
 CHANGELOG
 =========
 
-**0.2.6**
+0.3.0
+-----
+
+* Add dependency of active_model gem for validations.
+* Try always to store the plain value of attributes. While the previous version would require you to provide phones in the `"(51)93040-5060"` format, now works even with `"051930405060"`.
+* Payer accepts address_state and address_country downcased.
+* CreditCard accept a valid string date as owner_birthday.
+* Extract conversions of attributes' formats to a new Formatter class.
+* Prevent use of CreditCardPayment#to_json with a invalid CreditCard.
+* Prevent use of Instruction#to_xml with invalid attributes by itself or a invalid Payer.
+
+New validations:
+* **CreditCard**
+    * Require a logo and a security_code.
+    * Validate length of owner_phone (accepts 8 and 9 digit phones with its DDD code).
+    * Validate length of security_code (American Express has 4 digits, others 3).
+    * Validate format of expiration_date using `%m/%y`.
+    * Limit logos in the available at AVAILABLE_LOGOS constant.
+* **Instruction**
+    * Require an id, payment_reason, values and a payer.
+* **Payer**
+    * Require and id, name, email, address_street, address_street_number, address_neighbourhood, address_city, address_state, address_country, address_cep and an address_phone.
+    * Validate length of address_state in 2 chars.
+    * Validate length of address_country in 3 chars.
+    * Validate length of address_cep in 8 chars.
+    * Validate length of address_phone (accepts 8 and 9 digit phones with its DDD code).
+
+0.2.6
+-----
+
 * Deprecate owner_rg attribute of MyMoip::CreditCard; you should provide a owner_cpf from now on. Should explain issues with Visa's risk analysis.
 
-**0.2.5**
+0.2.5
+-----
+
 * Request's log messages moved to debug level.
 * Make CreditCard class accept string and symbol logos.
 * Create MyMoip::CreditCard::AVAILABLE_LOGOS constant.
 * Standardise Request#api_call parameters.
 
-**0.2.4**
+0.2.4
+-----
+
 * Fix American Express logo format expected by Moip.
 
-**0.2.3**
+0.2.3
+-----
+
 * Remove .rvmrc
 * CreditCardPayment's initialization can now receive a hash of options.
 * lib/requests folder created.
 * Requests has methods to return its response id.
 
-**0.2.2**
+0.2.2
+-----
+
 * Explicitly require order for Requests classes.
 
-**0.2.1**
+0.2.1
+-----
+
 * Bugfix related to explicitly require MyMoip class being needed.
 
-**0.2.0**
+0.2.0
+-----
+
 * Update production url from `https://desenvolvedor.moip.com.br` to `https://www.moip.com.br`.
 
-**0.1.0**
+0.1.0
+-----
+
 * First version of the gem.
