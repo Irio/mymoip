@@ -113,4 +113,11 @@ class TestCreditCard < Test::Unit::TestCase
     subject = Fixture.credit_card(security_code: "1")
     assert subject.invalid? && subject.errors[:security_code].present?, 'should not be valid'
   end
+
+  def test_validate_format_of_expiration_date
+    subject = Fixture.credit_card(expiration_date: "12/2018")
+    assert subject.invalid? && subject.errors[:expiration_date].present?, 'should not accept other formats'
+    subject = Fixture.credit_card(expiration_date: "12/18")
+    assert subject.valid? && subject.errors[:expiration_date].empty?, 'should accept "%m/%y" format'
+  end
 end
