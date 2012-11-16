@@ -2,7 +2,7 @@ module MyMoip
   class Request
     include HTTParty
 
-    attr_reader :id, :data, :response
+    attr_reader :id, :response
 
     def initialize(id)
       @id = id

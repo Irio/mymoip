@@ -27,7 +27,7 @@ module MyMoip
             Nome:           credit_card.owner_name,
             DataNascimento: formatter.date(credit_card.owner_birthday),
             Telefone:       formatter.phone(credit_card.owner_phone),
-            Identidade:     credit_card.owner_rg
+            Identidade:     formatter.cpf(credit_card.owner_cpf)
           }
         }
       }

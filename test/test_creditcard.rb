@@ -10,7 +10,7 @@ class TestCreditCard < Test::Unit::TestCase
       owner_name: "Juquinha da Rocha",
       owner_birthday: Date.new(1984, 11, 3),
       owner_phone: "5130405060",
-      owner_rg: "1010202030"
+      owner_cpf: "522.116.706-95"
     )
 
     assert_equal :visa, subject.logo
@@ -20,7 +20,7 @@ class TestCreditCard < Test::Unit::TestCase
     assert_equal "Juquinha da Rocha", subject.owner_name
     assert_equal Date.new(1984, 11, 3), subject.owner_birthday
     assert_equal "5130405060", subject.owner_phone
-    assert_equal "1010202030", subject.owner_rg
+    assert_equal "52211670695", subject.owner_cpf
   end
 
   def test_validate_presence_of_logo_attribute
@@ -76,15 +76,26 @@ class TestCreditCard < Test::Unit::TestCase
     assert_equal '51930405060', subject.owner_phone
   end
 
-  def test_remove_dashes_from_owner_rg
+  def test_remove_dashes_from_owner_cpf
     subject = Fixture.credit_card
-    subject.owner_rg = '91122534-1'
-    assert_equal '911225341', subject.owner_rg
+    subject.owner_cpf = '522116706-95'
+    assert_equal '52211670695', subject.owner_cpf
   end
 
-  def test_remove_dots_from_owner_rg
+  def test_remove_dots_from_owner_cpf
     subject = Fixture.credit_card
-    subject.owner_rg = '91.122.5341'
-    assert_equal '911225341', subject.owner_rg
+    subject.owner_cpf = '522.116.70695'
+    assert_equal '52211670695', subject.owner_cpf
+  end
+
+  def test_warns_about_owner_rg_attribute_deprecation_on_initialization
+    MyMoip::CreditCard.any_instance.expects(:warn).with(regexp_matches(/is deprecated/))
+    subject = Fixture.credit_card(owner_rg: '1010202030')
+  end
+
+  def test_warns_about_owner_rg_attribute_deprecation_on_setter
+    subject = Fixture.credit_card
+    subject.expects(:warn).with(regexp_matches(/is deprecated/))
+    subject.owner_rg = '1010202030'
   end
 end

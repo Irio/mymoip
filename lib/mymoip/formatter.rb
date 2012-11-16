@@ -14,5 +14,10 @@ module MyMoip
       raise ArgumentError, 'Cannot format date nil' if plain_date.nil?
       plain_date.strftime("%d/%m/%Y")
     end
+
+    def self.cpf(plain_cpf)
+      raise ArgumentError, 'Cannot format cpf nil' if plain_cpf.nil?
+      plain_cpf.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
+    end
   end
 end

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://YOUR_MOIP_TOKEN:YOUR_MOIP_KEY@desenvolvedor.moip.com.br/sandbox/rest/pagamento?callback=?&pagamentoWidget=%7B%22pagamentoWidget%22:%7B%22referer%22:%22http://localhost/default%22,%22token%22:%22M2F021Z2U1O0C1X761K1S1N8C5D0J1V1S0O0F0Y0Q0B0V0A1J1O0C2P6Z965%22,%22dadosPagamento%22:%7B%22Forma%22:%22CartaoCredito%22,%22Parcelas%22:1,%22CartaoCredito%22:%7B%22Numero%22:%224916654211627608%22,%22Expiracao%22:%2206/15%22,%22CodigoSeguranca%22:%22000%22,%22Portador%22:%7B%22Nome%22:%22Juquinha%20da%20Rocha%22,%22DataNascimento%22:%2203/11/1984%22,%22Telefone%22:%22(51)3040-5060%22,%22Identidade%22:%221010202030%22%7D%7D,%22Instituicao%22:%22Visa%22,%22Recebimento%22:%22AVista%22%7D%7D%7D
+    uri: https://YOUR_MOIP_TOKEN:YOUR_MOIP_KEY@desenvolvedor.moip.com.br/sandbox/rest/pagamento?callback=?&pagamentoWidget=%7B%22pagamentoWidget%22:%7B%22referer%22:%22http://localhost/default%22,%22token%22:%22D2O0U1W2K1P1D1R2C2E3H0N3L5X3A2E4E3X0X030T090T0A1D1V2T8X500E3%22,%22dadosPagamento%22:%7B%22Forma%22:%22CartaoCredito%22,%22Parcelas%22:1,%22CartaoCredito%22:%7B%22Numero%22:%224916654211627608%22,%22Expiracao%22:%2206/15%22,%22CodigoSeguranca%22:%22000%22,%22Portador%22:%7B%22Nome%22:%22Juquinha%20da%20Rocha%22,%22DataNascimento%22:%2203/11/1984%22,%22Telefone%22:%22(51)3040-5060%22,%22Identidade%22:%22522.116.706-95%22%7D%7D,%22Instituicao%22:%22Visa%22,%22Recebimento%22:%22AVista%22%7D%7D%7D
     body:
       encoding: US-ASCII
       string: ''
@@ -13,11 +13,11 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 17 Oct 2012 18:23:26 GMT
+      - Tue, 13 Nov 2012 01:03:56 GMT
       Server:
       - Apache/2.2.23 (CentOS)
       Content-Length:
-      - '271'
+      - '272'
       Vary:
       - Accept-Encoding
       Content-Type:
@@ -29,9 +29,9 @@ http_interactions:
         b3JubyI6IiIsIlRheGFNb0lQIjoiMTUuMTkiLCJTdGF0dXNQYWdhbWVudG8i
         OiJTdWNlc3NvIiwiQ2xhc3NpZmljYWNhbyI6eyJDb2RpZ28iOjk5OSwiRGVz
         Y3JpY2FvIjoiTsOjbyBzdXBvcnRhZG8gbm8gYW1iaWVudGUgU2FuZGJveCJ9
-        LCJDb2RpZ29Nb0lQIjo5NTY5NSwiTWVuc2FnZW0iOiJSZXF1aXNpw6fDo28g
-        cHJvY2Vzc2FkYSBjb20gc3VjZXNzbyIsIlRvdGFsUGFnbyI6IjIwMC4wMCJ9
-        KQ==
+        LCJDb2RpZ29Nb0lQIjoxMDI1OTYsIk1lbnNhZ2VtIjoiUmVxdWlzacOnw6Nv
+        IHByb2Nlc3NhZGEgY29tIHN1Y2Vzc28iLCJUb3RhbFBhZ28iOiIyMDAuMDAi
+        fSk=
     http_version:
-  recorded_at: Wed, 17 Oct 2012 18:21:35 GMT
+  recorded_at: Tue, 13 Nov 2012 01:01:06 GMT
 recorded_with: VCR 2.2.5

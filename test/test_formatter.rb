@@ -35,4 +35,15 @@ class TestFormatter < Test::Unit::TestCase
       MyMoip::Formatter.date(nil)
     end
   end
+
+  def test_cpf_method_returns_the_given_number_with_section_separators
+    cpf = '522.116.706-95'
+    assert_equal '522.116.706-95', MyMoip::Formatter.cpf('52211670695')
+  end
+
+  def test_cpf_method_raises_exception_with_nil_cpf_given
+    assert_raise ArgumentError do
+      MyMoip::Formatter.cpf(nil)
+    end
+  end
 end

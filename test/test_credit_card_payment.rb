@@ -48,7 +48,7 @@ class TestCreditCardPayment < Test::Unit::TestCase
     MyMoip::Formatter.stubs(:date).returns('03/11/1980')
     assert_equal '03/11/1980', payment.to_json[:CartaoCredito][:Portador][:DataNascimento]
     assert_match /\A\(\d{2}\)\d{4,5}-\d{4}/, payment.to_json[:CartaoCredito][:Portador][:Telefone]
-    assert_match /\A\d+\z/, payment.to_json[:CartaoCredito][:Portador][:Identidade]
+    assert_match /\A\d{3}\.\d{3}\.\d{3}\-\d{2}\z/, payment.to_json[:CartaoCredito][:Portador][:Identidade]
   end
 
   def test_to_json_should_accept_any_creditcard_from_available_logos_constant
