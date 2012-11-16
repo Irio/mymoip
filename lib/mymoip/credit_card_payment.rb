@@ -22,14 +22,18 @@ module MyMoip
         CartaoCredito: {
           Numero:           credit_card.card_number,
           Expiracao:        credit_card.expiration_date,
-          CodigoSeguranca:  credit_card.security_code,
-          Portador: {
-            Nome:           credit_card.owner_name,
-            DataNascimento: formatter.date(credit_card.owner_birthday),
-            Telefone:       formatter.phone(credit_card.owner_phone),
-            Identidade:     formatter.cpf(credit_card.owner_cpf)
-          }
+          CodigoSeguranca:  credit_card.security_code
         }
+      }
+
+      json[:CartaoCredito][:Portador] = {
+        Nome: credit_card.owner_name,
+        DataNascimento: (credit_card.owner_birthday and
+                         formatter.date(credit_card.owner_birthday)),
+        Telefone: (credit_card.owner_phone and
+                   formatter.phone(credit_card.owner_phone)),
+        Identidade: (credit_card.owner_cpf and
+                     formatter.cpf(credit_card.owner_cpf))
       }
 
       json[:Instituicao] = {

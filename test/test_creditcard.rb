@@ -43,6 +43,11 @@ class TestCreditCard < Test::Unit::TestCase
       'should be invalid without an security_code'
   end
 
+  def test_accept_nil_owner_phone
+    subject = Fixture.credit_card(owner_phone: nil)
+    assert subject.valid?, 'should be valid'
+  end
+
   def test_validate_length_of_owner_phone_attribute_in_10_or_11_chars
     subject = Fixture.credit_card
     subject.owner_phone = '5130405060'
@@ -86,6 +91,11 @@ class TestCreditCard < Test::Unit::TestCase
     subject = Fixture.credit_card
     subject.owner_cpf = '522.116.70695'
     assert_equal '52211670695', subject.owner_cpf
+  end
+
+  def test_accept_nil_owner_cpf
+    subject = Fixture.credit_card(owner_cpf: nil)
+    assert subject.valid?, 'should be valid'
   end
 
   def test_warns_about_owner_rg_attribute_deprecation_on_initialization

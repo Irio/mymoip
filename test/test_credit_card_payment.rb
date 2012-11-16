@@ -66,6 +66,14 @@ class TestCreditCardPayment < Test::Unit::TestCase
     subject.to_json(formatter)
   end
 
+  def test_to_json_method_skip_formatting_when_credit_cards_owner_birthday_is_nil
+    subject = MyMoip::CreditCardPayment.new(Fixture.credit_card(owner_birthday: nil))
+    formatter = stub_everything('formatter')
+    formatter.stubs(:date).with(nil).returns('should not be here')
+    json = subject.to_json(formatter)
+    assert_nil json[:CartaoCredito][:Portador][:DataNascimento]
+  end
+
   def test_to_json_method_uses_the_formatted_version_of_the_credit_cards_owner_phone
     subject = MyMoip::CreditCardPayment.new(Fixture.credit_card(owner_phone: '5130405060'))
     formatter = stub_everything('formatter')
@@ -73,11 +81,27 @@ class TestCreditCardPayment < Test::Unit::TestCase
     subject.to_json(formatter)
   end
 
+  def test_to_json_method_skip_formatting_when_credit_cards_owner_phone_is_nil
+    subject = MyMoip::CreditCardPayment.new(Fixture.credit_card(owner_phone: nil))
+    formatter = stub_everything('formatter')
+    formatter.stubs(:phone).with(nil).returns('should not be here')
+    json = subject.to_json(formatter)
+    assert_nil json[:CartaoCredito][:Portador][:Telefone]
+  end
+
   def test_to_json_method_raises_an_exception_when_called_without_a_credit_card
     subject = MyMoip::CreditCardPayment.new(nil)
     assert_raise RuntimeError do
       subject.to_json
     end
+  end
+
+  def test_to_json_method_skip_formatting_when_credit_cards_owner_cpf_is_nil
+    subject = MyMoip::CreditCardPayment.new(Fixture.credit_card(owner_cpf: nil))
+    formatter = stub_everything('formatter')
+    formatter.stubs(:cpf).with(nil).returns('should not be here')
+    json = subject.to_json(formatter)
+    assert_nil json[:CartaoCredito][:Portador][:Identidade]
   end
 
   def test_to_json_method_raises_an_exception_when_called_with_a_invalid_credit_card

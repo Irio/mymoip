@@ -10,7 +10,7 @@ module MyMoip
     ]
 
     validates_presence_of :logo, :security_code
-    validates_length_of :owner_phone, within: 10..11
+    validates_length_of :owner_phone, within: 10..11, allow_nil: true
     validates_length_of :security_code, within: 3..4
     validates_format_of :expiration_date, with: /\A(?:(?:0[1-9])|(?:1[02]))\/\d{2}\Z/ # %m/%y
     validates_inclusion_of :logo, in: AVAILABLE_LOGOS
