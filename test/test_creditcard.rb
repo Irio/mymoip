@@ -98,4 +98,19 @@ class TestCreditCard < Test::Unit::TestCase
     subject.expects(:warn).with(regexp_matches(/is deprecated/))
     subject.owner_rg = '1010202030'
   end
+
+  def test_accepts_security_codes_of_3_digits
+    subject = Fixture.credit_card(security_code: "180")
+    assert subject.valid?, 'should be valid'
+  end
+
+  def test_accepts_security_codes_of_4_digits
+    subject = Fixture.credit_card(security_code: "1809")
+    assert subject.valid?, 'should be valid'
+  end
+
+  def test_dont_accept_security_codes_of_neither_3_or_4_digits
+    subject = Fixture.credit_card(security_code: "1")
+    assert subject.invalid? && subject.errors[:security_code].present?, 'should not be valid'
+  end
 end
