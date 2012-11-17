@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.3.1
+-----
+
+* Re-releasing 0.3.0 after some Rubygems issues.
+
 0.3.0
 -----
 
