@@ -3,17 +3,18 @@ module MyMoip
     attr_accessor :credit_card, :installments
 
     def initialize(credit_card, opts = {})
-      @credit_card = credit_card
+      self.credit_card = credit_card
       # Backward compatibility. See 0.2.3 CHANGELOG
-      @installments = if opts.kind_of?(Integer)
-                       opts
-                     else
-                       opts[:installments] || 1
-                     end
+      self.installments = if opts.kind_of?(Integer)
+                            opts
+                          else
+                            opts[:installments] || 1
+                          end
     end
 
-    def to_json
+    def to_json(formatter = MyMoip::Formatter)
       raise "No CreditCard provided" if credit_card.nil?
+      raise ArgumentError, 'Invalid credit card' if credit_card.invalid?
 
       json = {
         Forma:        "CartaoCredito",
@@ -21,14 +22,18 @@ module MyMoip
         CartaoCredito: {
           Numero:           credit_card.card_number,
           Expiracao:        credit_card.expiration_date,
-          CodigoSeguranca:  credit_card.security_code,
-          Portador: {
-            Nome:           credit_card.owner_name,
-            DataNascimento: credit_card.owner_birthday.strftime("%d/%m/%Y"),
-            Telefone:       credit_card.owner_phone,
-            Identidade:     credit_card.owner_cpf
-          }
+          CodigoSeguranca:  credit_card.security_code
         }
+      }
+
+      json[:CartaoCredito][:Portador] = {
+        Nome: credit_card.owner_name,
+        DataNascimento: (credit_card.owner_birthday and
+                         formatter.date(credit_card.owner_birthday)),
+        Telefone: (credit_card.owner_phone and
+                   formatter.phone(credit_card.owner_phone)),
+        Identidade: (credit_card.owner_cpf and
+                     formatter.cpf(credit_card.owner_cpf))
       }
 
       json[:Instituicao] = {
@@ -37,7 +42,7 @@ module MyMoip
         hipercard:        "Hipercard",
         mastercard:       "Mastercard",
         visa:             "Visa"
-      }.fetch(credit_card.logo.to_sym)
+      }.fetch(credit_card.logo)
 
       if cash?
         json[:Recebimento] = "AVista"

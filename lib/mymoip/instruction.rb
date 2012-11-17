@@ -1,15 +1,21 @@
 module MyMoip
   class Instruction
+    include ActiveModel::Validations
+
     attr_accessor :id, :payment_reason, :values, :payer
 
+    validates_presence_of :id, :payment_reason, :values, :payer
+
     def initialize(attrs)
-      @id             = attrs[:id]             if attrs.has_key?(:id)
-      @payment_reason = attrs[:payment_reason] if attrs.has_key?(:payment_reason)
-      @values         = attrs[:values]         if attrs.has_key?(:values)
-      @payer          = attrs[:payer]          if attrs.has_key?(:payer)
+      self.id             = attrs[:id]             if attrs.has_key?(:id)
+      self.payment_reason = attrs[:payment_reason] if attrs.has_key?(:payment_reason)
+      self.values         = attrs[:values]         if attrs.has_key?(:values)
+      self.payer          = attrs[:payer]          if attrs.has_key?(:payer)
     end
 
     def to_xml(root = nil)
+      raise ArgumentError, 'Invalid payer' if payer.invalid?
+      raise ArgumentError, 'Invalid params for instruction' if self.invalid?
 
       xml  = ""
       root = Builder::XmlMarkup.new(target: xml)

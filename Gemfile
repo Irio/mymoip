@@ -8,6 +8,7 @@ source "http://rubygems.org"
 
 gem "builder"
 gem "httparty"
+gem "activemodel"
 
 group :development do
   gem "rdoc", "~> 3.12"

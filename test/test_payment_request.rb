@@ -71,7 +71,7 @@ class TestPaymentRequest < Test::Unit::TestCase
   end
 
   def test_method_to_get_moip_code
-    instruction = Fixture.instruction(Fixture.payer)
+    instruction = Fixture.instruction(payer: Fixture.payer)
     transparent_request = MyMoip::TransparentRequest.new("your_own_id")
     VCR.use_cassette('transparent_request') do
       transparent_request.api_call(instruction)
@@ -85,7 +85,7 @@ class TestPaymentRequest < Test::Unit::TestCase
   end
 
   def test_code_method_should_return_nil_with_blank_response
-    instruction = Fixture.instruction(Fixture.payer)
+    instruction = Fixture.instruction(payer: Fixture.payer)
     transparent_request = MyMoip::TransparentRequest.new("your_own_id")
     VCR.use_cassette('transparent_request') do
       transparent_request.api_call(instruction)

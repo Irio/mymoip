@@ -47,9 +47,9 @@ payer = MyMoip::Payer.new(
   address_city: "Porto Alegre",
   address_state: "RS",
   address_country: "BRA",
-  address_cep: "90440-150",
-  address_phone: "(51)3040-5060"
-) # 9 digit phones must be in "(11)93040-5060" format
+  address_cep: "90440150",
+  address_phone: "5130405060"
+)
 
 instruction = MyMoip::Instruction.new(
   id: "instruction_id_defined_by_you",
@@ -71,8 +71,8 @@ credit_card = MyMoip::CreditCard.new(
   security_code: "000",
   owner_name: "Juquinha da Rocha",
   owner_birthday: Date.new(1984, 11, 3),
-  owner_phone: "(51)3040-5060",
-  owner_cpf: "522.116.706-95"
+  owner_phone: "5130405060",
+  owner_cpf: "52211670695"
 )
 
 credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
@@ -84,6 +84,11 @@ payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```ruby
 payment_request.success?
 ```
+
+Documentation
+-------------
+
+For more information you can access the [wiki page](https://github.com/Irio/mymoip/wiki).
 
 License
 -------
