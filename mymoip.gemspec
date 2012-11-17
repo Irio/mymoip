@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mymoip"
-  s.version = "0.2.6"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2012-11-13"
+  s.date = "2012-11-17"
   s.description = "Provides a implementation of MoIP's transparent checkout."
   s.email = "irio.musskopf@caixadeideias.com.br"
   s.extra_rdoc_files = [
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
     "lib/mymoip.rb",
     "lib/mymoip/credit_card.rb",
     "lib/mymoip/credit_card_payment.rb",
+    "lib/mymoip/formatter.rb",
     "lib/mymoip/instruction.rb",
     "lib/mymoip/json_parser.rb",
     "lib/mymoip/payer.rb",
@@ -42,6 +43,7 @@ Gem::Specification.new do |s|
     "test/live_test.rb",
     "test/test_credit_card_payment.rb",
     "test/test_creditcard.rb",
+    "test/test_formatter.rb",
     "test/test_instruction.rb",
     "test/test_mymoip.rb",
     "test/test_payer.rb",
@@ -61,6 +63,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<builder>, [">= 0"])
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
+      s.add_runtime_dependency(%q<activemodel>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
@@ -71,6 +74,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
+      s.add_dependency(%q<activemodel>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
@@ -82,6 +86,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<builder>, [">= 0"])
     s.add_dependency(%q<httparty>, [">= 0"])
+    s.add_dependency(%q<activemodel>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
