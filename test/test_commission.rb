@@ -70,4 +70,28 @@ class TestCommission < Test::Unit::TestCase
            "should be invalid if not within (0..100)"
   end
 
+  def test_xml_format_with_fixed_value
+    subject = Fixture.commission fixed_value: 5
+    expected_format = <<XML
+<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento>
+XML
+    assert_equal expected_format.rstrip, subject.to_xml
+  end
+
+  def test_xml_format_with_percentage_value
+    subject = Fixture.commission percentage_value: 5, fixed_value: nil
+    expected_format = <<XML
+<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>5</ValorPercentual></Comissionamento>
+XML
+    assert_equal expected_format.rstrip, subject.to_xml
+  end
+
+  def test_xml_method_raises_exception_when_called_with_invalid_params
+    subject = Fixture.commission
+    subject.stubs(:invalid?).returns(true)
+    assert_raise ArgumentError do
+      subject.to_xml
+    end
+  end
+
 end

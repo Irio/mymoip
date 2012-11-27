@@ -24,5 +24,18 @@ module MyMoip
       end
     end
 
+    def to_xml
+      raise ArgumentError, "Invalid params for Commission" if invalid?
+      xml  = ""
+      root = Builder::XmlMarkup.new(target: xml)
+      root.Comissionamento do |n1|
+        n1.Razao reason
+        n1.Comissionado {|n2| n2.LoginMoIP(commissioned)}
+        n1.ValorFixo fixed_value  if fixed_value
+        n1.ValorPercentual percentage_value if percentage_value
+      end
+      xml
+    end
+
   end
 end
