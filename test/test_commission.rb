@@ -27,7 +27,7 @@ class TestCommission < Test::Unit::TestCase
            "should be invalid without a commissioned"
   end
 
-  def test_validate_presence_of_fixed_value_xor_percentage_value
+  def test_validate_presence_of_fixed_value_or_percentage_value
     subject = Fixture.commission(fixed_value: nil, percentage_value: nil)
 
     assert subject.invalid? && subject.errors[:fixed_value].present?,
@@ -37,11 +37,16 @@ class TestCommission < Test::Unit::TestCase
            "should be invalid without a percentage value"
 
     subject.fixed_value = 2
-    subject.percentage_value = 2
+    assert subject.valid?, "should be valid with only fixed value set"
 
-    assert subject.invalid? && subject.errors[:percentage_value].present? && subject.errors[:fixed_value].present?,
-           "should be invalid with fixed and percentage value set"
+    subject.fixed_value = nil
+    subject.percentage_value = 2
+    assert subject.valid?, "should be valid with only percentage value set"
+
+    subject.fixed_value = subject.percentage_value
+    assert subject.valid?, "should be valid with both values set"
   end
+
 
   def test_validate_numericality_of_fixed_value
     subject = Fixture.commission fixed_value: "I'm not a number"
