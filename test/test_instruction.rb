@@ -127,6 +127,14 @@ XML
     end
   end
 
+  def test_validate_no_presence_of_payment_receiver_in_commissions
+    commissions = [Fixture.commission(commissioned: 'payment_receiver_id')]
+    subject = Fixture.instruction payment_receiver: 'payment_receiver_id', commissions: commissions
+    assert subject.invalid? &&  subject.errors[:payment_receiver].present?,
+           "should be invalid with receiver present on commissions"
+
+  end
+
   def test_validate_presence_of_payment_receiver_nickname
     subject = Fixture.instruction payment_receiver: 'payment_receiver_id'
     assert subject.invalid? && subject.errors[:payment_receiver_nickname].present?,

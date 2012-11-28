@@ -8,6 +8,7 @@ module MyMoip
     validates_presence_of :id, :payment_reason, :values, :payer
     validates_presence_of :payment_receiver_nickname, if: -> {self.payment_receiver}
     validate :commissions_value_must_be_lesser_than_values
+    validate :payment_receiver_presence_in_commissions
 
     def initialize(attrs)
       self.id             = attrs[:id]             if attrs.has_key?(:id)
@@ -60,8 +61,13 @@ module MyMoip
     protected
 
     def commissions_value_must_be_lesser_than_values
-        errors.add :commissions,
-                   "Instruction invalid. Commissions value is greater than instruction value" if commissions_sum > values_sum
+      errors.add :commissions,
+                 "Instruction invalid. Commissions value sum is greater than instruction value sum" if commissions_sum > values_sum
+    end
+
+    def payment_receiver_presence_in_commissions
+      errors.add :payment_receiver,
+                 "Instruction invalid. Payment receiver can't be commissioned" if commissions.detect {|c| c.commissioned == payment_receiver}
     end
 
     def commissions_to_xml(node)
