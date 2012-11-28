@@ -135,12 +135,6 @@ XML
 
   end
 
-  def test_validate_presence_of_payment_receiver_nickname
-    subject = Fixture.instruction payment_receiver: 'payment_receiver_id'
-    assert subject.invalid? && subject.errors[:payment_receiver_nickname].present?,
-           "should be invalid with payment receiver without nickname"
-  end
-
   def test_values_sum
     subject = Fixture.instruction(values: [6, 5])
     assert_equal 6 + 5, subject.values_sum

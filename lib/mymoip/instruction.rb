@@ -6,7 +6,6 @@ module MyMoip
                     :commissions, :fee_payer, :payment_receiver, :payment_receiver_nickname
 
     validates_presence_of :id, :payment_reason, :values, :payer
-    validates_presence_of :payment_receiver_nickname, if: -> {self.payment_receiver}
     validate :commissions_value_must_be_lesser_than_values
     validate :payment_receiver_presence_in_commissions
 
