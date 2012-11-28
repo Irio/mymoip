@@ -4,8 +4,8 @@ module MyMoip
     attr_accessor :reason, :commissioned, :fixed_value, :percentage_value
 
     validates_presence_of :reason, :commissioned
-    validates_presence_of :fixed_value, if: -> {percentage_value == nil}
-    validates_presence_of :percentage_value, if: -> {fixed_value == nil}
+    validates_presence_of :fixed_value, if: -> {percentage_value.nil?}
+    validates_presence_of :percentage_value, if: -> {fixed_value.nil?}
     validates_numericality_of :fixed_value, greater_than_or_equal_to: 0, allow_nil:true
     validates_numericality_of :percentage_value, greater_than_or_equal_to:0, less_than_or_equal_to:100, allow_nil:true
 

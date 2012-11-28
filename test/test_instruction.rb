@@ -127,6 +127,30 @@ XML
     end
   end
 
+  def test_validate_presence_of_payment_receiver_nickname
+    subject = Fixture.instruction payment_receiver: 'payment_receiver_id'
+    assert subject.invalid? && subject.errors[:payment_receiver_nickname].present?,
+           "should be invalid with payment receiver without nickname"
+  end
+
+  def test_values_sum
+    subject = Fixture.instruction(values: [6, 5])
+    assert_equal 6 + 5, subject.values_sum
+  end
+
+  def test_commissions_sum
+    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:10, fixed_value:nil)]
+    subject = Fixture.instruction(commissions: commissions, values: [10])
+    assert_equal 6, subject.commissions_sum
+  end
+
+  def test_validate_commissions_sum
+    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(fixed_value: 5)]
+    subject = Fixture.instruction(commissions: commissions, values: [6])
+    assert subject.invalid? && subject.errors[:commissions].present?,
+           "should be invalid with commissions sum greater than values sum"
+  end
+
   def test_validate_presence_of_id_attribute
     subject = Fixture.instruction
     subject.id = nil
