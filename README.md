@@ -88,12 +88,12 @@ payment_request.success?
 **Commission Feature**
 
 ```ruby
-commissions = [MyMoip::Commission.new {
+commissions = [MyMoip::Commission.new({
   reason: 'Because we can',
-  commissioned: 'commissioned_moip_login',
+  receiver_login: 'commissioned_moip_login',
   fixed_value: 23.4,
   percentage_value: 20
-}]
+})]
 
 instruction = MyMoip::Instruction.new(
   id: "instruction_id_defined_by_you",
@@ -101,9 +101,9 @@ instruction = MyMoip::Instruction.new(
   values: [100.0],
   payer: payer,
   commissions: commissions,
-  fee_payer: 'fee_payer_moip_login', # Not mandatory
-  payment_receiver: 'payment_receiver_moip_login', #Not mandatory
-  payment_receiver_nickname: 'payment_receiver_nickname'  #Not mandatory
+  fee_payer_login: 'fee_payer_moip_login', # Not mandatory
+  payment_receiver_login: 'payment_receiver_moip_login', #Not mandatory
+  payment_receiver_name: 'payment_receiver_nickname'  #Not mandatory
 )
 ```
 
