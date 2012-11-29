@@ -67,6 +67,6 @@ class TestTransparentRequest < Test::Unit::TestCase
     VCR.use_cassette('transparent_request_with_commissions') do
       request.api_call Fixture.instruction(commissions: [Fixture.commission])
     end
-    assert_equal "201211281220497180000001185344", request.id
+    assert_equal "YOUR_REQUEST_ID", request.id
   end
 end

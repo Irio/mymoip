@@ -29,7 +29,7 @@ http_interactions:
       - text/xml;charset=UTF-8
     body:
       encoding: US-ASCII
-      string: <ns1:EnviarInstrucaoUnicaResponse xmlns:ns1="http://www.moip.com.br/ws/alpha/"><Resposta><ID>201211281220497180000001185344</ID><Status>Sucesso</Status><Token>E2O0U1W2K1P1D1R2C2E3H0N3L5X3A2E4E3X0X030T090T0ATOKENQUALQUER</Token></Resposta></ns1:EnviarInstrucaoUnicaResponse>
+      string: <ns1:EnviarInstrucaoUnicaResponse xmlns:ns1="http://www.moip.com.br/ws/alpha/"><Resposta><ID>YOUR_REQUEST_ID</ID><Status>Sucesso</Status><Token>YOUR_MOIP_TOKEN</Token></Resposta></ns1:EnviarInstrucaoUnicaResponse>
     http_version: 
   recorded_at: Wed, 28 Nov 2012 14:17:23 GMT
 recorded_with: VCR 2.2.5
