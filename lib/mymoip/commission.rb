@@ -1,9 +1,9 @@
 module MyMoip
   class Commission
     include ActiveModel::Validations
-    attr_accessor :reason, :commissioned, :fixed_value, :percentage_value
+    attr_accessor :reason, :receiver_login, :fixed_value, :percentage_value
 
-    validates_presence_of :reason, :commissioned
+    validates_presence_of :reason, :receiver_login
     validates_presence_of :fixed_value, if: -> {percentage_value.nil?}
     validates_presence_of :percentage_value, if: -> {fixed_value.nil?}
     validates_numericality_of :fixed_value, greater_than_or_equal_to: 0, allow_nil:true
@@ -11,7 +11,7 @@ module MyMoip
 
     def initialize(args)
       self.reason = args[:reason]
-      self.commissioned = args[:commissioned]
+      self.receiver_login = args[:receiver_login]
       self.fixed_value = args[:fixed_value]
       self.percentage_value = args[:percentage_value]
     end
@@ -26,7 +26,7 @@ module MyMoip
 
       root.Comissionamento do |n1|
         n1.Razao reason
-        n1.Comissionado {|n2| n2.LoginMoIP(commissioned)}
+        n1.Comissionado {|n2| n2.LoginMoIP(receiver_login)}
         n1.ValorFixo fixed_value  if fixed_value
         n1.ValorPercentual percentage_value if percentage_value
       end

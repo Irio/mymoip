@@ -44,7 +44,7 @@ class Fixture
   def self.commission(params = {})
     params = {
         reason: 'Because we can',
-        commissioned: 'commissioned_indentifier',
+        receiver_login: 'commissioned_indentifier',
         fixed_value: 23.4
     }.merge(params)
     MyMoip::Commission.new(params)

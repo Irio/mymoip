@@ -4,13 +4,13 @@ class TestCommission < Test::Unit::TestCase
   def test_initialization_and_setters
     params = {
         reason: 'Because we can',
-        commissioned: 'comissioned_indentifier',
+        receiver_login: 'comissioned_indentifier',
         fixed_value: 23.5,
         percentage_value: 12.67
     }
     subject = MyMoip::Commission.new params
     assert_equal params[:reason], subject.reason
-    assert_equal params[:commissioned], subject.commissioned
+    assert_equal params[:receiver_login], subject.receiver_login
     assert_equal params[:fixed_value], subject.fixed_value
     assert_equal params[:percentage_value], subject.percentage_value
   end
@@ -21,10 +21,10 @@ class TestCommission < Test::Unit::TestCase
            "should be invalid without a reason"
   end
 
-  def test_validate_presence_of_commissioned
-    subject = Fixture.commission(commissioned: nil)
-    assert subject.invalid? && subject.errors[:commissioned].present?,
-           "should be invalid without a commissioned"
+  def test_validate_presence_of_receiver_login
+    subject = Fixture.commission(receiver_login: nil)
+    assert subject.invalid? && subject.errors[:receiver_login].present?,
+           "should be invalid without a receiver_login"
   end
 
   def test_validate_presence_of_fixed_value_or_percentage_value
