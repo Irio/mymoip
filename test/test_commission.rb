@@ -8,7 +8,7 @@ class TestCommission < Test::Unit::TestCase
         fixed_value: 23.5,
         percentage_value: 12.67
     }
-    subject = MyMoip::Commission.new params
+    subject = MyMoip::Commission.new(params)
     assert_equal params[:reason], subject.reason
     assert_equal params[:receiver_login], subject.receiver_login
     assert_equal params[:fixed_value], subject.fixed_value

@@ -47,14 +47,13 @@ module MyMoip
     end
 
     def commissions_sum
-      commissions.inject(0) do |sum, c|
+      commissions.reduce(0) do |sum, c|
         sum + (c.fixed_value || 0) + values_sum * ( (c.percentage_value || 0) / 100.0)
       end
     end
 
     def values_sum
-      return values.inject(0){|sum,value| sum + value} if values
-      return 0
+      values ? values.reduce(0) {|sum,value| sum + value} : 0
     end
 
     protected
@@ -66,7 +65,7 @@ module MyMoip
 
     def payment_receiver_presence_in_commissions
       errors.add :payment_receiver_login,
-                 "Instruction invalid. Payment receiver can't be commissioned" if commissions.detect {|c| c.commissioned == payment_receiver_login}
+                 "Instruction invalid. Payment receiver can't be commissioned" if commissions.find {|c| c.receiver_login == payment_receiver_login}
     end
 
     def commissions_to_xml(node)

@@ -89,7 +89,7 @@ XML
   def test_to_xml_method_raises_exception_when_called_with_some_invalid_comission
     invalid_commission = Fixture.commission
     invalid_commission.stubs(:invalid?).returns(true)
-    subject = Fixture.instruction commissions: [Fixture.commission, invalid_commission]
+    subject = Fixture.instruction(commissions: [Fixture.commission, invalid_commission])
     assert_raise ArgumentError do
       subject.to_xml
     end
@@ -128,8 +128,8 @@ XML
   end
 
   def test_validate_no_presence_of_payment_receiver_in_commissions
-    commissions = [Fixture.commission(commissioned: 'payment_receiver_id')]
-    subject = Fixture.instruction payment_receiver_login: 'payment_receiver_id', commissions: commissions
+    commissions = [Fixture.commission(receiver_login: 'payment_receiver_id')]
+    subject = Fixture.instruction(payment_receiver_login: 'payment_receiver_id', commissions: commissions)
     assert subject.invalid? &&  subject.errors[:payment_receiver_login].present?,
            "should be invalid with receiver present on commissions"
 
