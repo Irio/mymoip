@@ -10,9 +10,9 @@ class TestInstruction < Test::Unit::TestCase
       values: [100.0, 200.0],
       payer: payer,
       commissions: commissions,
-      fee_payer: "fee_payer_indentifier",
-      payment_receiver: "payment_receiver_indentifier",
-      payment_receiver_nickname: "nick_fury"
+      fee_payer_login: "fee_payer_login",
+      payment_receiver_login: "payment_receiver_login",
+      payment_receiver_name: "nick_fury"
     )
 
     assert_equal "some id", instruction.id
@@ -20,9 +20,9 @@ class TestInstruction < Test::Unit::TestCase
     assert_equal [100.0, 200.0], instruction.values
     assert_equal payer, instruction.payer
     assert_equal commissions, instruction.commissions
-    assert_equal "fee_payer_indentifier", instruction.fee_payer
-    assert_equal "payment_receiver_indentifier", instruction.payment_receiver
-    assert_equal "nick_fury", instruction.payment_receiver_nickname
+    assert_equal "fee_payer_login", instruction.fee_payer_login
+    assert_equal "payment_receiver_login", instruction.payment_receiver_login
+    assert_equal "nick_fury", instruction.payment_receiver_name
   end
 
   def test_should_generate_a_string_when_converting_to_xml
@@ -54,7 +54,7 @@ XML
   def test_xml_format_with_commissions_and_fee_payer
     commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:20,fixed_value:nil)]
     payer       = Fixture.payer
-    instruction = Fixture.instruction(payer: payer, commissions: commissions, fee_payer: 'fee_payer_indentifier')
+    instruction = Fixture.instruction(payer: payer, commissions: commissions, fee_payer_login: 'fee_payer_indentifier')
     expected_format = <<XML
 <EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>20</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
@@ -65,8 +65,8 @@ XML
     commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:20,fixed_value:nil)]
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer, commissions: commissions,
-                                      payment_receiver:'payment_receiver_indentifier',
-                                      payment_receiver_nickname: 'nick_fury' )
+                                      payment_receiver_login:'payment_receiver_indentifier',
+                                      payment_receiver_name: 'nick_fury' )
     expected_format = <<XML
 <EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>20</ValorPercentual></Comissionamento></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
@@ -77,9 +77,9 @@ XML
     commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:20,fixed_value:nil)]
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer, commissions: commissions,
-                                      payment_receiver:'payment_receiver_indentifier',
-                                      payment_receiver_nickname: 'nick_fury',
-                                      fee_payer: 'fee_payer_indentifier')
+                                      payment_receiver_login:'payment_receiver_indentifier',
+                                      payment_receiver_name: 'nick_fury',
+                                      fee_payer_login: 'fee_payer_indentifier')
     expected_format = <<XML
 <EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>20</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
@@ -129,8 +129,8 @@ XML
 
   def test_validate_no_presence_of_payment_receiver_in_commissions
     commissions = [Fixture.commission(commissioned: 'payment_receiver_id')]
-    subject = Fixture.instruction payment_receiver: 'payment_receiver_id', commissions: commissions
-    assert subject.invalid? &&  subject.errors[:payment_receiver].present?,
+    subject = Fixture.instruction payment_receiver_login: 'payment_receiver_id', commissions: commissions
+    assert subject.invalid? &&  subject.errors[:payment_receiver_login].present?,
            "should be invalid with receiver present on commissions"
 
   end
