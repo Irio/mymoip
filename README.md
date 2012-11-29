@@ -85,6 +85,28 @@ payment_request.api_call(credit_card_payment, token: transparent_request.token)
 payment_request.success?
 ```
 
+**Commission Feature**
+
+```ruby
+commissions = [MyMoip::Commission.new({
+  reason: 'Because we can',
+  receiver_login: 'commissioned_moip_login',
+  fixed_value: 23.4,
+  percentage_value: 20
+})]
+
+instruction = MyMoip::Instruction.new(
+  id: "instruction_id_defined_by_you",
+  payment_reason: "Order in Buy Everything Store",
+  values: [100.0],
+  payer: payer,
+  commissions: commissions,
+  fee_payer_login: 'fee_payer_moip_login', # Not mandatory
+  payment_receiver_login: 'payment_receiver_moip_login', #Not mandatory
+  payment_receiver_name: 'payment_receiver_nickname'  #Not mandatory
+)
+```
+
 Documentation
 -------------
 

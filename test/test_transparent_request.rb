@@ -61,4 +61,12 @@ class TestTransparentRequest < Test::Unit::TestCase
     end
     assert_equal "201210171118501100000001102691", request.id
   end
+
+  def test_should_provide_the_transaction_id_get_by_the_request_with_commissions_feature
+    request = MyMoip::TransparentRequest.new("some_id")
+    VCR.use_cassette('transparent_request_with_commissions') do
+      request.api_call Fixture.instruction(commissions: [Fixture.commission])
+    end
+    assert_equal "YOUR_REQUEST_ID", request.id
+  end
 end
