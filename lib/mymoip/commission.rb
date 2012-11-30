@@ -20,6 +20,16 @@ module MyMoip
       self.percentage_value = attrs[:percentage_value]
     end
 
+    def gross_amount(instruction)
+      if fixed_value
+        fixed_value
+      elsif percentage_value
+        percentage_value * instruction.gross_amount
+      else
+        raise ArgumentError, 'Cannot give gross_amount without fixed_value or percentage_value'
+      end
+    end
+
     def to_xml(root = nil)
       raise ArgumentError, "Invalid params for Commission" if invalid?
 

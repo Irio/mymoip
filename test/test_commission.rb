@@ -75,6 +75,26 @@ class TestCommission < Test::Unit::TestCase
            "should be invalid if greater than 1"
   end
 
+  def test_gross_amount_is_equal_to_fixed_value_when_this_is_present
+    instruction = Fixture.instruction
+    subject = Fixture.commission(fixed_value: 5, percentage_value: nil)
+    assert_equal 5, subject.gross_amount(instruction)
+  end
+
+  def test_gross_amount_with_percentage_is_equal_to_a_percentage_of_instructions_values
+    instruction = stub(gross_amount: 200)
+    subject = Fixture.commission(fixed_value: nil, percentage_value: 0.2)
+    assert_equal 40, subject.gross_amount(instruction)
+  end
+
+  def test_cannot_give_gross_amount_without_fixed_or_percentage_value_set
+    instruction = stub(gross_amount: 200)
+    subject = Fixture.commission(fixed_value: nil, percentage_value: nil)
+    assert_raise ArgumentError do
+      subject.gross_amount(instruction)
+    end
+  end
+
   def test_xml_format_with_fixed_value
     subject = Fixture.commission(fixed_value: 5)
     expected_format = <<XML

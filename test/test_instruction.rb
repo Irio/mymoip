@@ -134,9 +134,9 @@ XML
            "should be invalid with receiver present on commissions"
   end
 
-  def test_values_sum
+  def test_gross_amount
     subject = Fixture.instruction(values: [6, 5])
-    assert_equal 6 + 5, subject.values_sum
+    assert_equal 11, subject.gross_amount
   end
 
   def test_commissions_sum

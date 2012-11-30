@@ -50,19 +50,19 @@ module MyMoip
     end
 
     def commissions_sum
-      commissions.reduce(0) do |sum, c|
-        sum + (c.fixed_value || 0) + values_sum * (c.percentage_value || 0)
+      commissions.inject(0) do |sum, commission|
+        sum + commission.gross_amount(self)
       end
     end
 
-    def values_sum
-      values ? values.reduce(0) {|sum,value| sum + value} : 0
+    def gross_amount
+      values ? values.reduce(0) { |sum, value| sum + value } : 0
     end
 
     protected
 
     def commissions_value_must_be_lesser_than_values
-      if commissions_sum > values_sum
+      if commissions_sum > gross_amount
         errors.add(:commissions, "Commissions value sum is greater than instruction value sum")
       end
     end
