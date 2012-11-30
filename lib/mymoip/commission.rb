@@ -7,7 +7,7 @@ module MyMoip
     validates_presence_of :fixed_value, if: -> {percentage_value.nil?}
     validates_presence_of :percentage_value, if: -> {fixed_value.nil?}
     validates_numericality_of :fixed_value, greater_than_or_equal_to: 0, allow_nil:true
-    validates_numericality_of :percentage_value, greater_than_or_equal_to:0, less_than_or_equal_to:100, allow_nil:true
+    validates_numericality_of :percentage_value, greater_than_or_equal_to:0, less_than_or_equal_to:1, allow_nil:true
 
     def initialize(args)
       self.reason = args[:reason]

@@ -6,7 +6,7 @@ class TestCommission < Test::Unit::TestCase
         reason: 'Because we can',
         receiver_login: 'comissioned_indentifier',
         fixed_value: 23.5,
-        percentage_value: 12.67
+        percentage_value: 0.15
     }
     subject = MyMoip::Commission.new(params)
     assert_equal params[:reason], subject.reason
@@ -40,7 +40,7 @@ class TestCommission < Test::Unit::TestCase
     assert subject.valid?, "should be valid with only fixed value set"
 
     subject.fixed_value = nil
-    subject.percentage_value = 2
+    subject.percentage_value = 0.15
     assert subject.valid?, "should be valid with only percentage value set"
 
     subject.fixed_value = subject.percentage_value
@@ -69,10 +69,10 @@ class TestCommission < Test::Unit::TestCase
   def test_validate_percentage_number_of_percentage_value
     subject = Fixture.commission percentage_value: -0.1, fixed_value: nil
     assert subject.invalid? && subject.errors[:percentage_value].present?,
-           "should be invalid if not within (0..100)"
-    subject.percentage_value = 100.01
+           "should be invalid if lesser than 0"
+    subject.percentage_value = 1.01
     assert subject.invalid? && subject.errors[:percentage_value].present?,
-           "should be invalid if not within (0..100)"
+           "should be invalid if greater than 1"
   end
 
   def test_xml_format_with_fixed_value
@@ -84,9 +84,9 @@ XML
   end
 
   def test_xml_format_with_percentage_value
-    subject = Fixture.commission percentage_value: 5, fixed_value: nil
+    subject = Fixture.commission percentage_value: 0.15, fixed_value: nil
     expected_format = <<XML
-<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>5</ValorPercentual></Comissionamento>
+<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento>
 XML
     assert_equal expected_format.rstrip, subject.to_xml
   end

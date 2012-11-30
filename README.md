@@ -102,7 +102,7 @@ commissions = [MyMoip::Commission.new(
 commissions = [MyMoip::Commission.new(
   reason: 'Shipping',
   commissioned: 'commissioned_moip_login',
-  percentage_value: 15 # 15%
+  percentage_value: 0.15
 )]
 ```
 

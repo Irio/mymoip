@@ -42,46 +42,46 @@ XML
   end
 
   def test_xml_format_with_commissions
-    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:20,fixed_value:nil)]
+    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value: 0.15, fixed_value: nil)]
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer, commissions: commissions)
     expected_format = <<XML
-<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>20</ValorPercentual></Comissionamento></Comissoes><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento></Comissoes><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
     assert_equal expected_format.rstrip, instruction.to_xml
   end
 
   def test_xml_format_with_commissions_and_fee_payer
-    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:20,fixed_value:nil)]
+    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value: 0.15,fixed_value: nil)]
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer, commissions: commissions, fee_payer_login: 'fee_payer_indentifier')
     expected_format = <<XML
-<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>20</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
     assert_equal expected_format.rstrip, instruction.to_xml
   end
 
   def test_xml_format_with_commissions_and_payment_receiver
-    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:20,fixed_value:nil)]
+    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value: 0.15, fixed_value: nil)]
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer, commissions: commissions,
                                       payment_receiver_login:'payment_receiver_indentifier',
                                       payment_receiver_name: 'nick_fury' )
     expected_format = <<XML
-<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>20</ValorPercentual></Comissionamento></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
     assert_equal expected_format.rstrip, instruction.to_xml
   end
 
   def test_xml_format_with_commissions_and_payment_receiver_and_fee_payer
-    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:20,fixed_value:nil)]
+    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value: 0.15, fixed_value: nil)]
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer, commissions: commissions,
                                       payment_receiver_login:'payment_receiver_indentifier',
                                       payment_receiver_name: 'nick_fury',
                                       fee_payer_login: 'fee_payer_indentifier')
     expected_format = <<XML
-<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>20</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
     assert_equal expected_format.rstrip, instruction.to_xml
   end
@@ -141,7 +141,7 @@ XML
   end
 
   def test_commissions_sum
-    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value:10, fixed_value:nil)]
+    commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value: 0.1, fixed_value: nil)]
     subject = Fixture.instruction(commissions: commissions, values: [10])
     assert_equal 6, subject.commissions_sum
   end

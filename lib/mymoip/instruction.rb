@@ -48,7 +48,7 @@ module MyMoip
 
     def commissions_sum
       commissions.reduce(0) do |sum, c|
-        sum + (c.fixed_value || 0) + values_sum * ( (c.percentage_value || 0) / 100.0)
+        sum + (c.fixed_value || 0) + values_sum * (c.percentage_value || 0)
       end
     end
 
