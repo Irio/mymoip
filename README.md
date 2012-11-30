@@ -93,7 +93,7 @@ Choosing between commission with fixed or percentage value.
 ```ruby
 commissions = [MyMoip::Commission.new(
   reason: 'System maintenance',
-  commissioned: 'commissioned_moip_login',
+  receiver_login: 'commissioned_moip_login',
   fixed_value: 15.0
 )]
 
@@ -101,7 +101,7 @@ commissions = [MyMoip::Commission.new(
 
 commissions = [MyMoip::Commission.new(
   reason: 'Shipping',
-  commissioned: 'commissioned_moip_login',
+  receiver_login: 'commissioned_moip_login',
   percentage_value: 0.15
 )]
 ```
