@@ -132,7 +132,6 @@ XML
     subject = Fixture.instruction(payment_receiver_login: 'payment_receiver_id', commissions: commissions)
     assert subject.invalid? &&  subject.errors[:payment_receiver_login].present?,
            "should be invalid with receiver present on commissions"
-
   end
 
   def test_values_sum

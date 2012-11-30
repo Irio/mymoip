@@ -16,17 +16,17 @@ module MyMoip
     validates_inclusion_of :logo, in: AVAILABLE_LOGOS
 
     def initialize(attrs)
-      self.logo            = attrs[:logo]            if attrs.has_key?(:logo)
-      self.card_number     = attrs[:card_number]     if attrs.has_key?(:card_number)
-      self.expiration_date = attrs[:expiration_date] if attrs.has_key?(:expiration_date)
-      self.security_code   = attrs[:security_code]   if attrs.has_key?(:security_code)
-      self.owner_name      = attrs[:owner_name]      if attrs.has_key?(:owner_name)
-      self.owner_birthday  = attrs[:owner_birthday]  if attrs.has_key?(:owner_birthday)
-      self.owner_phone     = attrs[:owner_phone]     if attrs.has_key?(:owner_phone)
-      self.owner_cpf       = attrs[:owner_cpf]       if attrs.has_key?(:owner_cpf)
+      self.logo            = attrs[:logo]
+      self.card_number     = attrs[:card_number]
+      self.expiration_date = attrs[:expiration_date]
+      self.security_code   = attrs[:security_code]
+      self.owner_name      = attrs[:owner_name]
+      self.owner_birthday  = attrs[:owner_birthday]
+      self.owner_phone     = attrs[:owner_phone]
+      self.owner_cpf       = attrs[:owner_cpf]
 
       # Deprecated attributes
-      self.owner_rg        = attrs[:owner_rg]        if attrs.has_key?(:owner_rg)
+      self.owner_rg        = attrs[:owner_rg] if attrs.has_key?(:owner_rg)
     end
 
     def logo=(value)

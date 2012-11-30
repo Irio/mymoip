@@ -3,10 +3,10 @@ require 'helper'
 class TestCommission < Test::Unit::TestCase
   def test_initialization_and_setters
     params = {
-        reason: 'Because we can',
-        receiver_login: 'comissioned_indentifier',
-        fixed_value: 23.5,
-        percentage_value: 0.15
+      reason: 'Because we can',
+      receiver_login: 'comissioned_indentifier',
+      fixed_value: 23.5,
+      percentage_value: 0.15
     }
     subject = MyMoip::Commission.new(params)
     assert_equal params[:reason], subject.reason
@@ -49,25 +49,25 @@ class TestCommission < Test::Unit::TestCase
 
 
   def test_validate_numericality_of_fixed_value
-    subject = Fixture.commission fixed_value: "I'm not a number"
+    subject = Fixture.commission(fixed_value: "I'm not a number")
     assert subject.invalid? && subject.errors[:fixed_value].present?,
            "should be invalid with a non number"
   end
 
   def test_validate_numericality_of_percentage_value
-    subject = Fixture.commission percentage_value: "I'm not a number", fixed_value: nil
+    subject = Fixture.commission(percentage_value: "I'm not a number", fixed_value: nil)
     assert subject.invalid? && subject.errors[:percentage_value].present?,
            "should be invalid with a non number"
   end
 
   def test_validate_positive_number_of_fixed_value
-    subject = Fixture.commission fixed_value: -0.1
+    subject = Fixture.commission(fixed_value: -0.1)
     assert subject.invalid? && subject.errors[:fixed_value].present?,
            "should be invalid with negative number"
   end
 
   def test_validate_percentage_number_of_percentage_value
-    subject = Fixture.commission percentage_value: -0.1, fixed_value: nil
+    subject = Fixture.commission(percentage_value: -0.1, fixed_value: nil)
     assert subject.invalid? && subject.errors[:percentage_value].present?,
            "should be invalid if lesser than 0"
     subject.percentage_value = 1.01
@@ -76,7 +76,7 @@ class TestCommission < Test::Unit::TestCase
   end
 
   def test_xml_format_with_fixed_value
-    subject = Fixture.commission fixed_value: 5
+    subject = Fixture.commission(fixed_value: 5)
     expected_format = <<XML
 <Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento>
 XML
@@ -84,7 +84,7 @@ XML
   end
 
   def test_xml_format_with_percentage_value
-    subject = Fixture.commission percentage_value: 0.15, fixed_value: nil
+    subject = Fixture.commission(percentage_value: 0.15, fixed_value: nil)
     expected_format = <<XML
 <Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento>
 XML
@@ -98,5 +98,4 @@ XML
       subject.to_xml
     end
   end
-
 end
