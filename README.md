@@ -85,7 +85,8 @@ payment_request.api_call(credit_card_payment, token: transparent_request.token)
 payment_request.success?
 ```
 
-**Multiple receivers**
+Sending payments to multiple receivers
+--------------------------------------
 
 Choosing between commission with fixed or percentage value.
 
