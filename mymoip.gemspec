@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mymoip"
-  s.version = "0.3.1"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2012-11-17"
+  s.date = "2012-12-01"
   s.description = "Provides a implementation of MoIP's transparent checkout."
   s.email = "irio.musskopf@caixadeideias.com.br"
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/mymoip.rb",
+    "lib/mymoip/commission.rb",
     "lib/mymoip/credit_card.rb",
     "lib/mymoip/credit_card_payment.rb",
     "lib/mymoip/formatter.rb",
@@ -39,8 +40,10 @@ Gem::Specification.new do |s|
     "test/fixtures/fixture.rb",
     "test/fixtures/vcr_cassettes/payment_request.yml",
     "test/fixtures/vcr_cassettes/transparent_request.yml",
+    "test/fixtures/vcr_cassettes/transparent_request_with_commissions.yml",
     "test/helper.rb",
     "test/live_test.rb",
+    "test/test_commission.rb",
     "test/test_credit_card_payment.rb",
     "test/test_creditcard.rb",
     "test/test_formatter.rb",
@@ -70,7 +73,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<turn>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0"])
       s.add_development_dependency(%q<vcr>, [">= 0"])
-      s.add_development_dependency(%q<webmock>, [">= 0"])
+      s.add_development_dependency(%q<webmock>, ["< 1.9.0"])
     else
       s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
@@ -81,7 +84,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<turn>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0"])
       s.add_dependency(%q<vcr>, [">= 0"])
-      s.add_dependency(%q<webmock>, [">= 0"])
+      s.add_dependency(%q<webmock>, ["< 1.9.0"])
     end
   else
     s.add_dependency(%q<builder>, [">= 0"])
@@ -93,7 +96,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<turn>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0"])
     s.add_dependency(%q<vcr>, [">= 0"])
-    s.add_dependency(%q<webmock>, [">= 0"])
+    s.add_dependency(%q<webmock>, ["< 1.9.0"])
   end
 end
 
