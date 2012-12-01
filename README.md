@@ -121,7 +121,12 @@ instruction = MyMoip::Instruction.new(
 Documentation
 -------------
 
-For more information you can access the [wiki page](https://github.com/Irio/mymoip/wiki).
+For more information about usage you can access the [wiki page](https://github.com/Irio/mymoip/wiki).
+
+Going alive!
+------------
+
+If you are ready to get your application using MyMoip approved by MoIP or already have valid production keys, you can read a specific [documentation](https://github.com/Irio/mymoip/wiki/Going-alive).
 
 License
 -------
