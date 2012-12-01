@@ -17,5 +17,7 @@ group :development do
   gem "turn"
   gem "mocha", require: false
   gem "vcr"
-  gem "webmock"
+  # Version requirement caused by VCR's warning.
+  # Can be removed after merge of https://github.com/vcr/vcr/commit/f75353b75e1ac1e4309faa9323e7c01d8ce28e46
+  gem "webmock", "< 1.9.0"
 end

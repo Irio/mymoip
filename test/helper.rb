@@ -9,7 +9,7 @@ rescue Bundler::BundlerError => e
 end
 require 'test/unit'
 require 'turn/autorun'
-require 'mocha'
+require 'mocha/setup'
 require 'vcr'
 
 VCR.configure do |c|
