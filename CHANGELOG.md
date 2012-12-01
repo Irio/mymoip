@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+0.4.0
+-----
+
+* Accept multiple receivers for each instruction.
+    * Can set a fixed value (e.g. R$ 50,00).
+    * Can set a percentage value (e.g. 10%).
+    * Define which one will take the fees.
+* Accept payments to any MoIP users, even those without API keys.
+
 0.3.1
 -----
 
