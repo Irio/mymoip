@@ -9,6 +9,8 @@ Contributing to MyMoip
 ----------------------
 
 [![Build Status](https://secure.travis-ci.org/Irio/mymoip.png)](http://travis-ci.org/Irio/mymoip)
+[![Dependency Status](https://gemnasium.com/Irio/mymoip.png)](https://gemnasium.com/Irio/mymoip)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/Irio/mymoip)
 
 What would you do if you could make your own implementation of MoIP?
 
