@@ -30,34 +30,10 @@ gem 'mymoip'
 ```
 
 **Configuration**
-
-Manually...
 ```ruby
 MyMoip.environment = "production" # Optional. "sandbox" by default
 MyMoip.token = "your_moip_dev_token"
 MyMoip.key   = "your_moip_dev_key"
-```
-
-or loading from a configuration file?
-
-```ruby
-MyMoip.load_config(File.read(path_to_your_configuration_file))
-```
-
-```yaml
---- # Sandbox configuration file
-sandbox:
-  key: your_moip_sandbox_key
-  token: your_moip_sandbox_token
-```
-
-OR
-
-```yaml
---- # Production configuration file
-production:
-  key: your_moip_production_key
-  token: your_moip_production_token
 ```
 
 **First request: what and from who**
