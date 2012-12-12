@@ -31,7 +31,7 @@ gem 'mymoip'
 
 **Configuration**
 ```ruby
-MyMoip.environment = "production" # Optional. "sandbox" by default
+MyMoip.environment = "production" # "sandbox" by default
 
 MyMoip.sandbox_token    = "your_moip_sandbox_token"
 MyMoip.sandbox_key      = "your_moip_sandbox_key"
