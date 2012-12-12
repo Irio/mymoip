@@ -3,11 +3,10 @@ require 'builder'
 require 'logger'
 require 'httparty'
 require 'json'
-autoload :YAML, 'yaml'
 
 module MyMoip
   class << self
-    attr_accessor :key, :token, :environment, :logger, :default_referer_url
+    attr_accessor :token, :key, :environment, :logger, :default_referer_url
 
     def api_url
       if environment == "sandbox"
@@ -15,17 +14,6 @@ module MyMoip
       else
         "https://www.moip.com.br"
       end
-    end
-
-    def load_config(yaml)
-      config = YAML.load(yaml)
-      if config.has_key?('production')
-        self.environment = 'production'
-      elsif config.has_key?('sandbox')
-        self.environment = 'sandbox'
-      end
-      self.key   = config[environment].fetch('key')
-      self.token = config[environment].fetch('token')
     end
   end
 end

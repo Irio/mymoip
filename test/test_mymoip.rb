@@ -54,17 +54,4 @@ class TestMymoip < Test::Unit::TestCase
     MyMoip.logger = default_logger
   end
 
-  def test_load_sandbox_credentials_from_yaml
-    MyMoip.load_config("sandbox:\n  key: 'yaml_loaded_sandbox_key'\n  token: 'yaml_loaded_sandbox_token'")
-    assert_equal 'sandbox', MyMoip.environment
-    assert_equal 'yaml_loaded_sandbox_key', MyMoip.key
-    assert_equal 'yaml_loaded_sandbox_token', MyMoip.token
-  end
-
-  def test_load_production_credentials_from_yaml
-    MyMoip.load_config("production:\n  key: 'yaml_loaded_production_key'\n  token: 'yaml_loaded_production_token'")
-    assert_equal 'production', MyMoip.environment
-    assert_equal 'yaml_loaded_production_key', MyMoip.key
-    assert_equal 'yaml_loaded_production_token', MyMoip.token
-  end
 end
