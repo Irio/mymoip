@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mymoip"
-  s.version = "0.4.0"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2012-12-01"
+  s.date = "2013-01-11"
   s.description = "Provides a implementation of MoIP's transparent checkout."
   s.email = "irio.musskopf@caixadeideias.com.br"
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".travis.yml",
     "CHANGELOG.md",
     "Gemfile",
     "Gemfile.lock",
@@ -57,7 +58,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/Irio/mymoip"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.rubygems_version = "1.8.23"
   s.summary = "MoIP transactions in a gem to call your own."
 
   if s.respond_to? :specification_version then
@@ -73,7 +74,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<turn>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0"])
       s.add_development_dependency(%q<vcr>, [">= 0"])
-      s.add_development_dependency(%q<webmock>, ["< 1.9.0"])
+      s.add_development_dependency(%q<webmock>, [">= 0"])
     else
       s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
@@ -84,7 +85,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<turn>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0"])
       s.add_dependency(%q<vcr>, [">= 0"])
-      s.add_dependency(%q<webmock>, ["< 1.9.0"])
+      s.add_dependency(%q<webmock>, [">= 0"])
     end
   else
     s.add_dependency(%q<builder>, [">= 0"])
@@ -96,7 +97,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<turn>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0"])
     s.add_dependency(%q<vcr>, [">= 0"])
-    s.add_dependency(%q<webmock>, ["< 1.9.0"])
+    s.add_dependency(%q<webmock>, [">= 0"])
   end
 end
 
