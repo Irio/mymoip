@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+0.4.1
+-----
+
+* Simultaneous setters for sandbox and production token/keys.
+* DEPRECATE MyMoip.key and MyMoip.token methods over new environment specific setters.
+* Going alive instructions added to README file.
+* Add reference to new my_moip-rails gem.
+
 0.4.0
 -----
 
@@ -45,7 +53,7 @@ New validations:
 0.2.6
 -----
 
-* Deprecate owner_rg attribute of MyMoip::CreditCard; you should provide a owner_cpf from now on. Should explain issues with Visa's risk analysis.
+* DEPRECATE owner_rg attribute of MyMoip::CreditCard; you should provide a owner_cpf from now on. Should explain issues with Visa's risk analysis.
 
 0.2.5
 -----
