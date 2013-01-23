@@ -1,14 +1,12 @@
-MyMoip
-======
+# MyMoip
 
 MoIP transactions in a gem to call your own.
 
 Provides a implementation of MoIP's transparent checkout.
 
-Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails).
+Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails) too.
 
-Contributing to MyMoip
-----------------------
+## Contributing to MyMoip
 
 [![Build Status](https://secure.travis-ci.org/Irio/mymoip.png)](http://travis-ci.org/Irio/mymoip)
 [![Dependency Status](https://gemnasium.com/Irio/mymoip.png)](https://gemnasium.com/Irio/mymoip)
@@ -16,15 +14,14 @@ Contributing to MyMoip
 
 What would you do if you could make your own implementation of MoIP?
 
-Any patch are welcome, even removing extra blank spaces.
+Any patch are welcome, even removing extra white spaces.
 
 1. Open a pull request.
 2. Done.
 
-Using
------
+# Using
 
-Currently under active development.
+## First of all
 
 **Bundler - Gemfile**
 ```ruby
@@ -41,6 +38,54 @@ MyMoip.sandbox_key      = "your_moip_sandbox_key"
 MyMoip.production_token = "your_moip_production_token"
 MyMoip.production_key   = "your_moip_production_key"
 ```
+
+## The easy way ~~(unimplemented)~~
+
+If you just need to pass some attributes and get if the payment based on them was succesfull or not, this can be your start point.
+
+The payer attributes will be sent to Moip to be stored as your client, identified by... his id. If you don't want to, on each payment, ask your user to all his data, you can always save them in your database.
+
+```ruby
+purchase_id = 'purchase_id_for_logging'
+transaction_price = 100.0
+
+card_attrs = {
+  logo: 'visa',
+  card_number: '4916654211627608',
+  expiration_date: '06/15',
+  security_code: '000',
+  owner_name: 'Juquinha da Rocha',
+  owner_birthday: '03/11/1980',
+  owner_phone: '5130405060',
+  owner_cpf: '52211670695'
+}
+
+payer = {
+  id: 'payer_id_defined_by_you',
+  name: 'Juquinha da Rocha',
+  email: 'juquinha@rocha.com',
+  address_street: 'Felipe Neri',
+  address_street_number: '406',
+  address_street_extra: 'Sala 501',
+  address_neighbourhood: 'Auxiliadora',
+  address_city: 'Porto Alegre',
+  address_state: 'RS',
+  address_country: 'BRA',
+  address_cep: '90440150',
+  address_phone: '5130405060'
+}
+
+purchase = MyMoip::Purchase.new(
+  id:                purchase_id,
+  price:             transaction_price,
+  credit_card_attrs: card_attrs,
+  payer_attrs:       payer_attrs
+)
+purchase.checkout! # => true OR false
+purchase.code # Moip code or nil, depending of the checkout's return
+```
+
+## The hard way
 
 **First request: what and from who**
 ```ruby
@@ -93,8 +138,7 @@ payment_request.api_call(credit_card_payment, token: transparent_request.token)
 payment_request.success?
 ```
 
-Sending payments to multiple receivers
---------------------------------------
+## Sending payments to multiple receivers
 
 Choosing between commission with fixed or percentage value.
 
