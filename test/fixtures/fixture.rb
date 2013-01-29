@@ -22,7 +22,10 @@ class Fixture
       id: "your_own_instruction_id",
       payment_reason: "some payment_reason",
       values: [100.0, 200.0],
-      payer: payer
+      payer: payer,
+      installments: [
+        {min: 2, max: 12, forward_taxes: true, fee: 1.99}
+      ]
     }.merge(params)
     MyMoip::Instruction.new(params)
   end

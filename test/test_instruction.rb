@@ -4,6 +4,7 @@ class TestInstruction < Test::Unit::TestCase
   def test_getters_for_attributes
     payer       = Fixture.payer
     commissions = [Fixture.commission]
+    installments = [{min: 2, max: 12, forward_taxes: true, fee: 1.99}]
     instruction = MyMoip::Instruction.new(
       id: "some id",
       payment_reason: "some payment_reason",
@@ -12,7 +13,8 @@ class TestInstruction < Test::Unit::TestCase
       commissions: commissions,
       fee_payer_login: "fee_payer_login",
       payment_receiver_login: "payment_receiver_login",
-      payment_receiver_name: "nick_fury"
+      payment_receiver_name: "nick_fury",
+      installments: installments
     )
 
     assert_equal "some id", instruction.id
@@ -20,6 +22,7 @@ class TestInstruction < Test::Unit::TestCase
     assert_equal [100.0, 200.0], instruction.values
     assert_equal payer, instruction.payer
     assert_equal commissions, instruction.commissions
+    assert_equal installments, instruction.installments
     assert_equal "fee_payer_login", instruction.fee_payer_login
     assert_equal "payment_receiver_login", instruction.payment_receiver_login
     assert_equal "nick_fury", instruction.payment_receiver_name
@@ -35,8 +38,36 @@ class TestInstruction < Test::Unit::TestCase
   def test_xml_format
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer)
+    
     expected_format = <<XML
-<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Parcelamentos><Parcelamento><MinimoParcelas>2</MinimoParcelas><MaximoParcelas>12</MaximoParcelas><Repassar>true</Repassar><Juros>1.99</Juros></Parcelamento></Parcelamentos><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+XML
+    assert_equal expected_format.rstrip, instruction.to_xml
+  end
+  
+  def test_xml_format_with_installments
+    payer        = Fixture.payer
+    installments = [
+      {min: 5, max: 10, fee: 2.99}
+    ]
+    instruction  = Fixture.instruction(payer: payer, installments: installments)
+    
+    expected_format = <<XML
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Parcelamentos><Parcelamento><MinimoParcelas>5</MinimoParcelas><MaximoParcelas>10</MaximoParcelas><Juros>2.99</Juros></Parcelamento></Parcelamentos><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
+XML
+    assert_equal expected_format.rstrip, instruction.to_xml
+  end
+  
+  def test_xml_format_with_mutiple_installments
+    payer        = Fixture.payer
+    installments = [
+      {min: 2, max: 6, fee: 1.99},
+      {min: 7, max: 12, fee: 2.99}
+    ]
+    instruction  = Fixture.instruction(payer: payer, installments: installments)
+    
+    expected_format = <<XML
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Parcelamentos><Parcelamento><MinimoParcelas>2</MinimoParcelas><MaximoParcelas>6</MaximoParcelas><Juros>1.99</Juros></Parcelamento><Parcelamento><MinimoParcelas>7</MinimoParcelas><MaximoParcelas>12</MaximoParcelas><Juros>2.99</Juros></Parcelamento></Parcelamentos><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
     assert_equal expected_format.rstrip, instruction.to_xml
   end
@@ -44,7 +75,7 @@ XML
   def test_xml_format_with_commissions
     commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value: 0.15, fixed_value: nil)]
     payer       = Fixture.payer
-    instruction = Fixture.instruction(payer: payer, commissions: commissions)
+    instruction = Fixture.instruction(payer: payer, commissions: commissions, installments: nil)
     expected_format = <<XML
 <EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento></Comissoes><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
@@ -54,7 +85,7 @@ XML
   def test_xml_format_with_commissions_and_fee_payer
     commissions = [Fixture.commission(fixed_value: 5), Fixture.commission(percentage_value: 0.15,fixed_value: nil)]
     payer       = Fixture.payer
-    instruction = Fixture.instruction(payer: payer, commissions: commissions, fee_payer_login: 'fee_payer_indentifier')
+    instruction = Fixture.instruction(payer: payer, commissions: commissions, fee_payer_login: 'fee_payer_indentifier', installments: nil)
     expected_format = <<XML
 <EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
@@ -66,7 +97,7 @@ XML
     payer       = Fixture.payer
     instruction = Fixture.instruction(payer: payer, commissions: commissions,
                                       payment_receiver_login:'payment_receiver_indentifier',
-                                      payment_receiver_name: 'nick_fury' )
+                                      payment_receiver_name: 'nick_fury', installments: nil)
     expected_format = <<XML
 <EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
@@ -79,7 +110,8 @@ XML
     instruction = Fixture.instruction(payer: payer, commissions: commissions,
                                       payment_receiver_login:'payment_receiver_indentifier',
                                       payment_receiver_name: 'nick_fury',
-                                      fee_payer_login: 'fee_payer_indentifier')
+                                      fee_payer_login: 'fee_payer_indentifier',
+                                      installments: nil)
     expected_format = <<XML
 <EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Comissoes><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento><Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento><PagadorTaxa><LoginMoIP>fee_payer_indentifier</LoginMoIP></PagadorTaxa></Comissoes><Recebedor><LoginMoIP>payment_receiver_indentifier</LoginMoIP><Apelido>nick_fury</Apelido></Recebedor><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador></InstrucaoUnica></EnviarInstrucao>
 XML
