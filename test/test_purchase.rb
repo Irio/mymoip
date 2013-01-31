@@ -3,30 +3,30 @@ require 'helper'
 def cc_attrs(attrs = {})
   {
     logo: :visa,
-    card_number: "4916654211627608",
-    expiration_date: "06/15",
-    security_code: "000",
-    owner_name: "Juquinha da Rocha",
-    owner_birthday: "03/11/1980",
-    owner_phone: "5130405060",
-    owner_cpf: "52211670695"
+    card_number: '4916654211627608',
+    expiration_date: '06/15',
+    security_code: '000',
+    owner_name: 'Juquinha da Rocha',
+    owner_birthday: '03/11/1980',
+    owner_phone: '5130405060',
+    owner_cpf: '52211670695'
   }.merge(attrs)
 end
 
-def cc_owner_attrs(attrs = {})
+def payer_attrs(attrs = {})
   {
     id: rand,
-    name: "Juquinha da Rocha",
-    email: "juquinha@rocha.com",
-    address_street: "Felipe Neri",
-    address_street_number: "406",
-    address_street_extra: "Sala 501",
-    address_neighbourhood: "Auxiliadora",
-    address_city: "Porto Alegre",
-    address_state: "RS",
-    address_country: "BRA",
-    address_cep: "90440150",
-    address_phone: "5130405060"
+    name: 'Juquinha da Rocha',
+    email: 'juquinha@rocha.com',
+    address_street: 'Felipe Neri',
+    address_street_number: '406',
+    address_street_extra: 'Sala 501',
+    address_neighbourhood: 'Auxiliadora',
+    address_city: 'Porto Alegre',
+    address_state: 'RS',
+    address_country: 'BRA',
+    address_cep: '90440150',
+    address_phone: '5130405060'
   }.merge(attrs)
 end
 
@@ -35,7 +35,7 @@ describe MyMoip::Purchase do
     MyMoip::Purchase.new(id: '42',
                          price: 400,
                          credit_card: cc_attrs,
-                         credit_card_owner: cc_owner_attrs)
+                         payer: payer_attrs)
   end
 
   describe "new objects" do
@@ -44,7 +44,7 @@ describe MyMoip::Purchase do
     end
 
     it "stores already initialized instance of MyMoip::Payer" do
-      subject.credit_card_owner.must_be_kind_of MyMoip::Payer
+      subject.payer.must_be_kind_of MyMoip::Payer
     end
   end
 
