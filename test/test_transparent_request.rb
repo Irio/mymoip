@@ -1,7 +1,6 @@
 require 'helper'
 
 class TestTransparentRequest < Test::Unit::TestCase
-
   def test_http_method_as_post
     assert_equal :post, MyMoip::TransparentRequest::HTTP_METHOD
   end

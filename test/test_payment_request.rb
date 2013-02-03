@@ -2,7 +2,6 @@
 require 'helper'
 
 class TestPaymentRequest < Test::Unit::TestCase
-
   def test_http_method_as_get
     assert_equal :get, MyMoip::PaymentRequest::HTTP_METHOD
   end
@@ -94,5 +93,4 @@ class TestPaymentRequest < Test::Unit::TestCase
     payment_request = MyMoip::PaymentRequest.new("your_own_id")
     assert_nil payment_request.code
   end
-
 end
