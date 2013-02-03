@@ -22,10 +22,10 @@ module MyMoip
     end
 
     def to_xml(root = nil)
-      raise InvalidPayer, 'Invalid payer.' if payer.invalid?
-      raise InvalidInstruction, 'Invalid params for instruction.' if self.invalid?
+      raise InvalidPayer if payer.invalid?
+      raise InvalidInstruction if self.invalid?
       if invalid_commission = commissions.detect { |c| c.invalid? }
-        raise InvalidComission, "Invalid commission: #{invalid_commission}."
+        raise InvalidComission, invalid_commission
       end
 
       xml  = ""

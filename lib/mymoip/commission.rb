@@ -31,7 +31,7 @@ module MyMoip
     end
 
     def to_xml(root = nil)
-      raise InvalidComission, 'Invalid params for commission.' if invalid?
+      raise InvalidComission if invalid?
 
       if root.nil?
         xml  = ""

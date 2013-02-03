@@ -14,7 +14,7 @@ module MyMoip
 
     def to_json(formatter = MyMoip::Formatter)
       raise InvalidCreditCard, 'No credit card provided.' if credit_card.nil?
-      raise InvalidCreditCard, 'Invalid credit card.' if credit_card.invalid?
+      raise InvalidCreditCard if credit_card.invalid?
 
       json = {
         Forma:        "CartaoCredito",
