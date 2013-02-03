@@ -1,9 +1,11 @@
 module MyMoip
-  class InvalidComission < StandardError; end
+  class Error < StandardError; end
 
-  class InvalidCreditCard < StandardError; end
+  class InvalidComission < Error; end
 
-  class InvalidInstruction < StandardError; end
+  class InvalidCreditCard < Error; end
 
-  class InvalidPayer < StandardError; end
+  class InvalidInstruction < Error; end
+
+  class InvalidPayer < Error; end
 end
