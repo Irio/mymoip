@@ -26,12 +26,12 @@ module MyMoip
       elsif percentage_value
         percentage_value * instruction.gross_amount
       else
-        raise InvalidComission, 'Cannot give gross_amount without fixed_value or percentage_value'
+        raise InvalidComission, 'Cannot give gross_amount without fixed_value or percentage_value.'
       end
     end
 
     def to_xml(root = nil)
-      raise InvalidComission, 'Invalid params for Commission' if invalid?
+      raise InvalidComission, 'Invalid params for commission.' if invalid?
 
       if root.nil?
         xml  = ""

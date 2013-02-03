@@ -78,5 +78,4 @@ class TestMymoip < Test::Unit::TestCase
     MyMoip.logger = my_string = ""
     assert_equal my_string, MyMoip.logger
   end
-
 end
