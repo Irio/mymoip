@@ -12,7 +12,7 @@ module MyMoip
                           :company_phone, :company_zip_code
 
     def initialize(attrs)
-      self.id                    = attrs[:id].nil? ? Digest::MD5.hexdigest(nome + email) : attrs[:id]
+      self.id                    = attrs[:id].nil? ? Digest::MD5.hexdigest(attrs[:name] + attrs[:email]) : attrs[:id]
       self.name                  = attrs[:name]
       self.surname               = attrs[:surname]
       self.email                 = attrs[:email]

@@ -34,9 +34,5 @@ module MyMoip
       nil
     end
 
-    def response
-      @response
-    end
-
   end
 end

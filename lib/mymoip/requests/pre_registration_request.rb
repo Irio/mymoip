@@ -17,19 +17,19 @@ module MyMoip
     end
 
     def success?
-      @response && @response["RespostaPreCadastramento"]["Status"] == "Sucesso"
+      @response && @response['PreCadastramentoResponse']["RespostaPreCadastramento"]["Status"] == "Sucesso"
     rescue NoMethodError => e
       false
     end
 
     def id_redirecionamento
-      @response["RespostaPreCadastramento"]["idRedirecionamento"] || nil
+      @response['PreCadastramentoResponse']["RespostaPreCadastramento"]["idRedirecionamento"] || nil
     rescue NoMethodError => e
       nil
     end
 
     def id
-      @response["RespostaPreCadastramento"]["ID"]
+      @response['PreCadastramentoResponse']["RespostaPreCadastramento"]["ID"]
     rescue NoMethodError => e
       nil
     end
