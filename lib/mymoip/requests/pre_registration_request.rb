@@ -1,8 +1,8 @@
 module MyMoip
-  class TransparentRequest < Request
+  class PreRegistrationRequest < Request
 
     HTTP_METHOD   = :post
-    PATH          = "/ws/alpha/EnviarInstrucao/Unica"
+    PATH          = "/ws/alpha/PreCadastramento"
     REQUIRES_AUTH = true
 
     def api_call(data, opts = {})
@@ -17,25 +17,21 @@ module MyMoip
     end
 
     def success?
-      @response && @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Status"] == "Sucesso"
+      @response && @response["RespostaPreCadastramento"]["Status"] == "Sucesso"
     rescue NoMethodError => e
       false
     end
 
-    def token
-      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Token"] || nil
+    def id_redirecionamento
+      @response["RespostaPreCadastramento"]["idRedirecionamento"] || nil
     rescue NoMethodError => e
       nil
     end
 
     def id
-      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["ID"]
+      @response["RespostaPreCadastramento"]["ID"]
     rescue NoMethodError => e
       nil
-    end
-
-    def response
-      @response
     end
 
   end
