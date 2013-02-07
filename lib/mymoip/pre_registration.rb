@@ -17,7 +17,7 @@ module MyMoip
       self.surname               = attrs[:surname]
       self.email                 = attrs[:email]
       self.phone	               = attrs[:phone]
-      self.birth_date            = attrs[:birth_date]
+      self.birth_date            = attrs[:birth_date].strftime("%d/%m/%Y")
       self.rg		                 = attrs[:rg]
       self.cpf		               = attrs[:cpf]
       self.zip_code		           = attrs[:zip_code]
