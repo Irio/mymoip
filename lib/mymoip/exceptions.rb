@@ -10,4 +10,6 @@ module MyMoip
   class InvalidPayer < Error; end
 
   class InvalidPreRegistration < Error; end
+
+  class InvalidBoleto < Error; end
 end
