@@ -34,9 +34,16 @@ module MyMoip
       nil
     end
 
+    def error_message
+      @response['PreCadastramentoResponse']["RespostaPreCadastramento"]["Erro"]['__content__']
+    rescue NoMethodError => e
+      nil
+    end
+
     def response
       @response
     end
 
   end
+  
 end
