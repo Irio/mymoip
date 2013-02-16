@@ -34,5 +34,11 @@ module MyMoip
       nil
     end
 
+    def error_message
+      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Erro"]['__content__']
+    rescue NoMethodError => e
+      nil
+    end
+
   end
 end
