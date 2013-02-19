@@ -1,10 +1,10 @@
 # CHANGELOG
 
-## 0.4.2 (unreleased)
+## 0.5.0
 * Breaking backward compatibility with exceptions raised. ArgumentError
 is not used anymore. New MyMoip::InvalidComission, MyMoip::InvalidCreditCard,
-MyMoip::InvalidInstruction and MyMoip::InvalidPayer inherit from
-StandardError.
+MyMoip::InvalidInstruction and MyMoip::InvalidPayer exceptions inherited from
+MyMoip::Error.
 
 ## 0.4.1
 
