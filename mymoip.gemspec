@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mymoip"
-  s.version = "0.4.1"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2013-01-11"
+  s.date = "2013-02-19"
   s.description = "Provides a implementation of MoIP's transparent checkout."
   s.email = "irio.musskopf@caixadeideias.com.br"
   s.extra_rdoc_files = [
@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     "lib/mymoip/commission.rb",
     "lib/mymoip/credit_card.rb",
     "lib/mymoip/credit_card_payment.rb",
+    "lib/mymoip/exceptions.rb",
     "lib/mymoip/formatter.rb",
     "lib/mymoip/instruction.rb",
     "lib/mymoip/json_parser.rb",
