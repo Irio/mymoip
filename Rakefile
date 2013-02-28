@@ -21,7 +21,16 @@ Jeweler::Tasks.new do |gem|
   gem.description = "Provides a implementation of MoIP's transparent checkout."
   gem.email = "irio.musskopf@caixadeideias.com.br"
   gem.authors = ["Irio Irineu Musskopf Junior"]
-  # dependencies defined in Gemfile
+  gem.add_dependency "activemodel"
+  gem.add_dependency "builder"
+  gem.add_dependency "httparty"
+  gem.add_development_dependency "bundler"
+  gem.add_development_dependency "jeweler"
+  gem.add_development_dependency "mocha"
+  gem.add_development_dependency "rdoc"
+  gem.add_development_dependency "turn"
+  gem.add_development_dependency "vcr"
+  gem.add_development_dependency "webmock"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
