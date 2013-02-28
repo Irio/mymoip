@@ -11,11 +11,11 @@ module MyMoip
                   :environment, :logger, :default_referer_url
 
     def api_url
-      #if environment == "sandbox"
+      if environment == "sandbox"
         "https://desenvolvedor.moip.com.br/sandbox"
-      #else
-      #  "https://www.moip.com.br"
-      #end
+      else
+        "https://www.moip.com.br"
+      end
     end
 
     def key=(value)
