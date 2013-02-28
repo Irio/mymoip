@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.0
+* Add support for Ruby 2.0.
+* Improved installments option for Instructions.
+
 ## 0.5.0
 * Breaking backward compatibility with exceptions raised. ArgumentError
 is not used anymore. New MyMoip::InvalidComission, MyMoip::InvalidCreditCard,
