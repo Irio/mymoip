@@ -1,5 +1,4 @@
-MyMoip
-======
+# MyMoip
 
 MoIP transactions in a gem to call your own.
 
@@ -7,8 +6,7 @@ Provides a implementation of MoIP's transparent checkout.
 
 Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails).
 
-Contributing to MyMoip
-----------------------
+## Contributing to MyMoip
 
 [![Build Status](https://secure.travis-ci.org/Irio/mymoip.png)](http://travis-ci.org/Irio/mymoip)
 [![Code
@@ -21,8 +19,7 @@ Any patch are welcome, even removing extra blank spaces.
 1. Open a pull request.
 2. Done.
 
-Using
------
+## Using
 
 Currently under active development.
 
@@ -31,7 +28,7 @@ Currently under active development.
 gem 'mymoip'
 ```
 
-**Configuration**
+### Configuration
 ```ruby
 MyMoip.environment = "production" # "sandbox" by default
 
@@ -42,7 +39,8 @@ MyMoip.production_token = "your_moip_production_token"
 MyMoip.production_key   = "your_moip_production_key"
 ```
 
-**First request: what and from who**
+### First request: what and from who
+
 ```ruby
 payer = MyMoip::Payer.new(
   id: "payer_id_defined_by_you",
@@ -70,7 +68,8 @@ transparent_request = MyMoip::TransparentRequest.new("your_logging_id")
 transparent_request.api_call(instruction)
 ```
 
-**Second request: how**
+### Second request: how
+
 ```ruby
 credit_card = MyMoip::CreditCard.new(
   logo: :visa,
@@ -78,7 +77,7 @@ credit_card = MyMoip::CreditCard.new(
   expiration_date: "06/15",
   security_code: "000",
   owner_name: "Juquinha da Rocha",
-  owner_birthday: Date.new(1984, 11, 3),
+  owner_birthday: "03/11/1984",
   owner_phone: "5130405060",
   owner_cpf: "52211670695"
 )
@@ -88,13 +87,20 @@ payment_request = MyMoip::PaymentRequest.new("your_logging_id")
 payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
 
-**Success?**
+### Success?
 ```ruby
 payment_request.success?
 ```
 
-Sending payments to multiple receivers
---------------------------------------
+## More!
+
+Yes, you should read (and help improve!) the docs.
+
+### Documentation
+
+For more information about usage you can access the [wiki page](https://github.com/Irio/mymoip/wiki).
+
+### Sending payments to multiple receivers
 
 Choosing between commission with fixed or percentage value.
 
@@ -124,19 +130,36 @@ instruction = MyMoip::Instruction.new(
 )
 ```
 
-[Wiki](https://github.com/Irio/mymoip/wiki/Sending-payments-to-multiple-receivers) will be helpful here.
+[More](https://github.com/Irio/mymoip/wiki/Sending-payments-to-multiple-receivers).
 
-Documentation
--------------
+### Installments
 
-For more information about usage you can access the [wiki page](https://github.com/Irio/mymoip/wiki).
+The API allows you to set multiple configurations for installments.
 
-Going alive!
-------------
+On initialization of a MyMoip::Instruction, the #new method accepts a
+installment option which will expect something like this array:
+
+```ruby
+installments = [
+  { min: 1, max:  1, forward_taxes: false },
+  { min: 2, max: 12, forward_taxes: true,  fee: 1.99 } # 1.99 fee = 1.99% per month
+]
+
+MyMoip::Instruction.new(
+  id: "instruction_id_defined_by_you",
+  payment_reason: "Order in Buy Everything Store",
+  values: [100.0],
+  payer: payer,
+  installments: installments
+)
+```
+
+[More](https://github.com/Irio/mymoip/wiki/Installments-use).
+
+## Going alive!
 
 If you are ready to get your application using MyMoip approved by MoIP or already have valid production keys, you can read a specific [documentation](https://github.com/Irio/mymoip/wiki/Going-alive).
 
-License
--------
+## License
 
 MIT. See LICENSE.txt for further details.
