@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mymoip"
-  s.version = "0.5.0"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2013-02-19"
+  s.date = "2013-04-27"
   s.description = "Provides a implementation of MoIP's transparent checkout."
   s.email = "irio.musskopf@caixadeideias.com.br"
   s.extra_rdoc_files = [
@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
     ".travis.yml",
     "CHANGELOG.md",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
