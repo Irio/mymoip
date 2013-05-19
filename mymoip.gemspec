@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2013-04-27"
-  s.description = "Provides a implementation of MoIP's transparent checkout."
-  s.email = "irio.musskopf@caixadeideias.com.br"
+  s.date = "2013-05-19"
+  s.description = "The easier way to use Moip's transparent checkout."
+  s.email = "iirineu@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
     "test/test_request.rb",
     "test/test_transparent_request.rb"
   ]
-  s.homepage = "http://github.com/Irio/mymoip"
+  s.homepage = "https://github.com/Irio/mymoip"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"

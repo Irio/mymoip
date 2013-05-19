@@ -2,7 +2,7 @@
 
 MoIP transactions in a gem to call your own.
 
-Provides a implementation of MoIP's transparent checkout.
+The easier way to use Moip's transparent checkout.
 
 Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails).
 
