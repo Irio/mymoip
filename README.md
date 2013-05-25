@@ -60,7 +60,7 @@ card_attrs = {
   owner_cpf:       '52211670695'
 }
 
-payer = {
+payer_attrs = {
   id:                    'payer_id_defined_by_you',
   name:                  'Juquinha da Rocha',
   email:                 'juquinha@rocha.com',
@@ -78,8 +78,8 @@ payer = {
 purchase = MyMoip::Purchase.new(
   id:                purchase_id,
   price:             transaction_price,
-  credit_card_attrs: card_attrs,
-  payer_attrs:       payer_attrs
+  credit_card: card_attrs,
+  payer:       payer_attrs
 )
 purchase.checkout! # => true OR false
 purchase.code # Moip code or nil, depending of the checkout's return
