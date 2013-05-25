@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../test_helper'
 
 class TestCreditCard < Test::Unit::TestCase
   def test_initialization_and_setters
