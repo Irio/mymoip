@@ -90,7 +90,7 @@ class TestCommission < Test::Unit::TestCase
   def test_cannot_give_gross_amount_without_fixed_or_percentage_value_set
     instruction = stub(gross_amount: 200)
     subject = Fixture.commission(fixed_value: nil, percentage_value: nil)
-    assert_raise ArgumentError do
+    assert_raise MyMoip::InvalidComission do
       subject.gross_amount(instruction)
     end
   end
@@ -114,7 +114,7 @@ XML
   def test_xml_method_raises_exception_when_called_with_invalid_params
     subject = Fixture.commission
     subject.stubs(:invalid?).returns(true)
-    assert_raise ArgumentError do
+    assert_raise MyMoip::InvalidComission do
       subject.to_xml
     end
   end

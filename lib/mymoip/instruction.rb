@@ -4,7 +4,7 @@ module MyMoip
 
     attr_accessor :id, :payment_reason, :values, :payer,
                   :commissions, :fee_payer_login, :payment_receiver_login,
-                  :payment_receiver_name
+                  :payment_receiver_name,:installments
 
     validates_presence_of :id, :payment_reason, :values, :payer
     validate :commissions_value_must_be_lesser_than_values
@@ -19,13 +19,14 @@ module MyMoip
       self.fee_payer_login        = attrs[:fee_payer_login]
       self.payment_receiver_login = attrs[:payment_receiver_login]
       self.payment_receiver_name  = attrs[:payment_receiver_name]
+      self.installments           = attrs[:installments]
     end
 
     def to_xml(root = nil)
-      raise ArgumentError, 'Invalid payer' if payer.invalid?
-      raise ArgumentError, 'Invalid params for instruction' if self.invalid?
+      raise InvalidPayer if payer.invalid?
+      raise InvalidInstruction if self.invalid?
       if invalid_commission = commissions.detect { |c| c.invalid? }
-        raise ArgumentError, "Invalid commission: #{invalid_commission}"
+        raise InvalidComission, invalid_commission
       end
 
       xml  = ""
@@ -38,6 +39,19 @@ module MyMoip
             @values.each { |v| n3.Valor("%.2f" % v, moeda: "BRL") }
           end
           n2.IdProprio(@id)
+          
+          if @installments
+            n2.Parcelamentos do |n4|
+              @installments.each do |i| 
+                n4.Parcelamento do |n5|
+                  n5.MinimoParcelas i[:min]
+                  n5.MaximoParcelas i[:max]
+                  n5.Repassar i[:forward_taxes] if i[:forward_taxes]
+                  n5.Juros i[:fee]
+                end
+              end
+            end
+          end
 
           commissions_to_xml n2  if !commissions.empty?
           payment_receiver_to_xml n2 if payment_receiver_login

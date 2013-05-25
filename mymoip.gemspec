@@ -5,13 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = "mymoip"
-  s.version = "0.4.1"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2013-01-11"
-  s.description = "Provides a implementation of MoIP's transparent checkout."
-  s.email = "irio.musskopf@caixadeideias.com.br"
+  s.date = "2013-05-19"
+  s.description = "The easier way to use Moip's transparent checkout."
+  s.email = "iirineu@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
     ".travis.yml",
     "CHANGELOG.md",
     "Gemfile",
-    "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
@@ -30,6 +29,7 @@ Gem::Specification.new do |s|
     "lib/mymoip/commission.rb",
     "lib/mymoip/credit_card.rb",
     "lib/mymoip/credit_card_payment.rb",
+    "lib/mymoip/exceptions.rb",
     "lib/mymoip/formatter.rb",
     "lib/mymoip/instruction.rb",
     "lib/mymoip/json_parser.rb",
@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
     "test/test_request.rb",
     "test/test_transparent_request.rb"
   ]
-  s.homepage = "http://github.com/Irio/mymoip"
+  s.homepage = "https://github.com/Irio/mymoip"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.23"

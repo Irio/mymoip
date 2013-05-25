@@ -6,7 +6,7 @@ begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
   $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
+  $stderr.puts 'Run `bundle install` to install missing gems'
   exit e.status_code
 end
 require 'rake'
@@ -14,13 +14,13 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "mymoip"
-  gem.homepage = "http://github.com/Irio/mymoip"
-  gem.license = "MIT"
-  gem.summary = "MoIP transactions in a gem to call your own."
-  gem.description = "Provides a implementation of MoIP's transparent checkout."
-  gem.email = "irio.musskopf@caixadeideias.com.br"
-  gem.authors = ["Irio Irineu Musskopf Junior"]
+  gem.name        = 'mymoip'
+  gem.homepage    = 'https://github.com/Irio/mymoip'
+  gem.license     = 'MIT'
+  gem.summary     = 'MoIP transactions in a gem to call your own.'
+  gem.description = 'The easier way to use Moip\'s transparent checkout.'
+  gem.email       = 'iirineu@gmail.com'
+  gem.authors     = ['Irio Irineu Musskopf Junior']
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
@@ -36,10 +36,10 @@ task :default => :test
 
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+  version = File.exist?('VERSION') ? File.read('VERSION') : ''
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "mymoip #{version}"
+  rdoc.title = 'mymoip #{version}'
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

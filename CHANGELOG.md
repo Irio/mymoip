@@ -1,16 +1,23 @@
-CHANGELOG
-=========
+# CHANGELOG
 
-0.4.1
------
+## 0.6.0
+* Add support for Ruby 2.0.
+* Improved installments option for Instructions.
+
+## 0.5.0
+* Breaking backward compatibility with exceptions raised. ArgumentError
+is not used anymore. New MyMoip::InvalidComission, MyMoip::InvalidCreditCard,
+MyMoip::InvalidInstruction and MyMoip::InvalidPayer exceptions inherited from
+MyMoip::Error.
+
+## 0.4.1
 
 * Simultaneous setters for sandbox and production token/keys.
 * DEPRECATE MyMoip.key and MyMoip.token methods over new environment specific setters.
 * Going alive instructions added to README file.
 * Add reference to new my_moip-rails gem.
 
-0.4.0
------
+## 0.4.0
 
 * Accept multiple receivers for each instruction.
     * Can set a fixed value (e.g. R$ 50,00).
@@ -18,13 +25,11 @@ CHANGELOG
     * Define which one will take the fees.
 * Accept payments to any MoIP users, even those without API keys.
 
-0.3.1
------
+## 0.3.1
 
 * Re-releasing 0.3.0 after some Rubygems issues.
 
-0.3.0
------
+## 0.3.0
 
 * Add dependency of active_model gem for validations.
 * Try always to store the plain value of attributes. While the previous version would require you to provide phones in the `"(51)93040-5060"` format, now works even with `"051930405060"`.
@@ -50,48 +55,40 @@ New validations:
     * Validate length of address_cep in 8 chars.
     * Validate length of address_phone (accepts 8 and 9 digit phones with its DDD code).
 
-0.2.6
------
+## 0.2.6
 
 * DEPRECATE owner_rg attribute of MyMoip::CreditCard; you should provide a owner_cpf from now on. Should explain issues with Visa's risk analysis.
 
-0.2.5
------
+## 0.2.5
 
 * Request's log messages moved to debug level.
 * Make CreditCard class accept string and symbol logos.
 * Create MyMoip::CreditCard::AVAILABLE_LOGOS constant.
 * Standardise Request#api_call parameters.
 
-0.2.4
------
+## 0.2.4
 
 * Fix American Express logo format expected by Moip.
 
-0.2.3
------
+## 0.2.3
 
 * Remove .rvmrc
 * CreditCardPayment's initialization can now receive a hash of options.
 * lib/requests folder created.
 * Requests has methods to return its response id.
 
-0.2.2
------
+## 0.2.2
 
 * Explicitly require order for Requests classes.
 
-0.2.1
------
+## 0.2.1
 
 * Bugfix related to explicitly require MyMoip class being needed.
 
-0.2.0
------
+## 0.2.0
 
 * Update production url from `https://desenvolvedor.moip.com.br` to `https://www.moip.com.br`.
 
-0.1.0
------
+## 0.1.0
 
 * First version of the gem.

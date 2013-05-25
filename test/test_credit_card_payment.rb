@@ -91,7 +91,7 @@ class TestCreditCardPayment < Test::Unit::TestCase
 
   def test_to_json_method_raises_an_exception_when_called_without_a_credit_card
     subject = MyMoip::CreditCardPayment.new(nil)
-    assert_raise RuntimeError do
+    assert_raise MyMoip::InvalidCreditCard do
       subject.to_json
     end
   end
@@ -107,7 +107,7 @@ class TestCreditCardPayment < Test::Unit::TestCase
   def test_to_json_method_raises_an_exception_when_called_with_a_invalid_credit_card
     subject = MyMoip::CreditCardPayment.new(Fixture.credit_card)
     MyMoip::CreditCard.any_instance.stubs(:invalid?).returns(true)
-    assert_raise ArgumentError do
+    assert_raise MyMoip::InvalidCreditCard do
       subject.to_json
     end
   end
