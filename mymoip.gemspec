@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Irio Irineu Musskopf Junior"]
-  s.date = "2013-05-19"
+  s.date = "2013-05-25"
   s.description = "The easier way to use Moip's transparent checkout."
   s.email = "iirineu@gmail.com"
   s.extra_rdoc_files = [
@@ -52,6 +52,7 @@ Gem::Specification.new do |s|
     "test/test_mymoip.rb",
     "test/test_payer.rb",
     "test/test_payment_request.rb",
+    "test/test_purchase.rb",
     "test/test_request.rb",
     "test/test_transparent_request.rb"
   ]

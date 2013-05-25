@@ -1,6 +1,7 @@
 module MyMoip
   class Purchase
-    attr_accessor :id, :price, :credit_card, :payer, :code
+    attr_accessor :id, :price, :credit_card, :payer
+    attr_reader :code
 
     REASON = 'A Payment'
 
@@ -26,10 +27,10 @@ module MyMoip
 
     def get_authorization!
       instruction = MyMoip::Instruction.new(
-        id: @id,
+        id:             @id,
         payment_reason: Purchase::REASON,
-        values: [@price],
-        payer: @payer
+        values:         [@price],
+        payer:          @payer
       )
 
       request = MyMoip::TransparentRequest.new(@id)
