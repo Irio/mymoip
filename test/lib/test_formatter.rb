@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../test_helper'
 
 class TestFormatter < Test::Unit::TestCase
   def test_cep_method_returns_the_given_cep_with_section_separator

@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../test_helper'
 
 class TestRequest < Test::Unit::TestCase
   def test_initializes_receiving_data_and_optional_id

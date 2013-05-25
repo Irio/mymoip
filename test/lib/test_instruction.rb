@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../test_helper'
 
 class TestInstruction < Test::Unit::TestCase
   def test_getters_for_attributes

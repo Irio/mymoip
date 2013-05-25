@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../test_helper'
 
 class TestCreditCardPayment < Test::Unit::TestCase
   def test_initialization_and_getters
