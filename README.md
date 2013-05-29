@@ -76,12 +76,12 @@ payer_attrs = {
 }
 
 purchase = MyMoip::Purchase.new(
-  id:                purchase_id,
-  price:             transaction_price,
+  id:          purchase_id,
+  price:       transaction_price,
   credit_card: card_attrs,
   payer:       payer_attrs
 )
-purchase.checkout! # => true OR false
+purchase.checkout! # => true OR false (succesfull state)
 purchase.code # Moip code or nil, depending of the checkout's return
 ```
 
@@ -111,7 +111,7 @@ instruction = MyMoip::Instruction.new(
   payer:          payer
 )
 
-transparent_request = MyMoip::TransparentRequest.new("your_logging_id")
+transparent_request = MyMoip::TransparentRequest.new('your_logging_id')
 transparent_request.api_call(instruction)
 ```
 
@@ -119,7 +119,7 @@ transparent_request.api_call(instruction)
 
 ```ruby
 credit_card = MyMoip::CreditCard.new(
-  logo:            :visa,
+  logo:            'visa',
   card_number:     '4916654211627608',
   expiration_date: '06/15',
   security_code:   '000',
