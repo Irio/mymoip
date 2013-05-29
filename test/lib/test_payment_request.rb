@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'helper'
+require_relative '../test_helper'
 
 class TestPaymentRequest < Test::Unit::TestCase
   def test_http_method_as_get

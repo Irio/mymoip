@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../test_helper'
 
 class TestMymoip < Test::Unit::TestCase
   def setup
