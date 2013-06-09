@@ -1,15 +1,14 @@
 module MyMoip
   class Purchase
-    attr_accessor :id, :price, :credit_card, :payer
+    attr_accessor :id, :price, :credit_card, :payer, :reason
     attr_reader :code
 
-    REASON = 'A Payment'
-
     def initialize(attrs)
-      @id    = attrs.fetch(:id) { rand }
-      @price = attrs.fetch(:price)
+      @id          = attrs.fetch(:id) { rand }
+      @price       = attrs.fetch(:price)
       @credit_card = MyMoip::CreditCard.new(attrs.fetch(:credit_card))
       @payer       = MyMoip::Payer.new(attrs.fetch(:payer))
+      @reason      = attrs.fetch(:reason)
     end
 
     def checkout!
@@ -28,7 +27,7 @@ module MyMoip
     def get_authorization!
       instruction = MyMoip::Instruction.new(
         id:             @id,
-        payment_reason: Purchase::REASON,
+        payment_reason: @reason,
         values:         [@price],
         payer:          @payer
       )

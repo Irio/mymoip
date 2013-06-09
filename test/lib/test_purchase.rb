@@ -40,6 +40,7 @@ class TestPurchase < Test::Unit::TestCase
   def subject
     MyMoip::Purchase.new(id:          '42',
                          price:       400,
+                         reason:      'Payment of my product',
                          credit_card: cc_attrs,
                          payer:       payer_attrs)
   end
@@ -59,9 +60,16 @@ class TestPurchase < Test::Unit::TestCase
     subject.checkout!
   end
 
-  def test_checkouts_instruction_uses_the_default_payment_reason
+  def test_checkout_instruction_uses_a_generated_id_for_instruction
     MyMoip::Instruction.expects(:new).
-                        with(has_entry(payment_reason: MyMoip::Purchase::REASON)).
+                        with(has_entry(id: subject.id)).
+                        returns(stub_everything)
+    subject.checkout!
+  end
+
+  def test_checkout_instruction_uses_initialized_reason
+    MyMoip::Instruction.expects(:new).
+                        with(has_entry(payment_reason: 'Payment of my product')).
                         returns(stub_everything)
     subject.checkout!
   end
@@ -69,13 +77,6 @@ class TestPurchase < Test::Unit::TestCase
   def test_checkout_instruction_uses_initialized_price
     MyMoip::Instruction.expects(:new).
                         with(has_entry(values: [400.0])).
-                        returns(stub_everything)
-    subject.checkout!
-  end
-
-  def test_checkout_instruction_uses_a_generated_id_for_instruction
-    MyMoip::Instruction.expects(:new).
-                        with(has_entry(id: subject.id)).
                         returns(stub_everything)
     subject.checkout!
   end

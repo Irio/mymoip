@@ -46,7 +46,7 @@ If you just need to pass some attributes and get if the payment based on them wa
 The payer attributes will be sent to Moip to be stored as your client, identified by... his id. If you don't want to, on each payment, ask your user to all his data, you can always save them in your database.
 
 ```ruby
-purchase_id       = 'purchase_id_for_logging'
+purchase_id       = 'UNIQUE_PURCHASE_ID'
 transaction_price = 100.0
 
 card_attrs = {
@@ -78,6 +78,7 @@ payer_attrs = {
 purchase = MyMoip::Purchase.new(
   id:          purchase_id,
   price:       transaction_price,
+  reason:      'Payment of my product',
   credit_card: card_attrs,
   payer:       payer_attrs
 )
