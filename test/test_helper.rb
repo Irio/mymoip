@@ -11,5 +11,7 @@ require_relative 'live_test'
 require_relative 'fixtures/fixture'
 Dir[File.dirname(__FILE__) + "/lib/*.rb"].each { |file| require file }
 
+MyMoip.sandbox_key   = 'YOUR_MOIP_KEY'
+MyMoip.sandbox_token = 'YOUR_MOIP_TOKEN'
 MyMoip.logger = Logger.new('/dev/null')
 $VERBOSE = nil
