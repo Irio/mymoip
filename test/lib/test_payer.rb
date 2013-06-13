@@ -31,6 +31,36 @@ class TestPayer < Test::Unit::TestCase
     assert_equal "5130405060", payer.address_phone
   end
 
+  def test_initialization_and_setters_with_string_keys
+    payer = MyMoip::Payer.new(
+      'id'                    => 'some id',
+      'name'                  => 'some name',
+      'email'                 => 'some email',
+      'address_street'        => 'some address_street',
+      'address_street_number' => 'some address_street_number',
+      'address_street_extra'  => 'some address_street_extra',
+      'address_neighbourhood' => 'some address_neighbourhood',
+      'address_city'          => 'some address_city',
+      'address_state'         => 'RS',
+      'address_country'       => 'BRA',
+      'address_cep'           => '92123456',
+      'address_phone'         => '5130405060'
+    )
+
+    assert_equal "some id", payer.id
+    assert_equal "some name", payer.name
+    assert_equal "some email", payer.email
+    assert_equal "some address_street", payer.address_street
+    assert_equal "some address_street_number", payer.address_street_number
+    assert_equal "some address_street_extra", payer.address_street_extra
+    assert_equal "some address_neighbourhood", payer.address_neighbourhood
+    assert_equal "some address_city", payer.address_city
+    assert_equal "RS", payer.address_state
+    assert_equal "BRA", payer.address_country
+    assert_equal "92123456", payer.address_cep
+    assert_equal "5130405060", payer.address_phone
+  end
+
   def test_validate_presence_of_id_attribute
     subject = Fixture.payer
     subject.id = nil

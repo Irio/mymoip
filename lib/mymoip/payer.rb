@@ -17,18 +17,9 @@ module MyMoip
     validates_length_of :address_phone, within: 10..11
 
     def initialize(attrs)
-      self.id                    = attrs[:id]
-      self.name                  = attrs[:name]
-      self.email                 = attrs[:email]
-      self.address_street        = attrs[:address_street]
-      self.address_street_number = attrs[:address_street_number]
-      self.address_street_extra  = attrs[:address_street_extra]
-      self.address_neighbourhood = attrs[:address_neighbourhood]
-      self.address_city          = attrs[:address_city]
-      self.address_state         = attrs[:address_state]
-      self.address_country       = attrs[:address_country]
-      self.address_cep           = attrs[:address_cep]
-      self.address_phone         = attrs[:address_phone]
+      attrs.each do |attr, value|
+        public_send(:"#{attr}=", value)
+      end
     end
 
     def address_cep=(value)
