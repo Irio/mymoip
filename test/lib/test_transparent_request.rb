@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../test_helper'
 
 class TestTransparentRequest < Test::Unit::TestCase
   def test_http_method_as_post

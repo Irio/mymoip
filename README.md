@@ -2,9 +2,9 @@
 
 MoIP transactions in a gem to call your own.
 
-Provides a implementation of MoIP's transparent checkout.
+The easier way to use Moip's transparent checkout.
 
-Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails).
+Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails) too.
 
 ## Contributing to MyMoip
 
@@ -14,80 +14,130 @@ Climate](https://codeclimate.com/github/Irio/mymoip.png)](https://codeclimate.co
 
 What would you do if you could make your own implementation of MoIP?
 
-Any patch are welcome, even removing extra blank spaces.
+Any patch are welcome, even removing extra white spaces.
 
 1. Open a pull request.
 2. Done.
 
-## Using
+# Using
 
-Currently under active development.
+## First of all
 
 **Bundler - Gemfile**
 ```ruby
 gem 'mymoip'
 ```
 
-### Configuration
+**Configuration**
 ```ruby
-MyMoip.environment = "production" # "sandbox" by default
+MyMoip.environment = 'production' # 'sandbox' by default
 
-MyMoip.sandbox_token    = "your_moip_sandbox_token"
-MyMoip.sandbox_key      = "your_moip_sandbox_key"
+MyMoip.sandbox_token    = 'your_moip_sandbox_token'
+MyMoip.sandbox_key      = 'your_moip_sandbox_key'
 
-MyMoip.production_token = "your_moip_production_token"
-MyMoip.production_key   = "your_moip_production_key"
+MyMoip.production_token = 'your_moip_production_token'
+MyMoip.production_key   = 'your_moip_production_key'
 ```
 
-### First request: what and from who
+## The easy way
+
+If you just need to pass some attributes and get if the payment based on them was succesfull or not, this can be your start point.
+
+The payer attributes will be sent to Moip to be stored as your client, identified by... his id. If you don't want to, on each payment, ask your user to all his data, you can always save them in your database.
 
 ```ruby
+purchase_id       = 'UNIQUE_PURCHASE_ID'
+transaction_price = 100.0
+
+card_attrs = {
+  logo:            'visa',
+  card_number:     '4916654211627608',
+  expiration_date: '06/15',
+  security_code:   '000',
+  owner_name:      'Juquinha da Rocha',
+  owner_birthday:  '03/11/1980',
+  owner_phone:     '5130405060',
+  owner_cpf:       '52211670695'
+}
+
+payer_attrs = {
+  id:                    'payer_id_defined_by_you',
+  name:                  'Juquinha da Rocha',
+  email:                 'juquinha@rocha.com',
+  address_street:        'Felipe Neri',
+  address_street_number: '406',
+  address_street_extra:  'Sala 501',
+  address_neighbourhood: 'Auxiliadora',
+  address_city:          'Porto Alegre',
+  address_state:         'RS',
+  address_country:       'BRA',
+  address_cep:           '90440150',
+  address_phone:         '5130405060'
+}
+
+purchase = MyMoip::Purchase.new(
+  id:          purchase_id,
+  price:       transaction_price,
+  reason:      'Payment of my product',
+  credit_card: card_attrs,
+  payer:       payer_attrs
+)
+purchase.checkout! # => true OR false (succesfull state)
+purchase.code # Moip code or nil, depending of the checkout's return
+```
+
+## The hard way
+
+**First request: what and from who**
+```ruby
 payer = MyMoip::Payer.new(
-  id: "payer_id_defined_by_you",
-  name: "Juquinha da Rocha",
-  email: "juquinha@rocha.com",
-  address_street: "Felipe Neri",
-  address_street_number: "406",
-  address_street_extra: "Sala 501",
-  address_neighbourhood: "Auxiliadora",
-  address_city: "Porto Alegre",
-  address_state: "RS",
-  address_country: "BRA",
-  address_cep: "90440150",
-  address_phone: "5130405060"
+  id:                    'payer_id_defined_by_you',
+  name:                  'Juquinha da Rocha',
+  email:                 'juquinha@rocha.com',
+  address_street:        'Felipe Neri',
+  address_street_number: '406',
+  address_street_extra:  'Sala 501',
+  address_neighbourhood: 'Auxiliadora',
+  address_city:          'Porto Alegre',
+  address_state:         'RS',
+  address_country:       'BRA',
+  address_cep:           '90440150',
+  address_phone:         '5130405060'
 )
 
 instruction = MyMoip::Instruction.new(
-  id: "instruction_id_defined_by_you",
-  payment_reason: "Order in Buy Everything Store",
-  values: [100.0],
-  payer: payer
+  id:             'instruction_id_defined_by_you',
+  payment_reason: 'Order in Buy Everything Store',
+  values:         [100.0],
+  payer:          payer
 )
 
-transparent_request = MyMoip::TransparentRequest.new("your_logging_id")
+transparent_request = MyMoip::TransparentRequest.new('your_logging_id')
 transparent_request.api_call(instruction)
 ```
 
-### Second request: how
+**Second request: how**
 
 ```ruby
 credit_card = MyMoip::CreditCard.new(
-  logo: :visa,
-  card_number: "4916654211627608",
-  expiration_date: "06/15",
-  security_code: "000",
-  owner_name: "Juquinha da Rocha",
-  owner_birthday: "03/11/1984",
-  owner_phone: "5130405060",
-  owner_cpf: "52211670695"
+  logo:            'visa',
+  card_number:     '4916654211627608',
+  expiration_date: '06/15',
+  security_code:   '000',
+  owner_name:      'Juquinha da Rocha',
+  owner_birthday:  '03/11/1984',
+  owner_phone:     '5130405060',
+  owner_cpf:       '52211670695'
 )
 
-credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
-payment_request = MyMoip::PaymentRequest.new("your_logging_id")
-payment_request.api_call(credit_card_payment, token: transparent_request.token)
+credit_card_payment = MyMoip::CreditCardPayment.new(credit_card,
+                                                    installments: 1)
+payment_request = MyMoip::PaymentRequest.new('your_logging_id')
+payment_request.api_call(credit_card_payment,
+                         token: transparent_request.token)
 ```
 
-### Success?
+**Success?**
 ```ruby
 payment_request.success?
 ```
@@ -106,27 +156,27 @@ Choosing between commission with fixed or percentage value.
 
 ```ruby
 commissions = [MyMoip::Commission.new(
-  reason: 'System maintenance',
+  reason:         'System maintenance',
   receiver_login: 'commissioned_moip_login',
-  fixed_value: 15.0
+  fixed_value:    15.0
 )]
 
 # OR
 
 commissions = [MyMoip::Commission.new(
-  reason: 'Shipping',
-  receiver_login: 'commissioned_moip_login',
+  reason:           'Shipping',
+  receiver_login:   'commissioned_moip_login',
   percentage_value: 0.15
 )]
 ```
 
 ```ruby
 instruction = MyMoip::Instruction.new(
-  id: "instruction_id_defined_by_you",
-  payment_reason: "Order in Buy Everything Store",
-  values: [100.0],
-  payer: payer,
-  commissions: commissions
+  id:             'instruction_id_defined_by_you',
+  payment_reason: 'Order in Buy Everything Store',
+  values:         [100.0],
+  payer:          payer,
+  commissions:    commissions
 )
 ```
 
@@ -146,11 +196,11 @@ installments = [
 ]
 
 MyMoip::Instruction.new(
-  id: "instruction_id_defined_by_you",
-  payment_reason: "Order in Buy Everything Store",
-  values: [100.0],
-  payer: payer,
-  installments: installments
+  id:             'instruction_id_defined_by_you',
+  payment_reason: 'Order in Buy Everything Store',
+  values:         [100.0],
+  payer:          payer,
+  installments:   installments
 )
 ```
 

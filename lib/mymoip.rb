@@ -35,6 +35,14 @@ module MyMoip
     def token
       send(:"#{environment}_token")
     end
+
+    def ensure_key_and_token_set!
+      if MyMoip.key.blank?
+        raise StandardError, "Invalid MyMoip.#{environment}_key set."
+      elsif MyMoip.token.blank?
+        raise StandardError, "Invalid MyMoip.#{environment}_token set."
+      end
+    end
   end
 end
 
