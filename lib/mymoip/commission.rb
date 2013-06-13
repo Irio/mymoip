@@ -41,8 +41,12 @@ module MyMoip
       root.Comissionamento do |n1|
         n1.Razao(reason)
         n1.Comissionado {|n2| n2.LoginMoIP(receiver_login)}
-        n1.ValorFixo(fixed_value) if fixed_value
-        n1.ValorPercentual(percentage_value) if percentage_value
+        if fixed_value
+          n1.ValorFixo(sprintf('%.2f', fixed_value))
+        end
+        if percentage_value
+          n1.ValorPercentual(sprintf('%.2f', percentage_value * 100))
+        end
       end
 
       xml
