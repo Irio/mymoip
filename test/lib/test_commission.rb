@@ -3,9 +3,9 @@ require_relative '../test_helper'
 class TestCommission < Test::Unit::TestCase
   def test_initialization_and_setters
     params = {
-      reason: 'Because we can',
-      receiver_login: 'comissioned_indentifier',
-      fixed_value: 23.5,
+      reason:           'Because we can',
+      receiver_login:   'comissioned_indentifier',
+      fixed_value:      23.5,
       percentage_value: 0.15
     }
     subject = MyMoip::Commission.new(params)
@@ -98,7 +98,7 @@ class TestCommission < Test::Unit::TestCase
   def test_xml_format_with_fixed_value
     subject = Fixture.commission(fixed_value: 5)
     expected_format = <<XML
-<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5</ValorFixo></Comissionamento>
+<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorFixo>5.00</ValorFixo></Comissionamento>
 XML
     assert_equal expected_format.rstrip, subject.to_xml
   end
@@ -106,7 +106,7 @@ XML
   def test_xml_format_with_percentage_value
     subject = Fixture.commission(percentage_value: 0.15, fixed_value: nil)
     expected_format = <<XML
-<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>0.15</ValorPercentual></Comissionamento>
+<Comissionamento><Razao>Because we can</Razao><Comissionado><LoginMoIP>commissioned_indentifier</LoginMoIP></Comissionado><ValorPercentual>15.00</ValorPercentual></Comissionamento>
 XML
     assert_equal expected_format.rstrip, subject.to_xml
   end

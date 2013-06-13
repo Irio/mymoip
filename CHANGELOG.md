@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.6.1
+* Send 2 decimal place numbers in fixed and percentage values nodes of
+Comission's XML. Percentage values are required to be in a 0 to 100 range.
+Reported by @zangrandi.
+
 ## 0.6.0
 * Add support for Ruby 2.0.
 * Improved installments option for Instructions.
