@@ -32,8 +32,11 @@ module MyMoip
     end
 
     def address_cep=(value)
-      value.gsub!(/\D*/, '') unless value.nil?
-      @address_cep = value
+      unless value.nil?
+        @address_cep = value.gsub(/\D*/, '')
+      else
+        @address_cep = nil
+      end
     end
 
     def address_state=(value)
