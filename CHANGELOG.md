@@ -1,15 +1,28 @@
 # CHANGELOG
 
+## 0.6.2
+
+* Removed development dependency of jeweler. Gems are now managed
+directly in .gemspec file.
+* Offer a easier way to manage purchase implementations that don't have
+many customizations over passing some attribute list, making the
+checkout and getting a successful (or not) response. Through
+MyMoip::Purchase.
+* Accept string keys in initializers of CreditCard and Payer classes.
+
 ## 0.6.1
+
 * Send 2 decimal place numbers in fixed and percentage values nodes of
 Comission's XML. Percentage values are required to be in a 0 to 100 range.
 Reported by @zangrandi.
 
 ## 0.6.0
+
 * Add support for Ruby 2.0.
 * Improved installments option for Instructions.
 
 ## 0.5.0
+
 * Breaking backward compatibility with exceptions raised. ArgumentError
 is not used anymore. New MyMoip::InvalidComission, MyMoip::InvalidCreditCard,
 MyMoip::InvalidInstruction and MyMoip::InvalidPayer exceptions inherited from
