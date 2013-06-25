@@ -1,35 +1,45 @@
+require File.expand_path(File.dirname(__FILE__) + '/validators.rb')
 module MyMoip
   class Instruction
+    include Validators
     include ActiveModel::Validations
 
     attr_accessor :id, :payment_reason, :values, :payer,
                   :commissions, :fee_payer_login, :payment_receiver_login,
-                  :payment_receiver_name,:installments
+                  :payment_receiver_name, :installments,
+                  :notification_url, :return_url,
+                  :payment_slip, :payment_methods
 
     validates_presence_of :id, :payment_reason, :values, :payer
     validate :commissions_value_must_be_lesser_than_values
     validate :payment_receiver_presence_in_commissions
+    validate :url_format_validation
 
     def initialize(attrs)
-      self.id                     = attrs[:id]
-      self.payment_reason         = attrs[:payment_reason]
-      self.values                 = attrs[:values]
-      self.payer                  = attrs[:payer]
-      self.commissions            = attrs[:commissions] || []
-      self.fee_payer_login        = attrs[:fee_payer_login]
+      self.id = attrs[:id]
+      self.payment_reason = attrs[:payment_reason]
+      self.values = attrs[:values]
+      self.payer = attrs[:payer]
+      self.commissions = attrs[:commissions] || []
+      self.fee_payer_login = attrs[:fee_payer_login]
       self.payment_receiver_login = attrs[:payment_receiver_login]
-      self.payment_receiver_name  = attrs[:payment_receiver_name]
-      self.installments           = attrs[:installments]
+      self.payment_receiver_name = attrs[:payment_receiver_name]
+      self.installments = attrs[:installments]
+      self.notification_url = attrs[:notification_url]
+      self.return_url = attrs[:return_url]
+      self.payment_slip = attrs[:payment_slip]
+      self.payment_methods = attrs[:payment_methods]
     end
 
     def to_xml(root = nil)
       raise InvalidPayer if payer.invalid?
+      raise InvalidPaymentSlip if payment_slip and payment_slip.invalid?
       raise InvalidInstruction if self.invalid?
       if invalid_commission = commissions.detect { |c| c.invalid? }
         raise InvalidComission, invalid_commission
       end
 
-      xml  = ""
+      xml = ""
       root = Builder::XmlMarkup.new(target: xml)
 
       root.EnviarInstrucao do |n1|
@@ -39,10 +49,10 @@ module MyMoip
             @values.each { |v| n3.Valor("%.2f" % v, moeda: "BRL") }
           end
           n2.IdProprio(@id)
-          
+
           if @installments
             n2.Parcelamentos do |n4|
-              @installments.each do |i| 
+              @installments.each do |i|
                 n4.Parcelamento do |n5|
                   n5.MinimoParcelas i[:min]
                   n5.MaximoParcelas i[:max]
@@ -53,10 +63,15 @@ module MyMoip
             end
           end
 
-          commissions_to_xml n2  if !commissions.empty?
+          commissions_to_xml n2 if !commissions.empty?
           payment_receiver_to_xml n2 if payment_receiver_login
 
           n2.Pagador { |n3| @payer.to_xml(n3) }
+
+          n2.FormasPagamento { |n3| @payment_methods.to_xml(n3) } unless @payment_methods.blank? or @payment_methods.using_all?
+          n2.Boleto { |n3| @payment_slip.to_xml(n3) } unless @payment_slip.blank?
+          n2.URLNotificacao(@notification_url) unless @notification_url.blank?
+          n2.URLRetorno(@return_url) unless @return_url.blank?
         end
       end
 
@@ -100,5 +115,17 @@ module MyMoip
         n.Apelido(payment_receiver_name)
       end
     end
+
+    def url_format_validation
+      if not notification_url.blank? and not valid_url?(notification_url)
+        errors.add(:notification_url, 'Invalid URL format')
+      end
+
+      if not return_url.blank? and not valid_url?(return_url)
+        errors.add(:return_url, 'Invalid URL format.')
+      end
+    end
+
+
   end
 end
