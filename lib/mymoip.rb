@@ -48,6 +48,8 @@ end
 
 $LOAD_PATH << "./lib/mymoip"
 
+require File.dirname(__FILE__) + "/mymoip/validators.rb"
+
 files = Dir[File.dirname(__FILE__) + "/mymoip/*.rb"]
 files.each { |f| require f }
 
