@@ -16,6 +16,16 @@ module MyMoip
     validate :logo_url_format
     validate :expiration_date_format
 
+    def initialize(attrs)
+      self.expiration_date = attrs[:expiration_date]
+      self.expiration_days = attrs[:expiration_days]
+      self.expiration_days_type = attrs[:expiration_days_type]
+      self.instruction_line_1 = attrs[:instruction_line_1]
+      self.instruction_line_2 = attrs[:instruction_line_2]
+      self.instruction_line_3 = attrs[:instruction_line_3]
+      self.logo_url = attrs[:logo_url]
+    end
+
     def to_xml(root = nil)
       raise InvalidPaymentSlip if invalid?
 
