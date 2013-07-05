@@ -4,13 +4,25 @@ module MyMoip
 
     attr_accessor :payment_slip, :credit_card, :debit, :debit_card, :financing, :moip_wallet
 
-    def initialize
+    validates_inclusion_of :payment_slip, :credit_card, :debit, :debit_card, :financing, 
+      :moip_wallet, :in => [true, false]
+
+    def initialize(attrs=nil)
+      attrs = {} if attrs.nil?
+      
       self.payment_slip = true
       self.credit_card = true
       self.debit = true
       self.debit_card = true
       self.financing = true
       self.moip_wallet = true
+
+      self.payment_slip = attrs[:payment_slip] unless attrs[:payment_slip].nil?
+      self.credit_card = attrs[:credit_card] unless attrs[:credit_card].nil?
+      self.debit = attrs[:debit] unless attrs[:debit].nil?
+      self.debit_card = attrs[:debit_card] unless attrs[:debit_card].nil?
+      self.financing = attrs[:financing] unless attrs[:financing].nil?
+      self.moip_wallet = attrs[:moip_wallet] unless attrs[:moip_wallet].nil?
     end
 
     def to_xml(root = nil)
