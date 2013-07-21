@@ -24,11 +24,13 @@ Any patch are welcome, even removing extra white spaces.
 ## First of all
 
 **Bundler - Gemfile**
+
 ```ruby
 gem 'mymoip'
 ```
 
 **Configuration**
+
 ```ruby
 MyMoip.environment = 'production' # 'sandbox' by default
 
@@ -89,6 +91,7 @@ purchase.code # Moip code or nil, depending of the checkout's return
 ## The hard way
 
 **First request: what and from who**
+
 ```ruby
 payer = MyMoip::Payer.new(
   id:                    'payer_id_defined_by_you',
@@ -138,6 +141,7 @@ payment_request.api_call(credit_card_payment,
 ```
 
 **Success?**
+
 ```ruby
 payment_request.success?
 ```
@@ -205,6 +209,79 @@ MyMoip::Instruction.new(
 ```
 
 [More](https://github.com/Irio/mymoip/wiki/Installments-use).
+
+### Notification and return URLs
+
+URLs configured at MoIP account can be overrided by passing new URLs values to the instruction object.
+A notification URL is used for MoIP NASP notification system, responsible for transaction changes signals, 
+and a return URL is used to return to your website when a payment is using external websites.
+
+```ruby
+MyMoip::Instruction.new(
+  id:             'instruction_id_defined_by_you',
+  payment_reason: 'Order in Buy Everything Store',
+  values:         [100.0],
+  payer:          payer,
+  notification_url: 'http://your_system_nasp_receiver/code',
+  return_url: 'http://your_system/where_to_return'
+)
+```
+
+### Payment methods configuration
+
+If you don't need all the payment methods available, you can choose some by configuring 
+PaymentMethods and adding it to the instruction:
+
+```ruby
+payment_methods = MyMoip::PaymentMethods.new(
+  payment_slip: false,
+  credit_card: true,
+  debit: true, 
+  debit_card: true,
+  financing: true, 
+  moip_wallet: true
+)
+
+MyMoip::Instruction.new(
+  id:             'instruction_id_defined_by_you',
+  payment_reason: 'Order in Buy Everything Store',
+  values:         [100.0],
+  payer:          payer,
+  payment_methods: payment_methods
+)
+```
+
+### Payment slip (aka boleto) configuration 
+
+You can optionally configure your payment slip creating a PaymentSlip and adding to the instruction:
+
+```ruby
+payment_slip = MyMoip::PaymentSlip.new(
+  expiration_date: DateTime.tomorrow,
+  expiration_days: 5,
+  expiration_days_type: :business_day,
+  instruction_line_1: 'This is the first instruction line.',
+  instruction_line_2: 'Please do not pay this slip.',
+  instruction_line_3: 'This is a test! :)',
+  logo_url: 'http://yourlogoaddress'
+  )
+  
+MyMoip::Instruction.new(
+  id:             'instruction_id_defined_by_you',
+  payment_reason: 'Order in Buy Everything Store',
+  values:         [100.0],
+  payer:          payer,
+  payment_slip: payment_lip
+)
+```
+
+A payment slip can have the following attributes:
+
+  * expiration_date: a DateTime indicating the last payment date to this slip
+  * expiration_days: expiration days after which the printed payment slip will be considered expired
+  * expiration_days_type: type of expiration day, which can be :business_day or :calendar_day
+  * instruction_line_1, instruction_line_2, instruction_line_3: lines of instruction (up to 63 characters each), added to the payment slip
+  * logo_url: an URL pointing to an image which will be added to the body of the payment slip
 
 ## Going alive!
 
