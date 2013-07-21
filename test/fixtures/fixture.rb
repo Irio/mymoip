@@ -53,4 +53,17 @@ class Fixture
     MyMoip::Commission.new(params)
   end
 
+  def self.payment_slip(params = {})
+    params = {
+        expiration_date: DateTime.new(2020, 1, 1),
+        expiration_days: 7,
+        expiration_days_type: :business_day,
+        instruction_line_1: 'Line 1',
+        instruction_line_2: 'Line 2',
+        instruction_line_3: 'Line 3',
+        logo_url: 'http://www.myurl.com/logo.png'
+    }.merge(params)
+
+    MyMoip::PaymentSlip.new(params)
+  end
 end

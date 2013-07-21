@@ -14,7 +14,9 @@ class TestInstruction < Test::Unit::TestCase
       fee_payer_login: "fee_payer_login",
       payment_receiver_login: "payment_receiver_login",
       payment_receiver_name: "nick_fury",
-      installments: installments
+      installments: installments,
+      notification_url: 'http://please.notify.me',
+      return_url: 'http://return.to.my.address.com'
     )
 
     assert_equal "some id", instruction.id
@@ -26,6 +28,8 @@ class TestInstruction < Test::Unit::TestCase
     assert_equal "fee_payer_login", instruction.fee_payer_login
     assert_equal "payment_receiver_login", instruction.payment_receiver_login
     assert_equal "nick_fury", instruction.payment_receiver_name
+    assert_equal 'http://please.notify.me', instruction.notification_url
+    assert_equal 'http://return.to.my.address.com', instruction.return_url
   end
 
   def test_should_generate_a_string_when_converting_to_xml
@@ -45,6 +49,18 @@ XML
     assert_equal expected_format.rstrip, instruction.to_xml
   end
   
+  def test_xml_format_with_urls
+    payer       = Fixture.payer
+    instruction = Fixture.instruction(payer: payer)
+    instruction.notification_url = 'http://qwerty.me/nasp'
+    instruction.return_url = 'http://return.to.me'
+    
+    expected_format = <<XML
+<EnviarInstrucao><InstrucaoUnica TipoValidacao=\"Transparente\"><Razao>some payment_reason</Razao><Valores><Valor moeda=\"BRL\">100.00</Valor><Valor moeda=\"BRL\">200.00</Valor></Valores><IdProprio>your_own_instruction_id</IdProprio><Parcelamentos><Parcelamento><MinimoParcelas>2</MinimoParcelas><MaximoParcelas>12</MaximoParcelas><Repassar>true</Repassar><Juros>1.99</Juros></Parcelamento></Parcelamentos><Pagador><Nome>Juquinha da Rocha</Nome><Email>juquinha@rocha.com</Email><IdPagador>your_own_payer_id</IdPagador><EnderecoCobranca><Logradouro>Felipe Neri</Logradouro><Numero>406</Numero><Complemento>Sala 501</Complemento><Bairro>Auxiliadora</Bairro><Cidade>Porto Alegre</Cidade><Estado>RS</Estado><Pais>BRA</Pais><CEP>90440-150</CEP><TelefoneFixo>(51)3040-5060</TelefoneFixo></EnderecoCobranca></Pagador><URLNotificacao>http://qwerty.me/nasp</URLNotificacao><URLRetorno>http://return.to.me</URLRetorno></InstrucaoUnica></EnviarInstrucao>
+XML
+    assert_equal expected_format.rstrip, instruction.to_xml
+  end
+
   def test_xml_format_with_installments
     payer        = Fixture.payer
     installments = [
@@ -213,5 +229,15 @@ XML
     subject.payer = nil
     assert subject.invalid? && subject.errors[:payer].present?,
       'should be invalid without a payer'
+  end
+
+  def test_validate_url
+    subject = Fixture.instruction
+    assert subject.valid?    
+
+    subject.notification_url = 'ftp://sdfsdfs.com'
+    subject.return_url = 'xxftpsdfsdfs.com'
+
+    assert subject.invalid? && subject.errors[:notification_url].present? && subject.errors[:return_url].present?
   end
 end

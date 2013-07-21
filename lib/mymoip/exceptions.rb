@@ -8,4 +8,6 @@ module MyMoip
   class InvalidInstruction < Error; end
 
   class InvalidPayer < Error; end
+
+  class InvalidPaymentSlip < Error; end
 end
