@@ -199,7 +199,7 @@ installments = [
   { min: 2, max: 12, forward_taxes: true,  fee: 1.99 } # 1.99 fee = 1.99% per month
 ]
 
-MyMoip::Instruction.new(
+instruction = MyMoip::Instruction.new(
   id:             'instruction_id_defined_by_you',
   payment_reason: 'Order in Buy Everything Store',
   values:         [100.0],
@@ -217,7 +217,7 @@ A notification URL is used for MoIP NASP notification system, responsible for tr
 and a return URL is used to return to your website when a payment is using external websites.
 
 ```ruby
-MyMoip::Instruction.new(
+instruction = MyMoip::Instruction.new(
   id:               'instruction_id_defined_by_you',
   payment_reason:   'Order in Buy Everything Store',
   values:           [100.0],
@@ -242,7 +242,7 @@ payment_methods = MyMoip::PaymentMethods.new(
   moip_wallet:  true
 )
 
-MyMoip::Instruction.new(
+instruction = MyMoip::Instruction.new(
   id:              'instruction_id_defined_by_you',
   payment_reason:  'Order in Buy Everything Store',
   values:          [100.0],
@@ -266,7 +266,7 @@ payment_slip = MyMoip::PaymentSlip.new(
   logo_url:             'https://example.com/logo.png'
 )
   
-MyMoip::Instruction.new(
+instruction = MyMoip::Instruction.new(
   id:             'instruction_id_defined_by_you',
   payment_reason: 'Order in Buy Everything Store',
   values:         [100.0],
@@ -277,11 +277,11 @@ MyMoip::Instruction.new(
 
 A payment slip can have the following attributes:
 
-  * expiration_date: a DateTime indicating the last payment date to this slip
-  * expiration_days: expiration days after which the printed payment slip will be considered expired
-  * expiration_days_type: type of expiration day, which can be :business_day or :calendar_day
-  * instruction_line_1, instruction_line_2, instruction_line_3: lines of instruction (up to 63 characters each), added to the payment slip
-  * logo_url: an URL pointing to an image which will be added to the body of the payment slip
+  * expiration_date: a DateTime indicating the last payment date to this slip.
+  * expiration_days: expiration days after which the printed payment slip will be considered expired.
+  * expiration_days_type: type of expiration day, which can be :business_day or :calendar_day.
+  * instruction_line_1, instruction_line_2, instruction_line_3: lines of instruction (up to 63 characters each), added to the payment slip.
+  * logo_url: an URL pointing to an image which will be added to the body of the payment slip.
 
 ## Going alive!
 
