@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.7.0 - unreleased
+
+* Allow payments using redirection to Moip's domain. (by @oznek)
+* Include PaymentSlip configuration class. (by @oznek)
+
 ## 0.6.2
 
 * Removed development dependency of jeweler. Gems are now managed
