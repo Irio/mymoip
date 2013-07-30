@@ -75,7 +75,7 @@ class TestPaymentRequest < Test::Unit::TestCase
     VCR.use_cassette('transparent_request') do
       transparent_request.api_call(instruction)
     end
-    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, 1)
+    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, installments: 1)
     payment_request = MyMoip::PaymentRequest.new("your_own_id")
     VCR.use_cassette('payment_request') do
       payment_request.api_call(credit_card_payment, token: transparent_request.token)
@@ -89,7 +89,7 @@ class TestPaymentRequest < Test::Unit::TestCase
     VCR.use_cassette('transparent_request') do
       transparent_request.api_call(instruction)
     end
-    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, 1)
+    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, installments: 1)
     payment_request = MyMoip::PaymentRequest.new("your_own_id")
     assert_nil payment_request.code
   end

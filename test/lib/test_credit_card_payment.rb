@@ -1,13 +1,6 @@
 require_relative '../test_helper'
 
 class TestCreditCardPayment < Test::Unit::TestCase
-  def test_initialization_and_getters
-    credit_card = Fixture.credit_card
-    subject = MyMoip::CreditCardPayment.new(credit_card, 1)
-    assert_equal credit_card, subject.credit_card
-    assert_equal 1, subject.installments
-  end
-
   def test_allow_initialization_with_a_hash_of_options
     credit_card = Fixture.credit_card
     subject = MyMoip::CreditCardPayment.new(credit_card, installments: 2)
@@ -17,13 +10,13 @@ class TestCreditCardPayment < Test::Unit::TestCase
 
   def test_cash_method_with_one_tranch
     credit_card = Fixture.credit_card
-    subject = MyMoip::CreditCardPayment.new(credit_card, 1)
+    subject = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
     assert_equal true, subject.cash?
   end
 
   def test_cash_method_with_more_than_one_installments
     credit_card = Fixture.credit_card
-    subject = MyMoip::CreditCardPayment.new(credit_card, 3)
+    subject = MyMoip::CreditCardPayment.new(credit_card, installments: 3)
     assert_equal false, subject.cash?
   end
 
