@@ -17,21 +17,19 @@ module MyMoip
     end
 
     def success?
-      @response && @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Status"] == "Sucesso"
-    rescue NoMethodError => e
+      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Status"] == "Sucesso"
+    rescue NoMethodError
       false
     end
 
     def token
-      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Token"] || nil
-    rescue NoMethodError => e
-      nil
+      @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["Token"]
+    rescue NoMethodError
     end
 
     def id
       @response["EnviarInstrucaoUnicaResponse"]["Resposta"]["ID"]
-    rescue NoMethodError => e
-      nil
+    rescue NoMethodError
     end
 
   end
