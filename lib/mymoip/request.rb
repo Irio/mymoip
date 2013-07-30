@@ -17,7 +17,7 @@ module MyMoip
         MyMoip.ensure_key_and_token_set!
       end
 
-      opts[:logger].info "New #{self.class} being sent to MoIP."
+      opts[:logger].info  "New #{self.class} being sent to MoIP."
       opts[:logger].debug "#{self.class} of ##{@id} with #{params.inspect}"
 
       url = MyMoip.api_url + params.delete(:path)

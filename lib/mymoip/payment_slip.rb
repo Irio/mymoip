@@ -3,27 +3,26 @@ module MyMoip
     include Validators
     include ActiveModel::Validations
 
-    attr_accessor :expiration_date, :expiration_days, :expiration_days_type, :instruction_line_1, :instruction_line_2,
+    attr_accessor :expiration_date, :expiration_days, :expiration_days_type,
+                  :instruction_line_1, :instruction_line_2,
                   :instruction_line_3, :logo_url
 
-    validates_length_of :instruction_line_1, :maximum => 63, :allow_nil => true
-    validates_length_of :instruction_line_2, :maximum => 63, :allow_nil => true
-    validates_length_of :instruction_line_3, :maximum => 63, :allow_nil => true
+    validates_length_of :instruction_line_1, maximum: 63, allow_nil: true
+    validates_length_of :instruction_line_2, maximum: 63, allow_nil: true
+    validates_length_of :instruction_line_3, maximum: 63, allow_nil: true
 
-    validates_numericality_of :expiration_days, :less_than_or_equal_to => 99, :allow_nil => true
-    validates_inclusion_of :expiration_days_type, :in => [:business_day, :calendar_day], :allow_nil => true
+    validates_numericality_of :expiration_days, less_than_or_equal_to: 99,
+                              allow_nil: true
+    validates_inclusion_of :expiration_days_type,
+                           in: [:business_day, :calendar_day], allow_nil: true
 
     validate :logo_url_format
     validate :expiration_date_format
 
     def initialize(attrs)
-      self.expiration_date      = attrs[:expiration_date]
-      self.expiration_days      = attrs[:expiration_days]
-      self.expiration_days_type = attrs[:expiration_days_type]
-      self.instruction_line_1   = attrs[:instruction_line_1]
-      self.instruction_line_2   = attrs[:instruction_line_2]
-      self.instruction_line_3   = attrs[:instruction_line_3]
-      self.logo_url             = attrs[:logo_url]
+      attrs.each do |attr, value|
+        public_send(:"#{attr}=", value)
+      end
     end
 
     def to_xml(root = nil)
@@ -59,6 +58,7 @@ module MyMoip
     end
 
     private
+
     def logo_url_format
       if not logo_url.blank? and not valid_url?(logo_url)
         errors.add(:logo_url, 'Invalid URL format.')
