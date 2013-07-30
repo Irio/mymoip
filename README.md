@@ -222,8 +222,8 @@ MyMoip::Instruction.new(
   payment_reason:   'Order in Buy Everything Store',
   values:           [100.0],
   payer:            payer,
-  notification_url: 'http://your_system_nasp_receiver/code',
-  return_url:       'http://your_system/where_to_return'
+  notification_url: 'https://example.com/payments/notification',
+  return_url:       'https://example.com/payments/return'
 )
 ```
 
@@ -263,7 +263,7 @@ payment_slip = MyMoip::PaymentSlip.new(
   instruction_line_1:   'This is the first instruction line.',
   instruction_line_2:   'Please do not pay this slip.',
   instruction_line_3:   'This is a test! :)',
-  logo_url:             'http://yourlogoaddress'
+  logo_url:             'https://example.com/logo.png'
 )
   
 MyMoip::Instruction.new(
