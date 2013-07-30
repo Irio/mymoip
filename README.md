@@ -218,12 +218,12 @@ and a return URL is used to return to your website when a payment is using exter
 
 ```ruby
 MyMoip::Instruction.new(
-  id:             'instruction_id_defined_by_you',
-  payment_reason: 'Order in Buy Everything Store',
-  values:         [100.0],
-  payer:          payer,
+  id:               'instruction_id_defined_by_you',
+  payment_reason:   'Order in Buy Everything Store',
+  values:           [100.0],
+  payer:            payer,
   notification_url: 'http://your_system_nasp_receiver/code',
-  return_url: 'http://your_system/where_to_return'
+  return_url:       'http://your_system/where_to_return'
 )
 ```
 
@@ -235,18 +235,18 @@ PaymentMethods and adding it to the instruction:
 ```ruby
 payment_methods = MyMoip::PaymentMethods.new(
   payment_slip: false,
-  credit_card: true,
-  debit: true, 
-  debit_card: true,
-  financing: true, 
-  moip_wallet: true
+  credit_card:  true,
+  debit:        true,
+  debit_card:   true,
+  financing:    true, 
+  moip_wallet:  true
 )
 
 MyMoip::Instruction.new(
-  id:             'instruction_id_defined_by_you',
-  payment_reason: 'Order in Buy Everything Store',
-  values:         [100.0],
-  payer:          payer,
+  id:              'instruction_id_defined_by_you',
+  payment_reason:  'Order in Buy Everything Store',
+  values:          [100.0],
+  payer:           payer,
   payment_methods: payment_methods
 )
 ```
@@ -257,21 +257,21 @@ You can optionally configure your payment slip creating a PaymentSlip and adding
 
 ```ruby
 payment_slip = MyMoip::PaymentSlip.new(
-  expiration_date: DateTime.tomorrow,
-  expiration_days: 5,
+  expiration_date:      DateTime.tomorrow,
+  expiration_days:      5,
   expiration_days_type: :business_day,
-  instruction_line_1: 'This is the first instruction line.',
-  instruction_line_2: 'Please do not pay this slip.',
-  instruction_line_3: 'This is a test! :)',
-  logo_url: 'http://yourlogoaddress'
-  )
+  instruction_line_1:   'This is the first instruction line.',
+  instruction_line_2:   'Please do not pay this slip.',
+  instruction_line_3:   'This is a test! :)',
+  logo_url:             'http://yourlogoaddress'
+)
   
 MyMoip::Instruction.new(
   id:             'instruction_id_defined_by_you',
   payment_reason: 'Order in Buy Everything Store',
   values:         [100.0],
   payer:          payer,
-  payment_slip: payment_lip
+  payment_slip:   payment_lip
 )
 ```
 
