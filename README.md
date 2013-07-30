@@ -257,7 +257,7 @@ You can optionally configure your payment slip creating a PaymentSlip and adding
 
 ```ruby
 payment_slip = MyMoip::PaymentSlip.new(
-  expiration_date:      DateTime.tomorrow,
+  expiration_date:      Date.today.next_day.to_datetime,
   expiration_days:      5,
   expiration_days_type: :business_day,
   instruction_line_1:   'This is the first instruction line.',
@@ -271,7 +271,7 @@ MyMoip::Instruction.new(
   payment_reason: 'Order in Buy Everything Store',
   values:         [100.0],
   payer:          payer,
-  payment_slip:   payment_lip
+  payment_slip:   payment_slip
 )
 ```
 
