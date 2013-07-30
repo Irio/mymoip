@@ -54,4 +54,4 @@ files = Dir[File.dirname(__FILE__) + "/mymoip/*.rb"]
 files.each { |f| require f }
 
 MyMoip.environment = "sandbox"
-MyMoip.logger = Logger.new(STDOUT)
+MyMoip.logger      = Logger.new(STDOUT)

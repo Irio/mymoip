@@ -3,17 +3,18 @@ module MyMoip
     include ActiveModel::Validations
 
     attr_accessor :id, :name, :email,
-                  :address_street, :address_street_number, :address_street_extra,
-                  :address_neighbourhood, :address_city, :address_state,
-                  :address_country, :address_cep, :address_phone
+                  :address_street, :address_street_number,
+                  :address_street_extra, :address_neighbourhood,
+                  :address_city, :address_state, :address_country,
+                  :address_cep, :address_phone
 
     validates_presence_of :id, :name, :email, :address_street,
                           :address_street_number, :address_neighbourhood,
                           :address_city, :address_state, :address_country,
                           :address_cep, :address_phone
-    validates_length_of :address_state, is: 2
+    validates_length_of :address_state,   is: 2
     validates_length_of :address_country, is: 3
-    validates_length_of :address_cep, is: 8
+    validates_length_of :address_cep,     is: 8
     validates_length_of :address_phone, within: 10..11
 
     def initialize(attrs)

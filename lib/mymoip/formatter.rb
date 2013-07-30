@@ -1,7 +1,7 @@
 module MyMoip
   class Formatter
     def self.cep(plain_cep)
-      raise ArgumentError, 'Cannot format CEP nil' if plain_cep.nil?
+      raise ArgumentError, 'Cannot format CEP nil'   if plain_cep.nil?
       plain_cep.gsub(/(\d{5})/, '\1-')
     end
 
@@ -11,12 +11,12 @@ module MyMoip
     end
 
     def self.date(plain_date)
-      raise ArgumentError, 'Cannot format date nil' if plain_date.nil?
+      raise ArgumentError, 'Cannot format date nil'  if plain_date.nil?
       plain_date.strftime("%d/%m/%Y")
     end
 
     def self.cpf(plain_cpf)
-      raise ArgumentError, 'Cannot format cpf nil' if plain_cpf.nil?
+      raise ArgumentError, 'Cannot format CPF nil'   if plain_cpf.nil?
       plain_cpf.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
     end
   end

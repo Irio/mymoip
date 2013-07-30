@@ -5,7 +5,7 @@ module MyMoip
     attr_accessor :reason, :receiver_login, :fixed_value, :percentage_value
 
     validates_presence_of :reason, :receiver_login
-    validates_presence_of :fixed_value, if: -> { percentage_value.nil? }
+    validates_presence_of :fixed_value,      if: -> { percentage_value.nil? }
     validates_presence_of :percentage_value, if: -> { fixed_value.nil? }
     validates_numericality_of :fixed_value, greater_than_or_equal_to: 0,
                                             allow_nil: true
@@ -14,10 +14,9 @@ module MyMoip
                                                  allow_nil: true
 
     def initialize(attrs)
-      self.reason           = attrs[:reason]
-      self.receiver_login   = attrs[:receiver_login]
-      self.fixed_value      = attrs[:fixed_value]
-      self.percentage_value = attrs[:percentage_value]
+      attrs.each do |attr, value|
+        public_send(:"#{attr}=", value)
+      end
     end
 
     def gross_amount(instruction)

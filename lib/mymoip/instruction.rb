@@ -16,23 +16,15 @@ module MyMoip
     validate :url_format_validation
 
     def initialize(attrs)
-      self.id = attrs[:id]
-      self.payment_reason = attrs[:payment_reason]
-      self.values = attrs[:values]
-      self.payer = attrs[:payer]
-      self.commissions = attrs[:commissions] || []
-      self.fee_payer_login = attrs[:fee_payer_login]
-      self.payment_receiver_login = attrs[:payment_receiver_login]
-      self.payment_receiver_name = attrs[:payment_receiver_name]
-      self.installments = attrs[:installments]
-      self.notification_url = attrs[:notification_url]
-      self.return_url = attrs[:return_url]
-      self.payment_slip = attrs[:payment_slip]
-      self.payment_methods = attrs[:payment_methods]
+      attrs.each do |attr, value|
+        public_send(:"#{attr}=", value)
+      end
+
+      self.commissions ||= []
     end
 
     def to_xml(root = nil)
-      raise InvalidPayer if payer.invalid?
+      raise InvalidPayer       if payer.invalid?
       raise InvalidPaymentSlip if payment_slip and payment_slip.invalid?
       raise InvalidInstruction if self.invalid?
       if invalid_commission = commissions.detect { |c| c.invalid? }
@@ -52,26 +44,36 @@ module MyMoip
 
           if @installments
             n2.Parcelamentos do |n4|
-              @installments.each do |i|
+              @installments.each do |installments|
                 n4.Parcelamento do |n5|
-                  n5.MinimoParcelas i[:min]
-                  n5.MaximoParcelas i[:max]
-                  n5.Repassar i[:forward_taxes] if i[:forward_taxes]
-                  n5.Juros i[:fee]
+                  n5.MinimoParcelas(installments[:min])
+                  n5.MaximoParcelas(installments[:max])
+                  if installments[:forward_taxes]
+                    n5.Repassar(installments[:forward_taxes])
+                  end
+                  n5.Juros(installments[:fee])
                 end
               end
             end
           end
 
-          commissions_to_xml n2 if !commissions.empty?
-          payment_receiver_to_xml n2 if payment_receiver_login
+          commissions_to_xml(n2)      if commissions.any?
+          payment_receiver_to_xml(n2) if payment_receiver_login
 
           n2.Pagador { |n3| @payer.to_xml(n3) }
 
-          n2.FormasPagamento { |n3| @payment_methods.to_xml(n3) } unless @payment_methods.blank? or @payment_methods.using_all?
-          n2.Boleto { |n3| @payment_slip.to_xml(n3) } unless @payment_slip.blank?
-          n2.URLNotificacao(@notification_url) unless @notification_url.blank?
-          n2.URLRetorno(@return_url) unless @return_url.blank?
+          unless @payment_methods.blank? or @payment_methods.using_all?
+            n2.FormasPagamento { |n3| @payment_methods.to_xml(n3) }
+          end
+          unless @payment_slip.blank?
+            n2.Boleto { |n3| @payment_slip.to_xml(n3) }
+          end
+          unless @notification_url.blank?
+            n2.URLNotificacao(@notification_url)
+          end
+          unless @return_url.blank?
+            n2.URLRetorno(@return_url)
+          end
         end
       end
 
@@ -125,7 +127,5 @@ module MyMoip
         errors.add(:return_url, 'Invalid URL format.')
       end
     end
-
-
   end
 end

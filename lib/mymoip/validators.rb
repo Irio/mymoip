@@ -1,6 +1,7 @@
 module MyMoip
   module Validators
     private
+
     def valid_url?(url)
       begin
         uri = URI.parse(url)
