@@ -1,9 +1,10 @@
 # CHANGELOG
 
-## 0.7.0 - unreleased
+## 0.7.0
 
 * Allow payments using redirection to Moip's domain. (by @oznek)
 * Include PaymentSlip configuration class. (by @oznek)
+* Remove backward compatibility with CreditCardPayment w/o options hash.
 
 ## 0.6.2
 
