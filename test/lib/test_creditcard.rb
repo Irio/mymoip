@@ -58,10 +58,15 @@ class TestCreditCard < Test::Unit::TestCase
     assert_equal Date.new(1980, 12, 20), subject.owner_birthday
   end
 
-  def test_validate_format_of_birthday_date
+  def test_owner_birthday_accepts_input_of_invalid_dates
     subject = Fixture.credit_card
     subject.owner_birthday = '50/12/1980'
     assert_equal '50/12/1980', subject.owner_birthday
+  end
+
+  def test_validate_format_of_birthday_date
+    subject = Fixture.credit_card
+    subject.owner_birthday = '50/12/1980'
     assert subject.invalid? && subject.errors[:owner_birthday].present?,
       'should be valid'
   end
