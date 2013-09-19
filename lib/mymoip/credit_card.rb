@@ -29,7 +29,7 @@ module MyMoip
 
     def owner_birthday=(value)
       value = Date.parse(value.to_s) unless value.nil?
-      rescue; ensure
+      rescue ArgumentError; ensure
         @owner_birthday = value
     end
 
