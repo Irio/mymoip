@@ -14,6 +14,7 @@ module MyMoip
     validates_length_of :security_code, within: 3..4
     validates_format_of :expiration_date, with: /\A(?:(?:0[1-9])|(?:1[02]))\/\d{2}\Z/ # %m/%y
     validates_inclusion_of :logo, in: AVAILABLE_LOGOS
+    validate :owner_birthday_format
 
     def initialize(attrs)
       attrs.each do |attr, value|
@@ -27,10 +28,9 @@ module MyMoip
     end
 
     def owner_birthday=(value)
-      unless value.nil?
-        value = Date.parse(value.to_s)
-      end
-      @owner_birthday = value
+      value = Date.parse(value.to_s) unless value.nil?
+      rescue ArgumentError; ensure
+        @owner_birthday = value
     end
 
     def owner_phone=(value)
@@ -55,5 +55,14 @@ module MyMoip
       end
       @owner_cpf = value
     end
+
+
+    private
+
+      def owner_birthday_format
+        Date.parse(owner_birthday.to_s) unless owner_birthday.nil?
+      rescue ArgumentError
+        errors.add(:owner_birthday)
+      end
   end
 end
