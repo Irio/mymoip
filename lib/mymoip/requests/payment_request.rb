@@ -27,7 +27,7 @@ module MyMoip
       }
       params[:parser] = opts.delete(:parser) unless opts[:parser].nil?
 
-      super(params)
+      super(params, opts)
     end
 
     def success?
