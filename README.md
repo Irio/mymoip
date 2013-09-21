@@ -213,7 +213,7 @@ instruction = MyMoip::Instruction.new(
 ### Notification and return URLs
 
 URLs configured at MoIP account can be overrided by passing new URLs values to the instruction object.
-A notification URL is used for MoIP NASP notification system, responsible for transaction changes signals, 
+A notification URL is used for MoIP NASP notification system, responsible for transaction changes signals,
 and a return URL is used to return to your website when a payment is using external websites.
 
 ```ruby
@@ -229,7 +229,7 @@ instruction = MyMoip::Instruction.new(
 
 ### Payment methods configuration
 
-If you don't need all the payment methods available, you can choose some by configuring 
+If you don't need all the payment methods available, you can choose some by configuring
 PaymentMethods and adding it to the instruction:
 
 ```ruby
@@ -238,7 +238,7 @@ payment_methods = MyMoip::PaymentMethods.new(
   credit_card:  true,
   debit:        true,
   debit_card:   true,
-  financing:    true, 
+  financing:    true,
   moip_wallet:  true
 )
 
@@ -251,7 +251,7 @@ instruction = MyMoip::Instruction.new(
 )
 ```
 
-### Payment slip (aka boleto) configuration 
+### Payment slip (aka boleto) configuration
 
 You can optionally configure your payment slip creating a PaymentSlip and adding to the instruction:
 
@@ -265,7 +265,7 @@ payment_slip = MyMoip::PaymentSlip.new(
   instruction_line_3:   'This is a test! :)',
   logo_url:             'https://example.com/logo.png'
 )
-  
+
 instruction = MyMoip::Instruction.new(
   id:             'instruction_id_defined_by_you',
   payment_reason: 'Order in Buy Everything Store',
@@ -282,6 +282,22 @@ A payment slip can have the following attributes:
   * expiration_days_type: type of expiration day, which can be :business_day or :calendar_day.
   * instruction_line_1, instruction_line_2, instruction_line_3: lines of instruction (up to 63 characters each), added to the payment slip.
   * logo_url: an URL pointing to an image which will be added to the body of the payment slip.
+
+### Logger
+
+The methods that make api calls to Moip, log request and response informations. The default logger is `Logger.new(STDOUT)`, but you can set the logger you want as `api_call` option. For instance:
+
+``` ruby
+request = MyMoip::PaymentRequest.new('some-id')
+request.api_call(data, token: 'some-token', logger: Rails.logger)
+```
+
+You can configure the logger globally too:
+
+``` ruby
+MyMoip.logger = Rails.logger
+```
+
 
 ## Going alive!
 
