@@ -34,6 +34,12 @@ module MyMoip
       @response && @response["StatusPagamento"] == "Sucesso"
     end
 
+    def url
+      @response["url"]
+    rescue NoMethodError => e
+      nil
+    end
+
     def code
       @response["CodigoMoIP"]
     rescue NoMethodError => e

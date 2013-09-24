@@ -140,7 +140,7 @@ payment_request = MyMoip::PaymentRequest.new('your_logging_id')
 payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
 
-#### Payment slip
+#### Payment slip (aka boleto)
 
 ```ruby
 payment_slip_payment = MyMoip::PaymentSlipPayment.new()
@@ -148,11 +148,19 @@ payment_request = MyMoip::PaymentRequest.new('your_logging_id')
 payment_request.api_call(payment_slip_payment, token: transparent_request.token)
 ```
 
-
 ### Success?
 
 ```ruby
 payment_request.success?
+```
+
+### Url
+
+For payment slip, payment request will have a url on response that you can
+redirect the user to print and pay the payment slip.
+
+```ruby
+payment_request.url
 ```
 
 ## More!
