@@ -18,7 +18,7 @@ module MyMoip
       json = JSON.generate({
         pagamentoWidget: {
           referer:        opts[:referer_url],
-          token:          @token,
+          token:          token,
           dadosPagamento: data.to_json
         }
       })
@@ -40,7 +40,7 @@ module MyMoip
     end
 
     def url
-      MyMoip.api_url + PAYMENT_SLIP_PATH + @token if success?
+      MyMoip.api_url + PAYMENT_SLIP_PATH + token if success?
     end
 
     def code
