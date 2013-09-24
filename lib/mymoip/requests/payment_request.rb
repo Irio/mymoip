@@ -1,19 +1,24 @@
 module MyMoip
   class PaymentRequest < Request
 
-    HTTP_METHOD   = :get
-    PATH          = "/rest/pagamento?callback=?"
-    REQUIRES_AUTH = false
-    FORMAT        = :json
+    HTTP_METHOD       = :get
+    PATH              = "/rest/pagamento?callback=?"
+    REQUIRES_AUTH     = false
+    FORMAT            = :json
+    PAYMENT_SLIP_PATH = "/Instrucao.do?token="
+
+    attr_reader :token
 
     def api_call(data, opts)
+      @token = opts[:token]
+
       opts[:referer_url] ||= MyMoip.default_referer_url
       opts[:parser]      ||= MyMoip::JsonParser
 
       json = JSON.generate({
         pagamentoWidget: {
           referer:        opts[:referer_url],
-          token:          opts[:token],
+          token:          token,
           dadosPagamento: data.to_json
         }
       })
@@ -32,6 +37,10 @@ module MyMoip
 
     def success?
       @response && @response["StatusPagamento"] == "Sucesso"
+    end
+
+    def url
+      MyMoip.api_url + PAYMENT_SLIP_PATH + token if success?
     end
 
     def code
