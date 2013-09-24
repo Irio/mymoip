@@ -156,8 +156,8 @@ payment_request.success?
 
 ### Payment url
 
-For payment slip, payment request will have a url on response that you can
-redirect the user to print and pay the payment slip.
+For payment slip, payment request will have a url that you can redirect the user
+to print and pay the payment slip.
 
 ```ruby
 payment_request.url
