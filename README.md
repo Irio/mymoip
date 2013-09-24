@@ -90,7 +90,7 @@ purchase.code # Moip code or nil, depending of the checkout's return
 
 ## The hard way
 
-**First request: what and from who**
+### First request: what and from who
 
 ```ruby
 payer = MyMoip::Payer.new(
@@ -119,7 +119,9 @@ transparent_request = MyMoip::TransparentRequest.new('your_logging_id')
 transparent_request.api_call(instruction)
 ```
 
-**Second request: how**
+### Second request: how
+
+#### Credit card
 
 ```ruby
 credit_card = MyMoip::CreditCard.new(
@@ -133,14 +135,21 @@ credit_card = MyMoip::CreditCard.new(
   owner_cpf:       '52211670695'
 )
 
-credit_card_payment = MyMoip::CreditCardPayment.new(credit_card,
-                                                    installments: 1)
+credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
 payment_request = MyMoip::PaymentRequest.new('your_logging_id')
-payment_request.api_call(credit_card_payment,
-                         token: transparent_request.token)
+payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
 
-**Success?**
+#### Payment slip
+
+```ruby
+payment_slip_payment = MyMoip::PaymentSlipPayment.new()
+payment_request = MyMoip::PaymentRequest.new('your_logging_id')
+payment_request.api_call(payment_slip_payment, token: transparent_request.token)
+```
+
+
+### Success?
 
 ```ruby
 payment_request.success?
@@ -213,7 +222,7 @@ instruction = MyMoip::Instruction.new(
 ### Notification and return URLs
 
 URLs configured at MoIP account can be overrided by passing new URLs values to the instruction object.
-A notification URL is used for MoIP NASP notification system, responsible for transaction changes signals, 
+A notification URL is used for MoIP NASP notification system, responsible for transaction changes signals,
 and a return URL is used to return to your website when a payment is using external websites.
 
 ```ruby
@@ -229,7 +238,7 @@ instruction = MyMoip::Instruction.new(
 
 ### Payment methods configuration
 
-If you don't need all the payment methods available, you can choose some by configuring 
+If you don't need all the payment methods available, you can choose some by configuring
 PaymentMethods and adding it to the instruction:
 
 ```ruby
@@ -238,7 +247,7 @@ payment_methods = MyMoip::PaymentMethods.new(
   credit_card:  true,
   debit:        true,
   debit_card:   true,
-  financing:    true, 
+  financing:    true,
   moip_wallet:  true
 )
 
@@ -251,7 +260,7 @@ instruction = MyMoip::Instruction.new(
 )
 ```
 
-### Payment slip (aka boleto) configuration 
+### Payment slip (aka boleto) configuration
 
 You can optionally configure your payment slip creating a PaymentSlip and adding to the instruction:
 
@@ -265,7 +274,7 @@ payment_slip = MyMoip::PaymentSlip.new(
   instruction_line_3:   'This is a test! :)',
   logo_url:             'https://example.com/logo.png'
 )
-  
+
 instruction = MyMoip::Instruction.new(
   id:             'instruction_id_defined_by_you',
   payment_reason: 'Order in Buy Everything Store',
