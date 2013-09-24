@@ -25,14 +25,8 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        Pyh7IkNvZGlnbyI6MCwiU3RhdHVzUGFnYW1lbnRvI
-        joiU3VjZXNzbyIsIk1lbnNhZ2VtIjoiUmVxdWlzaW
-        8gcHJvY2Vzc2FkYSBjb20gc3VjZXNzbyIsInVybCI
-        6Imh0dHBzOi8vZGVzZW52b2x2ZWRvci5tb2lwLmNv
-        bS5ici9zYW5kYm94L0luc3RydWNhby5kbz90b2tlb
-        j1EMk8wVTFXMksxUDFEMVIyQzJFM0gwTjNMNVgzQT
-        JFNEUzWDBYMDMwVDA5MFQwQTFEMVYyVDhYNTAwRTM
-        ifSk=
+        Pyh7IkNvZGlnbyI6MCwiU3RhdHVzUGFnYW1lbnRvIjoiU3VjZXNzbyIsIk1l
+        bnNhZ2VtIjoiUmVxdWlzaW8gcHJvY2Vzc2FkYSBjb20gc3VjZXNzbyJ9KQ==
     http_version:
   recorded_at: Tue, 24 Sep 2013 13:46:22 GMT
 recorded_with: VCR 2.5.0

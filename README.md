@@ -154,7 +154,7 @@ payment_request.api_call(payment_slip_payment, token: transparent_request.token)
 payment_request.success?
 ```
 
-### Url
+### Payment url
 
 For payment slip, payment request will have a url on response that you can
 redirect the user to print and pay the payment slip.
