@@ -63,7 +63,11 @@ class Fixture
         instruction_line_3: 'Line 3',
         logo_url: 'http://www.myurl.com/logo.png'
     }.merge(params)
-
     MyMoip::PaymentSlip.new(params)
+  end
+
+  def self.bank_debit(params = {})
+    params = { bank: :itau }.merge(params)
+    MyMoip::BankDebit.new(params)
   end
 end
