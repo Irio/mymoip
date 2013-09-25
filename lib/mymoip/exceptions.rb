@@ -10,4 +10,6 @@ module MyMoip
   class InvalidPayer < Error;       end
 
   class InvalidPaymentSlip < Error; end
+
+  class InvalidBankDebit < Error;   end
 end
