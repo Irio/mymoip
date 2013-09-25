@@ -148,6 +148,17 @@ payment_request = MyMoip::PaymentRequest.new('your_logging_id')
 payment_request.api_call(payment_slip_payment, token: transparent_request.token)
 ```
 
+#### Bank debit
+
+```ruby
+bank_debit = MyMoip::BankDebit.new(bank: :itau)
+# you can find the available banks on MyMoip::BankDebit::AVAILABLE_BANKS
+
+bank_debit_payment = MyMoip::BankDebitPayment.new(bank_debit)
+payment_request = MyMoip::PaymentRequest.new('your_logging_id')
+payment_request.api_call(bank_debit_payment, token: transparent_request.token)
+```
+
 ### Success?
 
 ```ruby
@@ -156,8 +167,11 @@ payment_request.success?
 
 ### Payment url
 
-For payment slip, payment request will have a url that you can redirect the user
-to print and pay the payment slip.
+For **payment slip** and **bank debit**, payment request will have a url. This
+url redirect to:
+
+- When **payment slip**: the payment slip to user print and pay
+- When **bank debit**:  the bank's specific payment page
 
 ```ruby
 payment_request.url
