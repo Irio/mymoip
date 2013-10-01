@@ -1,14 +1,14 @@
 module MyMoip
   class Nasp
     STATUSES = {
-      1 => "Autorizado",
-      2 => "Iniciado",
-      3 => "BoletoImpresso",
-      4 => "Concluido",
-      5 => "Cancelado",
-      6 => "EmAnalise",
-      7 => "Estornado",
-      9 => "Reembolsado"
+      "1" => "Autorizado",
+      "2" => "Iniciado",
+      "3" => "BoletoImpresso",
+      "4" => "Concluido",
+      "5" => "Cancelado",
+      "6" => "EmAnalise",
+      "7" => "Estornado",
+      "9" => "Reembolsado"
     }
 
     attr_accessor :id, :value, :status, :moip_code, :payment_mode,
@@ -23,19 +23,19 @@ module MyMoip
     end
 
     def done?
-      status == 4
+      status == "4"
     end
 
     def canceled?
-      status == 5
+      status == "5"
     end
 
     def reversed?
-      status == 7
+      status == "7"
     end
 
     def refunded?
-      status == 9
+      status == "9"
     end
 
     private
