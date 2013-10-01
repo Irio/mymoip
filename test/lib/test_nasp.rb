@@ -65,6 +65,15 @@ class TestPayer < Test::Unit::TestCase
     assert_equal "4780c1fb-e47d-448e-ad7b-506c125366fc", nasp.moip_vault
   end
 
+  def test_if_ignore_rails_default_params
+    nasp = MyMoip::Nasp.new(
+      id_transacao: "some id",
+      controller: "moip",
+      action: "nasp"
+    )
+    assert_equal "some id", nasp.id
+  end
+
   def test_if_status_is_done
     nasp = Fixture.nasp(status_pagamento: "4")
     assert_equal nasp.done?, true

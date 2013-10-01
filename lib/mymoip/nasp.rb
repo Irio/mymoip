@@ -17,6 +17,10 @@ module MyMoip
                   :credit_card_flag, :moip_vault, :receiver_login
 
     def initialize(attrs)
+      # remove rails default params
+      attrs.delete(:controller)
+      attrs.delete(:action)
+
       attrs.each do |attr, value|
         public_send(:"#{attr_map(attr)}=", value)
       end
