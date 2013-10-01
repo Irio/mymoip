@@ -11,6 +11,7 @@ class TestPayer < Test::Unit::TestCase
       tipo_pagamento: "CartaoDeCredito",
       parcelas: 1,
       email_consumidor: "joe@mail.com",
+      recebedor_login: "someMoipLogin",
       cartao_bin: "123456",
       cartao_final: "4321",
       cartao_bandeira: "AmericanExpress",
@@ -25,6 +26,7 @@ class TestPayer < Test::Unit::TestCase
     assert_equal "CartaoDeCredito", nasp.payment_method
     assert_equal 1, nasp.installments
     assert_equal "joe@mail.com", nasp.payer_email
+    assert_equal "someMoipLogin", nasp.receiver_login
     assert_equal "123456", nasp.credit_card_first_digits
     assert_equal "4321", nasp.credit_card_last_digits
     assert_equal "AmericanExpress", nasp.credit_card_flag
@@ -41,6 +43,7 @@ class TestPayer < Test::Unit::TestCase
       "tipo_pagamento" => "CartaoDeCredito",
       "parcelas" => 1,
       "email_consumidor" => "joe@mail.com",
+      "recebedor_login" => "someMoipLogin",
       "cartao_bin" => "123456",
       "cartao_final" => "4321",
       "cartao_bandeira" => "AmericanExpress",
@@ -55,6 +58,7 @@ class TestPayer < Test::Unit::TestCase
     assert_equal "CartaoDeCredito", nasp.payment_method
     assert_equal 1, nasp.installments
     assert_equal "joe@mail.com", nasp.payer_email
+    assert_equal "someMoipLogin", nasp.receiver_login
     assert_equal "123456", nasp.credit_card_first_digits
     assert_equal "4321", nasp.credit_card_last_digits
     assert_equal "AmericanExpress", nasp.credit_card_flag

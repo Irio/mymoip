@@ -14,7 +14,7 @@ module MyMoip
     attr_accessor :id, :value, :status, :moip_code, :payment_mode,
                   :payment_method, :installments, :payer_email,
                   :credit_card_first_digits, :credit_card_last_digits,
-                  :credit_card_flag, :moip_vault
+                  :credit_card_flag, :moip_vault, :receiver_login
 
     def initialize(attrs)
       attrs.each do |attr, value|
@@ -50,6 +50,7 @@ module MyMoip
         tipo_pagamento: :payment_method,
         parcelas: :installments,
         email_consumidor: :payer_email,
+        recebedor_login: :receiver_login,
         cartao_bin: :credit_card_first_digits,
         cartao_final: :credit_card_last_digits,
         cartao_bandeira: :credit_card_flag,
