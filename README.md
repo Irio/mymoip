@@ -90,7 +90,7 @@ purchase.code # Moip code or nil, depending of the checkout's return
 
 ## The hard way
 
-**First request: what and from who**
+### First request: what and from who
 
 ```ruby
 payer = MyMoip::Payer.new(
@@ -119,7 +119,9 @@ transparent_request = MyMoip::TransparentRequest.new('your_logging_id')
 transparent_request.api_call(instruction)
 ```
 
-**Second request: how**
+### Second request: how
+
+#### Credit card
 
 ```ruby
 credit_card = MyMoip::CreditCard.new(
@@ -133,17 +135,32 @@ credit_card = MyMoip::CreditCard.new(
   owner_cpf:       '52211670695'
 )
 
-credit_card_payment = MyMoip::CreditCardPayment.new(credit_card,
-                                                    installments: 1)
+credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
 payment_request = MyMoip::PaymentRequest.new('your_logging_id')
-payment_request.api_call(credit_card_payment,
-                         token: transparent_request.token)
+payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
 
-**Success?**
+#### Payment slip (aka boleto)
+
+```ruby
+payment_slip_payment = MyMoip::PaymentSlipPayment.new()
+payment_request = MyMoip::PaymentRequest.new('your_logging_id')
+payment_request.api_call(payment_slip_payment, token: transparent_request.token)
+```
+
+### Success?
 
 ```ruby
 payment_request.success?
+```
+
+### Payment url
+
+For payment slip, payment request will have a url that you can redirect the user
+to print and pay the payment slip.
+
+```ruby
+payment_request.url
 ```
 
 ## More!

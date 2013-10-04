@@ -93,4 +93,28 @@ class TestPaymentRequest < Test::Unit::TestCase
     payment_request = MyMoip::PaymentRequest.new("your_own_id")
     assert_nil payment_request.code
   end
+
+  def test_method_to_get_response_url
+    instruction = Fixture.instruction(payer: Fixture.payer)
+    transparent_request = MyMoip::TransparentRequest.new("your_own_id")
+    VCR.use_cassette('transparent_request') do
+      transparent_request.api_call(instruction)
+    end
+    payment_slip_payment = MyMoip::PaymentSlipPayment.new
+    payment_request = MyMoip::PaymentRequest.new("your_own_id")
+    VCR.use_cassette('payment_request_with_payment_slip') do
+      payment_request.api_call(payment_slip_payment, token: transparent_request.token)
+    end
+    assert_equal "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=#{transparent_request.token}", payment_request.url
+  end
+
+  def test_url_method_should_return_nil_with_blank_response
+    instruction = Fixture.instruction(payer: Fixture.payer)
+    transparent_request = MyMoip::TransparentRequest.new("your_own_id")
+    VCR.use_cassette('transparent_request') do
+      transparent_request.api_call(instruction)
+    end
+    payment_request = MyMoip::PaymentRequest.new("your_own_id")
+    assert_nil payment_request.url
+  end
 end

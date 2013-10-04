@@ -1,0 +1,32 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://YOUR_MOIP_TOKEN:YOUR_MOIP_KEY@desenvolvedor.moip.com.br/sandbox/rest/pagamento?callback=?&pagamentoWidget=%7B%22pagamentoWidget%22:%7B%22referer%22:%22http://localhost/default%22,%22token%22:%22D2O0U1W2K1P1D1R2C2E3H0N3L5X3A2E4E3X0X030T090T0A1D1V2T8X500E3%22,%22dadosPagamento%22:%7B%22Forma%22:%22BoletoBancario%22%7D%7D%7D
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 24 Sep 2013 13:46:21 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '92'
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - application/json
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        Pyh7IkNvZGlnbyI6MCwiU3RhdHVzUGFnYW1lbnRvIjoiU3VjZXNzbyIsIk1l
+        bnNhZ2VtIjoiUmVxdWlzaW8gcHJvY2Vzc2FkYSBjb20gc3VjZXNzbyJ9KQ==
+    http_version:
+  recorded_at: Tue, 24 Sep 2013 13:46:22 GMT
+recorded_with: VCR 2.5.0
