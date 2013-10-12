@@ -1,5 +1,5 @@
 module MyMoip
-  class CreditCardPayment
+  class CreditCardPayment < Payment
     attr_accessor :credit_card, :installments
 
     def initialize(credit_card, opts = {})

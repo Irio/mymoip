@@ -1,5 +1,5 @@
 module MyMoip
-  class PaymentSlipPayment
+  class PaymentSlipPayment < Payment
 
     def to_json
       json = {
