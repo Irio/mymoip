@@ -1,5 +1,5 @@
 module MyMoip
-  class BankDebitPayment
+  class BankDebitPayment < Payment
     attr_accessor :bank_debit
 
     def initialize(bank_debit)
