@@ -132,13 +132,23 @@ credit_card = MyMoip::CreditCard.new(
   owner_name:      'Juquinha da Rocha',
   owner_birthday:  '03/11/1984',
   owner_phone:     '5130405060',
-  owner_cpf:       '52211670695'
+  owner_cpf:       '52211670695',
+  perform_extra_validation: true  # optional: see the next sub section
 )
 
 credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
 payment_request = MyMoip::PaymentRequest.new('your_logging_id')
 payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
+
+##### Credit card extra validation
+
+There is a already [reported](http://goo.gl/celJIZ) bug that the API don't
+requires some attributes returning a successful
+[response](https://gist.github.com/Irio/4032350). To "fix it" you can enable an
+extra validation with `perform_extra_validation` option. It will require the
+presence of all credit card attributes.
+
 
 #### Payment slip (aka boleto)
 

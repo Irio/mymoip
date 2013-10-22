@@ -10,7 +10,8 @@ class TestCreditCard < Test::Unit::TestCase
       owner_name: "Juquinha da Rocha",
       owner_birthday: Date.new(1984, 11, 3),
       owner_phone: "5130405060",
-      owner_cpf: "522.116.706-95"
+      owner_cpf: "522.116.706-95",
+      perform_extra_validation: true
     )
 
     assert_equal :visa, subject.logo
@@ -21,18 +22,20 @@ class TestCreditCard < Test::Unit::TestCase
     assert_equal Date.new(1984, 11, 3), subject.owner_birthday
     assert_equal "5130405060", subject.owner_phone
     assert_equal "52211670695", subject.owner_cpf
+    assert_equal true, subject.perform_extra_validation
   end
 
   def test_initialization_and_setters_with_string_keys
     subject = MyMoip::CreditCard.new(
-      'logo'            => :visa,
-      'card_number'     => '4916654211627608',
-      'expiration_date' => '06/15',
-      'security_code'   => '000',
-      'owner_name'      => 'Juquinha da Rocha',
-      'owner_birthday'  => Date.new(1984, 11, 3),
-      'owner_phone'     => '5130405060',
-      'owner_cpf'       => '522.116.706-95'
+      'logo'                     => :visa,
+      'card_number'              => '4916654211627608',
+      'expiration_date'          => '06/15',
+      'security_code'            => '000',
+      'owner_name'               => 'Juquinha da Rocha',
+      'owner_birthday'           => Date.new(1984, 11, 3),
+      'owner_phone'              => '5130405060',
+      'owner_cpf'                => '522.116.706-95',
+      'perform_extra_validation' => false
     )
 
     assert_equal :visa, subject.logo
@@ -43,6 +46,7 @@ class TestCreditCard < Test::Unit::TestCase
     assert_equal Date.new(1984, 11, 3), subject.owner_birthday
     assert_equal "5130405060", subject.owner_phone
     assert_equal "52211670695", subject.owner_cpf
+    assert_equal false, subject.perform_extra_validation
   end
 
   def test_validate_presence_of_logo_attribute
@@ -92,6 +96,23 @@ class TestCreditCard < Test::Unit::TestCase
     subject.owner_phone = '215130405060'
     assert subject.invalid? && subject.errors[:owner_phone].present?,
       'should not accept strings with other than 10 or 11 chars'
+  end
+
+  def test_perform_extra_validation
+    subject = Fixture.credit_card({
+      card_number: nil,
+      expiration_date: nil,
+      owner_name: nil,
+      owner_phone: nil,
+      owner_cpf: nil,
+      perform_extra_validation: true
+    })
+    assert subject.invalid?
+    assert subject.errors[:card_number],      "can't be blank"
+    assert subject.errors[:expiration_date],  "can't be blank"
+    assert subject.errors[:owner_name],       "can't be blank"
+    assert subject.errors[:owner_phone],      "can't be blank"
+    assert subject.errors[:owner_cpf],        "can't be blank"
   end
 
   def test_remove_left_zeros_from_owner_phone
