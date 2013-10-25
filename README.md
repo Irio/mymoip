@@ -85,7 +85,7 @@ purchase = MyMoip::Purchase.new(
   payer:       payer_attrs
 )
 purchase.checkout! # => true OR false (succesfull state)
-purchase.code # Moip code or nil, depending of the checkout's return
+purchase.code      # Moip code or nil, depending of the checkout's return
 ```
 
 ## The hard way
@@ -125,36 +125,32 @@ transparent_request.api_call(instruction)
 
 ```ruby
 credit_card = MyMoip::CreditCard.new(
-  logo:            'visa',
-  card_number:     '4916654211627608',
-  expiration_date: '06/15',
-  security_code:   '000',
-  owner_name:      'Juquinha da Rocha',
-  owner_birthday:  '03/11/1984',
-  owner_phone:     '5130405060',
-  owner_cpf:       '52211670695',
+  logo:                     'visa',
+  card_number:              '4916654211627608',
+  expiration_date:          '06/15',
+  security_code:            '000',
+  owner_name:               'Juquinha da Rocha',
+  owner_birthday:           '03/11/1984',
+  owner_phone:              '5130405060',
+  owner_cpf:                '52211670695',
   perform_extra_validation: true  # optional: see the next sub section
 )
 
 credit_card_payment = MyMoip::CreditCardPayment.new(credit_card, installments: 1)
-payment_request = MyMoip::PaymentRequest.new('your_logging_id')
+payment_request     = MyMoip::PaymentRequest.new('your_logging_id')
 payment_request.api_call(credit_card_payment, token: transparent_request.token)
 ```
 
 ##### Credit card extra validation
 
-There is a already [reported](http://goo.gl/celJIZ) bug that the API don't
-requires some attributes returning a successful
-[response](https://gist.github.com/Irio/4032350). To "fix it" you can enable an
-extra validation with `perform_extra_validation` option. It will require the
-presence of all credit card attributes.
+There is a already [reported](http://goo.gl/celJIZ) bug that the API don't requires some attributes returning a successful [response](https://gist.github.com/Irio/4032350). To "fix it" you can enable an extra validation with `perform_extra_validation` option. It will require the presence of all credit card attributes.
 
 
 #### Payment slip (aka boleto)
 
 ```ruby
 payment_slip_payment = MyMoip::PaymentSlipPayment.new()
-payment_request = MyMoip::PaymentRequest.new('your_logging_id')
+payment_request      = MyMoip::PaymentRequest.new('your_logging_id')
 payment_request.api_call(payment_slip_payment, token: transparent_request.token)
 ```
 
@@ -165,7 +161,7 @@ bank_debit = MyMoip::BankDebit.new(bank: :itau)
 # you can find the available banks on MyMoip::BankDebit::AVAILABLE_BANKS
 
 bank_debit_payment = MyMoip::BankDebitPayment.new(bank_debit)
-payment_request = MyMoip::PaymentRequest.new('your_logging_id')
+payment_request    = MyMoip::PaymentRequest.new('your_logging_id')
 payment_request.api_call(bank_debit_payment, token: transparent_request.token)
 ```
 
