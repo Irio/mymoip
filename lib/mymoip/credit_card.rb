@@ -3,7 +3,8 @@ module MyMoip
     include ActiveModel::Validations
 
     attr_accessor :logo, :card_number, :expiration_date, :security_code,
-                :owner_name, :owner_birthday, :owner_phone, :owner_cpf
+                  :owner_name, :owner_birthday, :owner_phone, :owner_cpf,
+                  :perform_extra_validation
 
     AVAILABLE_LOGOS = [
       :american_express, :diners, :hipercard, :mastercard, :visa
@@ -15,6 +16,10 @@ module MyMoip
     validates_format_of :expiration_date, with: /\A(?:(?:0[1-9])|(?:1[0-2]))\/\d{2}\Z/ # %m/%y
     validates_inclusion_of :logo, in: AVAILABLE_LOGOS
     validate :owner_birthday_format
+    validates_presence_of :card_number, :expiration_date, :owner_name,
+                          :owner_phone, :owner_cpf,
+                          if: ->(resource) { resource.perform_extra_validation }
+
 
     def initialize(attrs)
       attrs.each do |attr, value|
