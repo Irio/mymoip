@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 0.8.0
+
+* Perform optional extra validations in CreditCard. (by @hugomaiavieira)
+* Fix regex for CreditCard#expiration_date validation. (by @hugomaiavieira)
+* Accept payments by bank debit. (by @hugomaiavieira)
+* Accept payments by payment slip aka boleto. (by @hugomaiavieira)
+* Fix missing forward of PaymentRequest#api_call options to Request's
+  implementation. (by @hugomaiavieira)
+* Accept to set invalid owner_birthday in CreditCard. (by @hugomaiavieira)
+
 ## 0.7.0
 
 * Allow payments using redirection to Moip's domain. (by @oznek)
