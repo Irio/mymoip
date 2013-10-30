@@ -343,3 +343,7 @@ If you are ready to get your application using MyMoip approved by MoIP or alread
 ## License
 
 MIT. See LICENSE.txt for further details.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Irio/mymoip/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
