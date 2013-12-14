@@ -6,6 +6,16 @@ module MyMoip
     REQUIRES_AUTH     = false
     FORMAT            = :json
     PAYMENT_SLIP_PATH = "/Instrucao.do?token="
+    STATUSES          = {
+                          "Autorizado"      => 1,
+                          "Iniciado"        => 2,
+                          "BoletoImpresso"  => 3,
+                          "Concluido"       => 4,
+                          "Cancelado"       => 5,
+                          "EmAnalise"       => 6,
+                          "Estornado"       => 7,
+                          "Reembolsado"     => 9
+                        }
 
     attr_reader :token
 
@@ -45,6 +55,18 @@ module MyMoip
 
     def code
       @response["CodigoMoIP"]
+    rescue NoMethodError => e
+      nil
+    end
+
+    def status
+      STATUSES[@response["Status"]]
+    rescue NoMethodError => e
+      nil
+    end
+
+    def total_payed
+      @response["TotalPago"]
     rescue NoMethodError => e
       nil
     end
