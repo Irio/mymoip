@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.9.0
+
+* Include support for Ruby 1.9.2.
+
 ## 0.8.0
 
 * Perform optional extra validations in CreditCard. (by @hugomaiavieira)
