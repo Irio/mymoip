@@ -21,6 +21,11 @@ Any patch are welcome, even removing extra white spaces.
 
 # Using
 
+## Compatibility
+
+* Ruby >= 1.9.3 - current version
+* Ruby 1.9.2 - 0.9.0
+
 ## First of all
 
 **Bundler - Gemfile**
