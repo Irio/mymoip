@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.10.0
+
+* Document version compatibility with Rubies and drop support for 1.9.2.
+
 ## 0.9.0
 
 * Include support for Ruby 1.9.2.
