@@ -80,6 +80,10 @@ module MyMoip
       last_payment
     end
 
+    def installments
+      payment['Parcela']['TotalParcelas'].to_i
+    end
+
     def card_brand
       payment['Bandeira']
     end
