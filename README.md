@@ -243,8 +243,7 @@ installment option which will expect something like this array:
 installments = [
   { min: 1, max:  1, forward_taxes: false },
   { min: 2, max: 12, forward_taxes: true,  fee: 1.99 } # 1.99 fee = 1.99% per month
-  { min: 2, max: 12, receive_in_installments: true } # Receive money from moip
-  in installments and dont pay taxes
+  { min: 2, max: 12, receive_in_installments: true } # Receive money from moip in installments and dont pay taxes
 
 ]
 
