@@ -6,6 +6,10 @@ The easier way to use Moip's transparent checkout.
 
 Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails) too.
 
+## DISCLAIMER
+
+According with recent changes on Moip's policy, your application won't be accepted if sends credit card information to your own server, as currently implemented in `MyMoip::Purchase` and any class sufixed by the word "Payment". In their place, you must use the [JavaScript library](https://labs.moip.com.br/referencia/javascript_de_pagamento/) (in portuguese). Future changes in MyMoip will reflect this change.
+
 ## Contributing to MyMoip
 
 [![Build Status](https://secure.travis-ci.org/Irio/mymoip.png)](http://travis-ci.org/Irio/mymoip)
@@ -20,6 +24,11 @@ Any patch are welcome, even removing extra white spaces.
 2. Done.
 
 # Using
+
+## Compatibility
+
+* Ruby >= 1.9.3 - current version
+* Ruby 1.9.2 - 0.9.0
 
 ## First of all
 
@@ -343,3 +352,7 @@ If you are ready to get your application using MyMoip approved by MoIP or alread
 ## License
 
 MIT. See LICENSE.txt for further details.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Irio/mymoip/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
