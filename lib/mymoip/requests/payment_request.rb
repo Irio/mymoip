@@ -55,19 +55,19 @@ module MyMoip
 
     def code
       @response["CodigoMoIP"]
-    rescue NoMethodError => e
+    rescue NoMethodError
       nil
     end
 
     def status
       STATUSES[@response["Status"]]
-    rescue NoMethodError => e
+    rescue NoMethodError
       nil
     end
 
     def total_payed
       @response["TotalPago"]
-    rescue NoMethodError => e
+    rescue NoMethodError
       nil
     end
 
