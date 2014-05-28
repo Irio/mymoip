@@ -329,6 +329,16 @@ A payment slip can have the following attributes:
   * instruction_line_1, instruction_line_2, instruction_line_3: lines of instruction (up to 63 characters each), added to the payment slip.
   * logo_url: an URL pointing to an image which will be added to the body of the payment slip.
 
+### Consultation
+
+``` ruby
+# Create a consultation request with the moip transaction token
+request = MyMoip::ConsultationRequest.new('U260F1E2P0G4N0Z2T1S0M4T3C5E4J5M8L5U0G0I0U0M0H0Y0E3X7S9X6I783')
+request.api_call
+# After api_call you can access the xml string response and parse it
+Hash.from_xml(request.xml_str)
+```
+
 ### Logger
 
 The methods that make api calls to Moip, log request and response informations. The default logger is `Logger.new(STDOUT)`, but you can set the logger you want as `api_call` option. For instance:
