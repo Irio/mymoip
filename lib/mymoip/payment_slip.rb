@@ -36,14 +36,10 @@ module MyMoip
       root.DataVencimento(expiration_date.strftime('%Y-%m-%dT%H:%M:%S.%L%:z')) unless expiration_date.blank?
 
       if expiration_days
-        type = nil
-        if expiration_days_type
-          if expiration_days_type == :business_day
-            type = {'Tipo' => 'Uteis'}
-          elsif expiration_days_type == :calendar_day
-            type = {'Tipo' => 'Corridos'}
-          end
-        end
+        type = {
+          business_day: {'Tipo' => 'Uteis'},
+          calendar_day: {'Tipo' => 'Corridos'}
+        }[expiration_days_type]
 
         root.DiasExpiracao(expiration_days, type)
       end
