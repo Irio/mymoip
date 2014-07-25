@@ -22,11 +22,16 @@ module MyMoip
     end
 
     def transactions
-      @transactions ||= get_payment_nodes
+      @transactions ||= get_transaction_params.map do |transaction_params|
+        MyMoip::Transaction.new(transaction_params)
+      end
     end
 
     def transaction(moip_code)
-      transactions.select { |i| i.key(format_moip_code(moip_code)) }.first
+      transaction_params = get_transaction_params.select {
+        |i| i.key(format_moip_code(moip_code))
+      }.first
+      MyMoip::Transaction.new(transaction_params)
     end
 
     private
@@ -35,7 +40,7 @@ module MyMoip
       moip_code.to_s.rjust(12, '0').scan(/\d{4}/).join('.')
     end
 
-    def get_payment_nodes
+    def get_transaction_params
       payments = response_hash['ConsultarTokenResponse']\
                               ['RespostaConsultar']\
                               ['Autorizacao']\
