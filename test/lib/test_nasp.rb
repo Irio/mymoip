@@ -25,7 +25,11 @@ class TestNasp < Test::Unit::TestCase
     assert_equal @nasp_params['forma_pagamento'],  subject.payment_method
     assert_equal @nasp_params['tipo_pagamento'],   subject.payment_type
     assert_equal @nasp_params['parcelas'],         subject.installments
-    assert_equal @nasp_params['email_consumidor'], subject.consumer_mail
+    assert_equal @nasp_params['email_consumidor'], subject.payer_mail
+    assert_equal @nasp_params['recebedor_login'],  subject.seller_mail
+    assert_equal @nasp_params['cartao_bin'],       subject.card_first_numbers
+    assert_equal @nasp_params['cartao_final'],     subject.card_last_numbers
+    assert_equal @nasp_params['cofre'],            subject.moip_lock_number
     assert_equal @nasp_params['classificacao'],    subject.classification
   end
 end
