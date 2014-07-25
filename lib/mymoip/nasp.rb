@@ -8,7 +8,11 @@ module MyMoip
       'forma_pagamento'  => 'payment_method',
       'tipo_pagamento'   => 'payment_type',
       'parcelas'         => 'installments',
-      'email_consumidor' => 'consumer_mail',
+      'email_consumidor' => 'payer_mail',
+      'recebedor_login'  => 'seller_mail',
+      'cartao_bin'       => 'card_first_numbers',
+      'cartao_final'     => 'card_last_numbers',
+      'cofre'            => 'moip_lock_number',
       'classificacao'    => 'classification'
     }
 
