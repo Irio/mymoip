@@ -1,3 +1,4 @@
+require 'minitest/unit'
 require 'test/unit'
 require 'mocha/setup'
 require 'vcr'
