@@ -11,25 +11,31 @@ class TestNasp < Test::Unit::TestCase
       'tipo_pagamento'   => 'CartaoDeCredito',
       'parcelas'         => 1,
       'email_consumidor' => 'pagador@email.com.br',
-      'classificacao'    => 'Solicitado pelo vendedor'
+      'recebedor_login'  => 'cliente@dominio.com.br',
+      'cartao_bin'       => '123456',
+      'cartao_final'     => '4324',
+      'cartao_bandeira'   => 'AmericanExpress',
+      'cofre'            => '4780c1fb-e47d-448e-ad7b-506c125366fc',
+      'classificacao'    => 'Política do Banco Emissor'
     }
   end
 
   def test_nasp_params_mapping_and_methods_definition
     subject = MyMoip::Nasp.new(@nasp_params)
 
-    assert_equal @nasp_params['id_transacao'],     subject.transaction_id
-    assert_equal @nasp_params['valor'],            subject.paid_value
-    assert_equal @nasp_params['status_pagamento'], subject.status
-    assert_equal @nasp_params['cod_moip'],         subject.moip_code
-    assert_equal @nasp_params['forma_pagamento'],  subject.payment_method
-    assert_equal @nasp_params['tipo_pagamento'],   subject.payment_type
-    assert_equal @nasp_params['parcelas'],         subject.installments
-    assert_equal @nasp_params['email_consumidor'], subject.payer_mail
-    assert_equal @nasp_params['recebedor_login'],  subject.seller_mail
-    assert_equal @nasp_params['cartao_bin'],       subject.card_first_numbers
-    assert_equal @nasp_params['cartao_final'],     subject.card_last_numbers
-    assert_equal @nasp_params['cofre'],            subject.moip_lock_number
-    assert_equal @nasp_params['classificacao'],    subject.classification
+    assert_equal subject.transaction_id,      'abc.1234'
+    assert_equal subject.paid_value,          '100'
+    assert_equal subject.status,              5
+    assert_equal subject.moip_code,           12345678
+    assert_equal subject.payment_method_code, 3
+    assert_equal subject.payment_method,      'CartaoDeCredito'
+    assert_equal subject.installments,        1
+    assert_equal subject.payer_mail,          'pagador@email.com.br'
+    assert_equal subject.seller_mail,         'cliente@dominio.com.br'
+    assert_equal subject.card_first_numbers,  '123456'
+    assert_equal subject.card_last_numbers,   '4324'
+    assert_equal subject.credit_card_logo,    'AmericanExpress'
+    assert_equal subject.moip_lock_number,    '4780c1fb-e47d-448e-ad7b-506c125366fc'
+    assert_equal subject.classification,      'Política do Banco Emissor'
   end
 end
