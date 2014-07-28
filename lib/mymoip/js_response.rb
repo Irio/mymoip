@@ -15,5 +15,13 @@ module MyMoip
     }
 
     include MyMoip::ParamsMapper
+
+    def success?
+      payment_status.eql?('Sucesso')
+    end
+
+    def failed?
+      payment_status.eql?('Falha')
+    end
   end
 end

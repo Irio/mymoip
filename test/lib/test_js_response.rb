@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
 class TestJsResponse < Test::Unit::TestCase
-  def setup_with_success
+  def setup
     @js_response_params = {
       'CodigoMoIP'      => '0000.1234.5678',
       'Mensagem'        => 'Requisição processada com sucesso',
@@ -18,8 +18,8 @@ class TestJsResponse < Test::Unit::TestCase
 
 
   def test_js_response_params_mapping_and_methods_definition
-    setup_with_success
     subject = MyMoip::JsResponse.new(@js_response_params)
+
     assert_equal subject.moip_code,        '0000.1234.5678'
     assert_equal subject.message,          'Requisição processada com sucesso'
     assert_equal subject.payment_status,   'Sucesso'
@@ -31,5 +31,16 @@ class TestJsResponse < Test::Unit::TestCase
 
     assert_equal subject.classification.code,        '3'
     assert_equal subject.classification.description, 'Politica do banco emissor'
+  end
+
+  def test_success?
+    subject = MyMoip::JsResponse.new(@js_response_params)
+    assert subject.success?
+
+    @js_response_params['StatusPagamento'] = 'Falha'
+    subject = MyMoip::JsResponse.new(@js_response_params)
+
+    assert_equal false, subject.success?
+    assert_equal true,  subject.failed?
   end
 end
