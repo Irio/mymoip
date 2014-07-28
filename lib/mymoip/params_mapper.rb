@@ -1,7 +1,8 @@
 module MyMoip
   module ParamsMapper
     def initialize(params)
-      self.class::PARAMS_MAPPER.values.each do |attribute|
+      self.class::PARAMS_MAPPER.values.each_with_index do |attribute, index|
+        next unless params.include?(self.class::PARAMS_MAPPER.keys[index])
         value = params[self.class::PARAMS_MAPPER.key(attribute)]
 
         if attribute.is_a?(Hash)

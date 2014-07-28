@@ -1,6 +1,7 @@
 module MyMoip
   class JsResponse
     PARAMS_MAPPER = {
+      'Codigo'            => 'code',
       'CodigoMoIP'        => 'moip_code',
       'Mensagem'          => 'message',
       'StatusPagamento'   => 'payment_status',

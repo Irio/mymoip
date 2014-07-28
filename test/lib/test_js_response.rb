@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 
 class TestJsResponse < Test::Unit::TestCase
-  def setup
+  def setup_for_nested_methods
     @js_response_params = {
       'CodigoMoIP'      => '0000.1234.5678',
       'Mensagem'        => 'Requisição processada com sucesso',
@@ -16,8 +16,19 @@ class TestJsResponse < Test::Unit::TestCase
                            }
   end
 
+  def setup_for_one_level_nest_methods
+    @js_response_params = {
+      'Codigo' => '0',
+      'StatusPagamento' => 'Sucesso',
+      'CodigoMoIP' => 8_067_235,
+      'TaxaMoIP' => '13.49',
+      'Mensagem' => 'Requisição processada com sucesso',
+      'url' => 'https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=02J'
+    }
+  end
 
-  def test_js_response_params_mapping_and_methods_definition
+  def test_js_response_params_mapping_and_methods_definition_for_nested_methods
+    setup_for_nested_methods
     subject = MyMoip::JsResponse.new(@js_response_params)
 
     assert_equal subject.moip_code,        '0000.1234.5678'
@@ -33,7 +44,20 @@ class TestJsResponse < Test::Unit::TestCase
     assert_equal subject.classification.description, 'Politica do banco emissor'
   end
 
+  def test_js_response_params_mapping_and_methods_definition_for_one_level_nest
+    setup_for_one_level_nest_methods
+    subject = MyMoip::JsResponse.new(@js_response_params)
+
+    assert_equal '0',                                                                subject.code
+    assert_equal 'Sucesso',                                                          subject.payment_status
+    assert_equal 8067235,                                                            subject.moip_code
+    assert_equal '13.49',                                                            subject.moip_tax_value
+    assert_equal 'Requisição processada com sucesso',                                subject.message
+    assert_equal 'https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=02J', subject.url
+  end
+
   def test_success?
+    setup_for_nested_methods
     subject = MyMoip::JsResponse.new(@js_response_params)
     assert subject.success?
 
