@@ -10,8 +10,10 @@ module MyMoip
       'FormaPagamento'       => 'payment_method',             # CartaoDeCredito
       'InstituicaoPagamento' => 'payment_method_institution', # AmericanExpress
       'Status'               => 'status',                     # Autorizado
-      'Parcela'              => { 'installments' => 'TotalParcelas' },
-      'CodigoMoIP'           => 'moip_code'                   # 0000.2524.0547
+      'CodigoMoIP'           => 'moip_code',                  # 0000.2524.0547
+      'Parcela'              => {
+        'installment' => { 'TotalParcelas' => 'number' }
+      }
     }
 
     include MyMoip::ParamsMapper

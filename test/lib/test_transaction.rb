@@ -11,7 +11,7 @@ class TestTransaction < Test::Unit::TestCase
       'ValorLiquido'         => '0.56',
       'FormaPagamento'       => 'CartaoDeCredito',
       'InstituicaoPagamento' => 'AmericanExpress',
-      'Parcela'              => {'TotalParcelas'=>'1'},
+      'Parcela'              => { 'TotalParcelas' => '1' },
       'Status'               => 'Autorizado',
       'CodigoMoIP'           => '0000.2524.0547'
     }
@@ -29,7 +29,7 @@ class TestTransaction < Test::Unit::TestCase
     assert_equal subject.payment_method,             'CartaoDeCredito'
     assert_equal subject.payment_method_institution, 'AmericanExpress'
     assert_equal subject.status,                     'Autorizado'
-    assert_equal subject.installments,               '1'
+    assert_equal subject.installment.number,         '1'
     assert_equal subject.moip_code,                  '0000.2524.0547'
   end
 end
