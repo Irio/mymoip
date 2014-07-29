@@ -27,6 +27,14 @@ class TestJsResponse < Test::Unit::TestCase
     }
   end
 
+  def test_js_response_without_predicted_params
+    js_response_params = {
+      # 'CodigoMoIP' => nil
+    }
+    subject = MyMoip::JsResponse.new(js_response_params)
+    assert_nil subject.moip_code
+  end
+
   def test_js_response_params_mapping_and_methods_definition_for_nested_methods
     setup_for_nested_methods
     subject = MyMoip::JsResponse.new(@js_response_params)

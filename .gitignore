@@ -13,3 +13,5 @@ pkg
 
 # Bundler
 Gemfile.lock
+
+.ruby-version
