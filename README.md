@@ -6,9 +6,11 @@ The easier way to use Moip's transparent checkout.
 
 Planning to use with Rails? Check [my_moip-rails](https://github.com/Irio/my_moip-rails) too.
 
-## DISCLAIMER
+## DISCLAIMER - Searching for maintainer
 
-According with recent changes on Moip's policy, your application won't be accepted if sends credit card information to your own server, as currently implemented in `MyMoip::Purchase` and any class sufixed by the word "Payment". In their place, you must use the [JavaScript library](https://labs.moip.com.br/referencia/javascript_de_pagamento/) (in portuguese). Future changes in MyMoip will reflect this change.
+According with recent changes on Moip's policy, your application won't be accepted if sends credit card information to your own server, as currently implemented in `MyMoip::Purchase` and any class sufixed by the word "Payment". In their place, you must use the [JavaScript library](https://labs.moip.com.br/referencia/javascript_de_pagamento/) (in portuguese).
+
+I haven't received the expected support from Moip in the last 6 months after asking questions about the code available in the `.js` file. Thus, I don't have interest in keep maintaining the library. If you do, please contact me (Irio Musskopf) on iirineu@gmail.com.
 
 ## Contributing to MyMoip
 
