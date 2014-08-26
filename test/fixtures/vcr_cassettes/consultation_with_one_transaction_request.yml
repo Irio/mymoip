@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://YOUR_MOIP_TOKEN:YOUR_MOIP_KEY@desenvolvedor.moip.com.br/sandbox/ws/alpha/ConsultarInstrucao/ASDFF1E2P0G4N0Z2T1S0M4T3C5E4J5M8L5U0G0I0U0M0H0Y0E3X759X6ASDF
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 28 May 2014 00:06:32 GMT
+      Server:
+      - Apache
+      Content-Length:
+      - '3080'
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - text/xml;charset=UTF-8
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PG5zMTpDb25zdWx0YXJUb2tlblJlc3BvbnNlIHhtbG5zOm5zMT0iaHR0cDov
+        L3d3dy5tb2lwLmNvbS5ici93cy9hbHBoYS8iPjxSZXNwb3N0YUNvbnN1bHRh
+        cj48SUQ+MjAxNDA1MjcyMTA2MzI0MjQwMDAwMDA1MTY1NDc0PC9JRD48U3Rh
+        dHVzPlN1Y2Vzc288L1N0YXR1cz48QXV0b3JpemFjYW8+PFBhZ2Fkb3I+PE5v
+        bWU+U3Vwb3J0ZSBNb0lQPC9Ob21lPjxFbWFpbD50ZXN0ZUBsYWJzLm1vaXAu
+        Y29tLmJyPC9FbWFpbD48L1BhZ2Fkb3I+PEVuZGVyZWNvQ29icmFuY2E+PExv
+        Z3JhZG91cm8+QXYuIEJyaWdhZGVpcm8gRmFyaWEgTGltYTwvTG9ncmFkb3Vy
+        bz48TnVtZXJvPjI5MjcuMDwvTnVtZXJvPjxDb21wbGVtZW50bz44wrAgQW5k
+        YXI8L0NvbXBsZW1lbnRvPjxCYWlycm8+SmFyZGltIFBhdWxpc3RhbzwvQmFp
+        cnJvPjxDRVA+MDE0NTIwMDA8L0NFUD48Q2lkYWRlPlPDo28gUGF1bG88L0Np
+        ZGFkZT48RXN0YWRvPlNQPC9Fc3RhZG8+PFBhaXM+QlJBPC9QYWlzPjxUZWxl
+        Zm9uZUZpeG8+KDExKTIwNzgtMTUyNTwvVGVsZWZvbmVGaXhvPjwvRW5kZXJl
+        Y29Db2JyYW5jYT48UmVjZWJlZG9yPjxOb21lPk1vaXAgLSBJbnRlZ3Jhw6fD
+        o288L05vbWU+PEVtYWlsPmV4ZW1wbG9AbGFicy5tb2lwLmNvbS5icjwvRW1h
+        aWw+PC9SZWNlYmVkb3I+PFBhZ2FtZW50bz48RGF0YT4yMDEyLTA0LTAyVDEw
+        OjQ1OjQ0LjAwMC0wMzowMDwvRGF0YT48RGF0YUNyZWRpdG8+MjAxMi0wNC0x
+        NlQwMDowMDowMC4wMDAtMDM6MDA8L0RhdGFDcmVkaXRvPjxUb3RhbFBhZ28g
+        TW9lZGE9IkJSTCI+MS4wMDwvVG90YWxQYWdvPjxUYXhhUGFyYVBhZ2Fkb3Ig
+        TW9lZGE9IkJSTCI+MC4wMDwvVGF4YVBhcmFQYWdhZG9yPjxUYXhhTW9JUCBN
+        b2VkYT0iQlJMIj4wLjQ2PC9UYXhhTW9JUD48VmFsb3JMaXF1aWRvIE1vZWRh
+        PSJCUkwiPjAuNTQ8L1ZhbG9yTGlxdWlkbz48Rm9ybWFQYWdhbWVudG8+Q2Fy
+        dGFvRGVDcmVkaXRvPC9Gb3JtYVBhZ2FtZW50bz48SW5zdGl0dWljYW9QYWdh
+        bWVudG8+QW1lcmljYW5FeHByZXNzPC9JbnN0aXR1aWNhb1BhZ2FtZW50bz48
+        U3RhdHVzIFRpcG89IjEiPkF1dG9yaXphZG88L1N0YXR1cz48UGFyY2VsYT48
+        VG90YWxQYXJjZWxhcz4xPC9Ub3RhbFBhcmNlbGFzPjwvUGFyY2VsYT48Q29k
+        aWdvTW9JUD4wMDAwLjAwMDUuMzIzMTwvQ29kaWdvTW9JUD48L1BhZ2FtZW50
+        bz48L0F1dG9yaXphY2FvPjwvUmVzcG9zdGFDb25zdWx0YXI+PC9uczE6Q29u
+        c3VsdGFyVG9rZW5SZXNwb25zZT4=
+    http_version:
+  recorded_at: Wed, 28 May 2014 00:06:34 GMT
+recorded_with: VCR 2.5.0

@@ -21,6 +21,8 @@ module MyMoip
       opts[:logger].debug "#{self.class} of ##{@id} with #{params.inspect}"
 
       url = MyMoip.api_url + params.delete(:path)
+
+      params[:timeout]    = opts[:timeout]
       params[:basic_auth] = { username: opts[:username], password: opts[:password] }
 
       @response = HTTParty.send params.delete(:http_method), url, params

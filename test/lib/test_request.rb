@@ -52,7 +52,8 @@ class TestRequest < Test::Unit::TestCase
     logger = stub_everything
     request = MyMoip::Request.new("request_id")
     params = {
-      http_method: :post, body: "<pretty><xml></xml></pretty>", path: "/ws/alpha/EnviarInstrucao/Unica"
+      http_method: :post, body: "<pretty><xml></xml></pretty>",
+      path: "/ws/alpha/EnviarInstrucao/Unica"
     }
 
     HTTParty.stubs(:send).returns("<html>some_result</html>")
@@ -83,6 +84,21 @@ class TestRequest < Test::Unit::TestCase
     MyMoip.sandbox_token = ''
     assert_raises StandardError do
       subject.api_call({})
+    end
+  end
+
+  def test_stubbing_a_timeout
+    subject = MyMoip::Request.new("request_id")
+
+    params = {
+      http_method: :post, body: "<pretty><xml></xml></pretty>",
+      path: "/ws/alpha/EnviarInstrucao/Unica"
+    }
+
+    HTTParty.stubs(:post).raises(Net::ReadTimeout)
+
+    assert_raises Net::ReadTimeout do
+      subject.api_call(params, timeout: 3)
     end
   end
 end

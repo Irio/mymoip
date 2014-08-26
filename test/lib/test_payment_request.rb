@@ -70,42 +70,38 @@ class TestPaymentRequest < Test::Unit::TestCase
   end
 
   def test_method_to_get_moip_code
-    instruction = Fixture.instruction(payer: Fixture.payer)
-    transparent_request = MyMoip::TransparentRequest.new("your_own_id")
-    VCR.use_cassette('transparent_request') do
-      transparent_request.api_call(instruction)
-    end
-    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, installments: 1)
-    payment_request = MyMoip::PaymentRequest.new("your_own_id")
-    VCR.use_cassette('payment_request') do
-      payment_request.api_call(credit_card_payment, token: transparent_request.token)
-    end
-    assert_equal 102596, payment_request.code
+    make_a_successfully_payment
+    assert_equal 102596, @payment_request.code
+  end
+
+  def test_method_to_get_status
+    make_a_successfully_payment
+    assert_equal 6, @payment_request.status
+  end
+
+  def test_method_to_get_total_payed
+    make_a_successfully_payment
+    assert_equal '200.00', @payment_request.total_payed
   end
 
   def test_code_method_should_return_nil_with_blank_response
-    instruction = Fixture.instruction(payer: Fixture.payer)
-    transparent_request = MyMoip::TransparentRequest.new("your_own_id")
-    VCR.use_cassette('transparent_request') do
-      transparent_request.api_call(instruction)
-    end
-    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, installments: 1)
     payment_request = MyMoip::PaymentRequest.new("your_own_id")
     assert_nil payment_request.code
   end
 
-  def test_method_to_get_response_url
-    instruction = Fixture.instruction(payer: Fixture.payer)
-    transparent_request = MyMoip::TransparentRequest.new("your_own_id")
-    VCR.use_cassette('transparent_request') do
-      transparent_request.api_call(instruction)
-    end
-    payment_slip_payment = MyMoip::PaymentSlipPayment.new
+  def test_status_method_should_return_nil_with_blank_response
     payment_request = MyMoip::PaymentRequest.new("your_own_id")
-    VCR.use_cassette('payment_request_with_payment_slip') do
-      payment_request.api_call(payment_slip_payment, token: transparent_request.token)
-    end
-    assert_equal "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=#{transparent_request.token}", payment_request.url
+    assert_nil payment_request.status
+  end
+
+  def test_total_payed_method_should_return_nil_with_blank_response
+    payment_request = MyMoip::PaymentRequest.new("your_own_id")
+    assert_nil payment_request.total_payed
+  end
+
+  def test_method_to_get_response_url
+    make_a_successfully_payment
+    assert_equal "https://desenvolvedor.moip.com.br/sandbox/Instrucao.do?token=#{@transparent_request.token}", @payment_request.url
   end
 
   def test_url_method_should_return_nil_with_blank_response
@@ -116,5 +112,18 @@ class TestPaymentRequest < Test::Unit::TestCase
     end
     payment_request = MyMoip::PaymentRequest.new("your_own_id")
     assert_nil payment_request.url
+  end
+
+  def make_a_successfully_payment
+    instruction = Fixture.instruction(payer: Fixture.payer)
+    @transparent_request = MyMoip::TransparentRequest.new("your_own_id")
+    VCR.use_cassette('transparent_request') do
+      @transparent_request.api_call(instruction)
+    end
+    credit_card_payment = MyMoip::CreditCardPayment.new(Fixture.credit_card, installments: 1)
+    @payment_request = MyMoip::PaymentRequest.new("your_own_id")
+    VCR.use_cassette('payment_request') do
+      @payment_request.api_call(credit_card_payment, token: @transparent_request.token)
+    end
   end
 end
