@@ -70,4 +70,23 @@ class Fixture
     params = { bank: :itau }.merge(params)
     MyMoip::BankDebit.new(params)
   end
+
+
+  def self.nasp(params = {})
+    params = {
+      id_transacao: "some id",
+      valor: 2350,
+      status_pagamento: 4,
+      cod_moip: 3000,
+      forma_pagamento: 7,
+      tipo_pagamento: "CartaoDeCredito",
+      parcelas: 1,
+      email_consumidor: "joe@mail.com",
+      cartao_bin: "123456",
+      cartao_final: "4321",
+      cartao_bandeira: "AmericanExpress",
+      cofre: "4780c1fb-e47d-448e-ad7b-506c125366fc"
+    }.merge(params)
+    MyMoip::Nasp.new(params)
+  end
 end
